@@ -1,0 +1,28 @@
+<div id='menu' style='position:absolute;z-index:10000;background-color:white;padding:5px'>
+
+	{%if warning%}
+		<div class='warning mesize'>{{warning}}</div>
+	{%endif%}
+	<div class='mesize pcolor' style='font-size:13px'> Your Directories </div>
+	
+{%for folder in folders%}
+	<details>
+
+	<summary class='desize bold'> <i class='fas fa-folder'></i> {{folder.name}}</summary>
+
+	<div class='box' style='padding-top:0px'>
+		{%for file in folder.file.all%}
+			{%if file.edited %}
+
+			{%else%}
+			<div class='desize'><a class='normal' href="{{file.get_absolute_url}}"> <i class='fas fa-file'></i> {{file.name}}</a> </div>
+			{%endif%}
+		{%endfor%}
+
+	</div>
+
+		</details>
+{%endfor%}
+
+<button class="normal warning" onclick="$('#menu').fadeOut()" style='color:red'> close </button>
+</div>

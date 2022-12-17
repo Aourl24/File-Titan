@@ -1,0 +1,19 @@
+<div class='box bpop border' id='add' style=''>
+
+	<form  action="{%url 'CloneUrl' file.id%}" method='POST' hx-post="{%url 'CloneUrl' file.id%}" hx-target='#messageholder' hx-swap='innerHTML'>
+		{%csrf_token%}
+		<p class='black'> Select Directory to clone your file </p>
+		<select name='foldername'>
+
+			{%for folder in folder%}
+
+			<option>{{folder.name}}</option>
+
+			{%endfor%}
+
+		</select>
+
+		<button class='button desize'>Ok</button>
+	</form>
+	<button class='button desize full' style='background-color:red' onclick="$('#add').fadeOut()"> close </button>
+</div>

@@ -1,0 +1,55 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<div class='box'>
+{%if folders%}
+<h5> </h5>
+{%for folder in folders%}
+
+<div class='bx boder padd' style='padding:5px'>
+ 
+<p class='mesize polor bod' style='fnt-size: 24px'>
+	<a class='pdd black ' style='color: white' href={{folder.get_absolute_url}} >
+	<i class='fas fa-folder'></i> <b> {{folder.name|title}} </b> </a>
+
+{%if folder.owner == prof %}
+	<span style='display:inline-block;float:right;padding:4px'>
+	<a class='padd mesize' style='margin: 10px;background-color:ed;color:red;' href="{%url 'FolderDeleteUrl' folder.id%}" > Delete </a>
+	</span>
+{%endif%}
+	{% if folder.privacy == 'authorize' %}
+	 <i class='fas fa-lock'></i>
+	{%endif%}
+	<div class='desize'> <span class='passive'>created</span> {{folder.date_created|date}} <br><span class='passive'>last updated </span>{{folder.last_updated|timesince}} ago</div>
+
+	<div class='desize'> <a class='normal' href="{% url 'ProfileUrl' folder.owner.id %}"><img class='avaar circle' src={{folder.owner.profile_photo.url}} style='height:10px,width:10px;border:black' >  {{folder.owner|title}} </div> </a>
+
+</p>
+
+</div>
+<hr>
+{%endfor%}
+{%endif%}
+
+
+{%comment%}
+{%if files%}
+<h5> Files </h5>
+
+{%for f in files%}
+<div class='box border mesize' style='text-align: ;'>
+<p class='insize'><a class='black' href={{f.get_absolute_url}} > <i class='fas fa-file-code'></i> {{f.name|title}}</a>
+<span style='display:inline-block;float: right;'>
+<a href={{f.file.url}}  download> <i class='fas fa-file-download'></i> </a> |
+ <a class='normal button' style='background-coor: red;color: red;padding:3px' href= "{%url 'FileDeleteUrl' f.id%}" /><i class='fas fa-eraser'></i>  </a>
+</span>
+</p>
+</div>
+
+
+{%endfor%}
+
+{%endif%}
+</div>
+{%endcomment%}
+{%endblock%}

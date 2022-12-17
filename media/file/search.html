@@ -1,0 +1,23 @@
+{%if post or project %}
+
+<div class='box-border' style='position:absolute;border:none;background-color:#34282C;box-shadow:none;z-index:1000;width:80%'>
+{%for result in post%}
+<a href={{result.get_absolute_url}} class='normal'><p>{{result.title}}</p></a>
+
+
+{%endfor%}
+
+{%for result in project%}
+<a href={{result.get_absolute_url}} class='normal'><p>{{result.title}}</p></a>
+
+{%endfor%}
+</div>
+{%endif%}
+
+<script>
+
+$('#result').fadeIn()
+
+
+//setInterval(time,5000)
+</script>

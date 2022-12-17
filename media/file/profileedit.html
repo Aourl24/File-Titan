@@ -1,0 +1,12 @@
+{%extends 'base.html' %}
+
+{%block content%}
+<p class='pcolor'>Edit Form </p>
+<form method='post' enctype="multipart/form-data">
+	{%csrf_token%}
+	Username <input class='input' name='username' value={{profile.user.username}} >
+<p>{{form.as_p}}</p>
+
+<button class='button'>Save changes</button>
+</form>
+{%endblock%}

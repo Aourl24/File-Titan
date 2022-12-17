@@ -1,0 +1,31 @@
+<br>
+	<br>
+	<div class='personal' style=''>
+	<h5 class='color ceter pi bold' style='color:white;text-align:left'>Personal Information</h5>
+	<div class='box-border border-desk bb' style='background-color:#34282C;color:white;box-shadow:none;'>
+	<p><div class='scolor'><b>Full-Name</b></div>
+	Mustapha Awwal Olalekan</p>
+
+	{%for prof in info%}
+
+	<p><div class='scolor'><b>Age</b></div>
+	{{prof.age}}</p>
+
+	<p><div class='scolor'><b>Hobby</b></div>
+	{{prof.hobby}}</p>
+
+	<p><div class='scolor'><b>Education</b></div>
+	{{prof.education}}</p>
+
+	<p><div class='scolor'><b>Philosophy</b></div>
+	{{prof.quote}}</p>
+	<p><div class='scolor'><b>About</b></div>
+	{{prof.about}}</p>
+
+	{%endfor%}
+
+	</div>
+{%if page_count%}
+	<div class='' hx-get="?page={{page_count}}" hx-trigger='revealed' hx-swap='beforeend' hx-target='#holder'> 
+	</div>
+{%endif%}

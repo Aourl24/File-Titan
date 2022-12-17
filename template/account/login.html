@@ -1,0 +1,107 @@
+
+{%extends 'base.html'%}
+{%load static%}
+{%block body%}
+{%endblock%}
+
+
+{%block content%}
+<style>
+body{
+font-size:18px;
+background-color: white;
+}
+
+input{
+width:70%
+}
+
+@media(min-width:600px){
+input{
+    width: 50%;
+    border-color: #1fa1d2;
+}
+
+}
+</style>
+
+    <div class='box' style='border:none;text-align:center'>
+        
+        
+         
+         
+        <div class='bx'>
+            <h2 style='' class='pcolor'>
+              
+                Login
+                
+             </h2>
+            <p>
+             
+             <br>
+                
+                
+                
+                <form method='post'>
+                {%csrf_token%}
+                        
+                            {%if form.errors %}
+                            <p class='warning'>Invalid Username or Password</p>
+                            {%endif%}
+                        
+    
+                    {% for field in form %}
+                        {%if field.label == 'Remember Me' %}
+                    
+                        {%else%}
+                        
+                         <p>
+    
+                             {{field.errors}}
+                             <div class='bottomline' >{{ field.as_widget }}</div>
+
+                        {%endif%}
+                    {% endfor %}
+                    
+                         <p>
+                        <br> 
+                    <p>
+                        <button class='mesize button' style='width:60%'>
+                            Login
+                        </button>
+                    </p>
+                    
+                    <br>
+
+                   
+
+                    </p>
+                    <p>
+                        <a href='{% url 'account_reset_password'%}' style='font-size:16px;background-color:white;color:blue'>
+                        Forget Password
+                        </a>
+                    </p>
+                      
+                    <p>
+                        If You Don't have an account 
+                        <p>
+                            <a class='normal' href='{% url 'account_signup'%}' style='font-size:20px;baground-color:357417'>
+                                Signup
+                            </a>
+                        </p>
+                    </p>
+                </form>
+            </p>    
+    
+        </div>
+        
+ 
+    </div>
+{%endblock%}
+
+{%block bottom%}
+
+{%endblock%}
+  <button class='button' style='background-color: black;width:70%'>
+                            <i class='fab fa-google'></i> Login with Google
+                        </button>

@@ -1,0 +1,11 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<p> Sorry you don't have acess to this directory, To gain access kindly request for the access_key from the owner to have access </p>
+<div class='mesize' style='color:red'>{{Error}}</div>
+<form method='post'>
+	{%csrf_token%}
+	<input type='password' name='password' > <button class='button'> ok </button>
+	
+</form>
+{%endblock%}

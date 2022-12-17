@@ -1,0 +1,143 @@
+{%extends 'base.html'%}
+
+{%block header%}
+
+{%endblock%}
+
+{%block content%}
+{%load static%}
+<style type="text/css" >
+hljs-name{
+	color: yellow;
+}
+
+.editor{
+height:100%;
+font-size: 15px;
+position: fixd;
+tp: 180px;
+right: 0;
+bottom: 0;
+left: 0;
+
+}
+
+.fullscreen{
+	position: fixed;
+	height:100% ;
+	top: 0px;
+	bottom: 0;
+	margin-bttom: 0px;
+	widh:70% ;
+
+}
+
+.halfscreen{
+	width:100%;height: 50%;overflow:scroll;
+}
+
+.error{
+	font-size: 24px;
+	background-color: red;
+	color: white;
+}
+
+
+</style>
+<div>
+
+<div class='navbar sticy-top' style='background-color: white;padding:2px'>
+	<p class="insize black">{{file.name}}</p>
+	<p><a href=''>Refresh </a> </p>
+
+
+</div>
+<div>
+	<div id='feedback'></div>
+	{% if file.folder.owner == prof or file.edit_owner == prof %}
+
+	<div class='' style=':1000cm;hight:100cm'>
+		<div class=''>
+			
+
+			<form name='other' id='ed' hx-post='' onsubmit="accept()" hx-target='#feedback'>
+				{%csrf_token%}
+				<div class='wap'>
+					<div id='edit' name='wrd' class='edtor' style='font-sie: 15px;backgrond-color:#472d2d;clor:white ;'>{{file.opeFile}} </div>
+				</div>
+				<input name='wod' id='cov' type='hidden' value='{{file.openFile}}' >
+                <input name='word' id='ov' type='hidden' >
+				<div class='navar fixed-bttom center'>
+					<button id='ssave' class=' normal pbcolor white' style='width:100%;justify-content: center; align-items:center'><div class='htmx-indicator circle rotate white' style='height: 1cm;position: absolute;border-left:2px solid white'></div>save
+					</button>
+				</div>
+			</form>
+		</div>		
+	</div>
+
+	{%else%}
+		<div>
+		<div id='editor_read' style='height:80%'>{{file.openFile}} </div>
+	</div>
+	{%endif%}
+	<a href="{% url 'ShellUrl' file.id %}" > Open in Shell </a> 
+	
+</div>
+</div>
+<script>
+//ace.config.set('basePath',"{%static 'js'%}")
+//ace.config.set('themePath',"{%static 'js'%}")
+ace.config.set('modePath',"{%static 'js'%}")
+editor_read=ace.edit('editor_read')
+editor_read.setTheme('ace/theme/monokai');
+editor_read.session.setMode('ace/mode/python')
+editor_read.setReadOnly(true)
+//editor=document.getElementById('editor')
+function accept(){
+	var editor=ace.edit('editor');
+	code=editor.getValue();
+	$('#ov').val(code)
+}
+
+function preview(){
+    
+	$('.edit').css('height','100%').toggleClass('fullscreen');
+}
+
+function che(){
+j=document.getElementById('Saved')
+v=document.body.contains(j)
+if (v){
+	$('.Saved').fadeOut()
+}
+}
+
+function check(){
+	setTimeout(che,5000)
+}
+
+$('#ssave').click(check)
+</script>
+
+<script type='text/babel' src="{%static 'js/react.js'%}" ></script>
+
+{%endblock%}
+
+        {%comment%}
+		<div>
+			<form  hx-post=''  hx-include='#cov' onsubmit="accept()" hx-swap='innerHTML' hx-target='#feedback'>
+				{%csrf_token%}
+				{%if  file.folder%}
+
+				<input placeholder='Add path to Local storage' class='input' type='hidden' id='path' name='path' style='width:100%;margin:4px'>
+
+				{%else%}
+				<input placeholder='Add path to Local storage'  class='input' id='path' name='path' style='width:100%;margin:4px'>
+
+				{%endif%}
+
+				<button class='normal bbcolor white' style='width:100%' onclick='check()'> <div class='htmx-indicator circle rotate white' style='height: 1cm;position: absolute;border-left:2px solid white'></div>Save Locally </button>
+
+			</form>
+		</div>
+		{%endcomment%}

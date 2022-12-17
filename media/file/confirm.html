@@ -1,0 +1,16 @@
+<div class='box' style='position:fixed;height:100%;background-color:white'>
+
+<form action="{%url 'CloneUrl' file.id%}" method='POST'>
+{%csrf_token%}
+<select name='foldername'>
+
+{%for folder in folder%}
+
+<option>{{folder.name}}</option>
+{%endfor%}
+
+</select>
+
+<button>Ok</button>
+</form>
+</div>

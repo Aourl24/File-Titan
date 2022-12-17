@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<div class='insize'> Upload Files </div>
+
+<form method='POST' enctype="multipart/form-data">
+{%csrf_token%}
+{{fileForm.as_p}}
+
+<button class='button'>Submit</button>
+</form>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+$('#fle').attr({'webkitdirectory':false,'directory':false});
+$('#fle').removeAttr('webkitdirectory');
+$('#fle').removeAttr('directory')
+}
+)
+
+
+</script>
+
+{%endblock%}

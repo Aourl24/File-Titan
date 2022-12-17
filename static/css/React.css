@@ -1,0 +1,202 @@
+body{
+padding:5px;
+font-size:16px;
+backgrund-color:#E0E6EC
+}
+{#e5e4e2}
+h1{
+color:blue;
+}
+
+.box{
+borer-radius:5px;
+box-shaow:0px 0px 2px #C0C0C0 ;
+padding:5px;
+margin:7px;
+brder:1px solid #1DA1F2;
+margin-bottom:20px;
+padding-top:1px;
+}
+
+.seperate{
+backgrond-color:white;
+clor:blue;
+argin-bottom:-5px;
+marin-top:5px;
+marin-right:-5px;
+border-radius:3px;
+padding:0px;
+word-spacing:30px;
+width:100%;
+}
+
+.seperate button{
+background-color:white;
+border:none;
+color:c0c0c0;
+font-size:18px;
+}
+
+.circle{
+border-radius:100px;
+border:1px solid blue;
+width:1cm;
+height:1cm;
+display:inline-block;
+}
+
+.passive{
+font-size:15px;
+color:A4B5C7
+}
+
+.uer{
+position:relative;
+display:inline-block;
+margin-top:5px;
+
+}
+
+.body{
+font-size:15px;
+padding-top:7px;
+line-height:20px;
+}
+.aatar{
+display:inlune-block;
+margin:10px auto 10px auto;
+}
+
+.circle-header{
+display:inline-block;
+border-radius:100px;
+width:35px;
+height:35px;
+border:2px solid white;
+}
+
+.header{
+heiht:46px;
+background-color:1DA1F2;
+color:white;
+padding:5px;
+boder:3px solid #2B547E
+}
+
+.username-header{
+position:relative;
+display:block-inline;
+font-size:30px;
+font-weight:bold;
+padding-bottom:-15px;
+}
+
+.avatar{
+display:inline-block;
+border-radius:100px;
+width:57px;
+height:57px;
+border:2px solid white;
+margin-top:20px;
+}
+
+.user{
+color:#2B547E;
+color:black;
+font-size:15px;
+}
+.image-space{
+padding:5px;
+margin-top:-5px;
+}
+
+.sticker{
+color:#808080;
+text-sadow:0 2px 2px  black;
+stroke:black;
+text-padding:2px;
+text-border:3px solid red;
+brder:2px solid white;
+border-radius:5px;
+background-color:white;
+padding:4px;
+font-size:15px;
+bordr:1px solid #C0C0C0
+}
+
+.date{
+display:inline-block;
+position:relative;
+float:right;
+color:#808080
+}
+
+.fa-heart,  .fa-share , .fa-comment, .fa-retweet {
+tet-shadow:0 0px 3px  #000;
+stroke:black;
+soke-width:10px;
+coor:none;
+color:#A4B5C7;
+text-sadow:0 0px 2px  black;
+}
+
+.full{
+width:100%
+}
+
+.logo{
+font-size:30px;
+}
+
+.liked{
+color:red;
+}
+
+.fa-heart g g path {
+  stroke: black;
+  stroke-width: 20;
+}
+
+.allimage img{
+width:3.5cm;
+height:3.5cm;
+object-fit:cover;
+object-position:70% 15%;
+bacground-color:DEF1FD;
+border:2px solid #1DA1F2;
+pading:3px
+}
+
+.allimag img{
+width:100%;
+height:50%;
+object-fit:cover;
+object-position:70% 15%;
+bacground-color:DEF1FD;
+border:none;
+pading:3px
+}
+
+.passive{
+color:808080;
+coor:C0C0C0;
+}
+
+.desize{
+font-size:13px;
+}
+
+::-webkit-scrollbar { display: none; }
+
+.ct textarea{
+object-fit:contain;}
+
+textarea{
+width:97%;
+border:1px solid #C0C0C0;
+height:60%
+}
+
+.hideD{
+	display: none;
+}

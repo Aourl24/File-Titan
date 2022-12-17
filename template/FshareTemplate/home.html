@@ -1,0 +1,30 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<div class='box'>
+	{%include 'FshareTemplate/folderlist.html'%}
+	
+
+	{%comment%}
+	{%if files%}
+	<h5> Files </h5>
+
+	{%for f in files%}
+	<div class='box border mesize' style='text-align: ;'>
+	<p class='insize'><a class='black' href={{f.get_absolute_url}} > <i class='fas fa-file-code'></i> {{f.name|title}}</a>
+	<span style='display:inline-block;float: right;'>
+	<a href={{f.file.url}}  download> <i class='fas fa-file-download'></i> </a> |
+	 <a class='normal button' style='background-coor: red;color: red;padding:3px' href= "{%url 'FileDeleteUrl' f.id%}" /><i class='fas fa-eraser'></i>  </a>
+	</span>
+	</p>
+	</div>
+
+
+	{%endfor%}
+
+	{%endif%}
+
+	{%endcomment%}
+</div>
+{%endblock%}
+

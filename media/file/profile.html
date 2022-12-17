@@ -1,0 +1,51 @@
+{%extends 'base.html'%}
+{%block content%}
+<div class='box'>
+<p><img class='avaar circle' src={{profile.profile_photo.url}} style='height:15px,width:15px;border:black' > {{profile.user.username|title}} 
+{% if profile.user == request.user %}
+	<a href="{%url 'ProfileEditUrl' %}" style='font-size:13px' > <i class='fas fa-pen'> </i> edit profile </a>
+{%endif%}
+<div class='mesize'><span class='passive'> Date Joined</span> {{profile.date_joined|date}} </div>
+ <div class='mesize'>{{profile.bio}}</div>
+
+
+ </p>
+
+<br>
+<p class='insize pcolor'>Directories</p>
+
+{% if not profile.folder.all %}
+<p class='insize ceter' style='color:red'> No Directory Available </p>
+{%endif%}
+{% for directory in profile.folder.all %}
+{%if directory.parent%}
+{%else%}
+<div class='mesize'><i class='fas fa-folder'></i> <span class='bold'> {{directory.name|title}} </span>
+	{%if directory.owner == profile %}
+	<span style='display:inline-block;float:right;padding:4px'>
+	<a class='padd mesize' style='margin: 10px;background-color:ed;color:red;' href="{%url 'FolderDeleteUrl' directory.id%}" > Delete </a>
+	</span>
+{%endif%}
+<div class='desize'> <span class='passive'>created</span> {{directory.date_created}} | <span class='passive'>last updated </span>{{directory.last_updated}}
+</div>
+<hr>
+{%endif%}
+{%endfor%}
+<p class='insize pcolor'>Branches</p>
+
+{%if not branches %}
+<p class='insize ceter' style='color:red'> No branches Available </p>
+{%endif%}
+{% for branch in branches %}
+<div class='mesize'> {{branch.name}}
+<div class='desize'> <span class='passive'>created</span> {{branch.date_created}} | <span class='passive'>last updated </span>{{branch.last_updated}}
+</div>
+
+ </div>
+{%endfor%}
+
+
+
+
+</div>
+{%endblock%}

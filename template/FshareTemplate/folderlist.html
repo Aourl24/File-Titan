@@ -1,0 +1,46 @@
+{%if folders%}
+	<h5> </h5>
+	{%for folder in folders%}
+
+	<div class='bx boder padd' style='padding:5px'>
+	 
+		<p class='mesize pcolor bod' style='fnt-size: 24px'>
+			<a class='pdd pcolor' style='color: white' href={{folder.get_absolute_url}} >
+				<i class='fas fa-folder'></i> <span class='insize'> {{folder.name|title}} </span> 
+			</a>
+			{% if folder.privacy == 'authorize' %}
+				<i class='fas fa-lock'></i>
+			{%endif%}
+
+			<span class='mesize' style='display:inline-block;float:right;padding:4px'>
+				<button class='normal' onclick="$('#{{folder.id}}menu').toggleClass('show')"> <i class='fas fa-ellipsis-v'></i></button>
+			</span>
+			{% if folder.info %}
+			<div class='black' style="font-size:14px">{{folder.info|truncatewords:'15'}}</div>
+			{%endif%}
+			
+			<div class='desize'> 
+				<span class='passive'>created</span> {{folder.date_created|date}} <br><span class='passive'>last updated </span>{{folder.last_updated|timesince}} ago
+			</div>
+
+			<div class='desize'>
+				<a class='normal scolor' href="{% url 'ProfileUrl' folder.owner.id %}"><img class='avaar circle' alt='img'src={{folder.owner.profile_photo.url}} style='height:10px,width:10px;border:black' height='...' width='...'  loading='lazy' >  {{folder.owner|title}} </a>
+			</div>
+
+		</p>
+
+		<div id='{{folder.id}}menu' class='hide navbar' style='backgrond-color:#EAF0F6'>
+			{%if folder.owner == prof %}
+			
+			<a class='padd curve' style='margin: 10px;background-color:red;color:white;' href="{%url 'FolderDeleteUrl' folder.id%}" > delete </a>
+			{%endif%}
+			<a href='{{folder.download}}' class='sbcolor white curve padd' download class='download mesize' > download </a>
+		</div>
+		</div>
+	<hr>
+	{%endfor%}
+	{%endif%}
+
+	{% if folders.has_next%}
+		 <div class='htmx-indicator loder' hx-get="?page_no={{folders.next_page_number}}" hx-swap='afterend' hx-trigger='revealed' style='border:4px solid #EAF0F6;height: 1.5cm;left:50%;top:50%;width:1.5cm;position: absolute;border-top:4px solid #4b8ef1'></div>
+	{%endif%}

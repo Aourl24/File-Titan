@@ -1,0 +1,49 @@
+<input id='folderId' name='folderId' value='{{file.id}}' type='hidden' >
+
+<div class='box boder'>
+{%for f in originalFile%}
+
+<div class='bx boder size' style='text-align: ;'>
+<p class='mesize'><a href={{f.get_absolute_url}} class='black'> <i class='fas fa-file-code'></i> {{f.name}} </a>
+    
+
+    {% if f.edited %}
+        <span class='desize passive'>branch owner {{f.edit_owner.user.username}}</span>
+    {%endif%}
+<span style='display:inline-block;float: right;'>
+{%if f.edited_file.count != 0 %}
+<a href={{f.branch}} > {{f.edited_file.count}} branch </a> |
+{%endif%}
+<button class='normal' onclick="$('#menu'+{{f.id}}).toggleClass('show')"> <i class='fas fa-elipsis'></i><b>...</b></button>
+</span>
+</p>
+<div class='desize'> <span class='passive'>created</span> {{f.date_created|date}} | <span class='passive'>last updated </span>{{f.last_updated|timesince}}
+    </div>
+</div>
+<div id='menu{{f.id}}' class='hide'>
+
+    {%if not f.edited %}
+    <a href="{%url 'CreateBranchUrl' f.id%}" class='mesize'> create branch </a> | 
+    {%endif%}
+
+    {%if  f.edited %}
+    {%if prof == file.folder.owner %}
+    <a> <span id='signal' class='signal mesize' hx-get="{%url 'MergeUrl' file.id f.id %}" hx-target='#message' >  merge </span></a> |
+    <a> <span id='signal' class='signal mesize' hx-get="{%url 'ReplaceUrl' file.id f.id %}" hx-target='#message'> replace </span> </a> |
+    {%endif%}
+    {%endif%}
+
+    <a class='mesize' href={{f.file.url}}  download>  download </a> |
+    {%if file.owner == prof %}
+    <button class='button' style='background-color: white;color:red' hx-get= "{%url 'FileDeleteUrl' f.id%}"  hx-target='#holder' hx-swap='innerHTML' hx-include='#folderId'>  <i class='fas fa-eraser'></i> delete </button>
+    {%endif%}
+</div>
+
+<hr>
+{%endfor%}
+</div>
+
+<script>
+
+
+</script>

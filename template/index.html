@@ -1,0 +1,126 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block content%}
+<style>
+@media(max-width:600px){
+  newline{
+    display:block;
+  }
+}
+
+.wow{
+  z-index: 0;
+}
+
+</style>
+<div style="z-index:0">
+
+  <div class="main-baner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="contaier">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-6 align-self-center">
+              <div class="left-content show-up heaer-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div style='color:whte;paddng-top:-10px;z-index:1'><div class='insize scolor' style='font-size:35px'> Maintain your Files with </div> <br style="">
+                      <span class='insie pcolor bold' style='font-size:45px'> <img class='hideD' src="{%static 'images/fshare.png'%}" loading='lazy' style='width:80px;height:80px'> File Titan </span></div>
+                      <hr>
+                    <p class='black mesize'>File Titan helps you to share, edit , download , create branch and merge files with a single Click </p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
+                <img src="{%static 'images/file.png' %}" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<br>
+<br>
+<br>
+  <div id="services" class="center servics section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+          <div class="section-heading  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.5s">
+            <h4>Amazing <em class='scolor'>Features</em> for you</h4>
+            <img src="assets/images/heading-line-dec.png" alt="">
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="service-item first-service">
+            <div class="icon"></div>
+            <h4>File Maintenance</h4>
+            <p>People could edit and share your file while still maintaining your file original content</p>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="service-item second-service">
+            <div class="icon"></div>
+            <h4>Rocket Speed of App</h4>
+            <p>Run your python scripts faster on the website</p>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="service-item third-service">
+            <div class="icon"></div>
+            <h4>Multi Workflow Idea</h4>
+            <p>Work together with many other peoples on the same file without disruption of flow </p>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="service-item fourth-service">
+            <div class="icon"></div>
+            <h4>Security and Authorizations </h4>
+            <p>Secure your files by adding security password and also make your files private.</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div> 
+  <div id="nesleter" style='padding-bottom:0px;margin-bottom:-100px'>
+    <div class="contaier" style=''>
+      <br>
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="footer-widget">
+            <h4>Contact</h4>
+            <p>+2349078025667</p>
+          </div>
+        </div>
+
+        <div class="col-lg-12">
+          <div class="copyright-text">
+            <p>Copyright © 2022 Awwal All Rights Reserved. 
+          <br>Design: <a href="https://templatemo.com/" target="_blank" title="css templates">TemplateMo</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- Scripts -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="{%static '/js/owl-carousel.js' %}"></script>
+  <script src="{%static '/js/animation.js' %}"></script>
+  <script src="{%static '/js/imagesloaded.js' %}"></script>
+  <script src="{%static '/js/popup.js' %}"></script>
+  <script src="{%static '/js/custom.js' %}"></script>
+</div>
+{%endblock%}

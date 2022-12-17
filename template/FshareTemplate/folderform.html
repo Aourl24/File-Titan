@@ -1,0 +1,37 @@
+<style>
+body{
+color:black
+}
+.input{
+color:black
+}
+input{
+color:black
+}
+</style>
+<div class='bx'>
+<div class='insize black'> Add Folder </div>
+<br>
+{%if warning%}
+<p class='warning'>{{warning}}</p>
+{%endif%}
+<form method='POST' class='black' enctype="multipart/form-data" action="{%url 'FolderFormUrl' %}">
+{%csrf_token%}
+<input name='folderid' type='hidden' value='{{file.id}}' >
+<p class='black'> {{form.as_p}}</p>
+<hr>
+<p class='mesize'>Optional</p>
+<p class='scolor' style='font-size:13px' > Password is neccessary if your folder is Authorize, Private Folder will be only accessible to you while Public Folders will be accessible to all </p>
+<p>Password: <input name='password' class='input' type='password' /> </p>
+<br>
+<p class='center'><button class='button' style='width:90%' >Create</button> </p>
+</form>
+
+
+<script>
+function get(){
+c=$("input[name='privacy']").val()
+console.log(c)
+}
+</script>
+</div>

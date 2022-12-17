@@ -1,0 +1,96 @@
+
+{%extends 'base.html'%}
+{%load static%}
+{%block body%}
+<style>
+body{
+font-size:18px;
+background-color: white
+}
+
+input{
+    width: 70%;
+}
+
+@media(min-width:600px){
+input{
+    width: 70%;
+    border-color: #1fa1d2;
+}
+}
+</style>
+{%endblock%}
+
+
+{%block content%} 
+    <div class='box' style='border:none;text-align:center'>
+         
+         <br>
+         <br>
+        
+         
+        <div class='bx'>
+            <p>
+                <h2 style='' class='pcolor'>
+              
+                SignUp
+                
+                </h2>
+            <p>
+             <br>
+                
+                
+                
+            <form method='post'>
+                {%csrf_token%}
+                        
+                            {%if form.errors %}
+                            <p>Invalid Username or Password</p>
+                            {%endif%}
+                        
+    
+                    {% for field in form %}
+                         <p>
+    
+                             {{field.errors}}
+                             <div class='bottomline'>{{ field.as_widget }}</div>
+                    {% endfor %}
+                    
+                             
+                         <p>
+                      <br>   
+                    <p>
+                        <button class='button' style='width:70%'>
+                            SignUp
+                        </button>
+                    </p>
+                    <p>
+                        
+                        
+                    </p>
+                    
+                    
+                     <hr> 
+                    <p>
+                        If You Already have an account 
+                        <p>
+                            <a class='normal' href='{% url 'account_login'%}' style='font-size:20px;baground-color:357417'>
+                                Login
+                            </a>
+                        </p>
+                    </p>
+                </form>
+            </p>    
+    
+        </div>
+        
+ 
+    </div>
+{%endblock%}
+
+{%block bottom%}
+
+{%endblock%}
+<button class='button' style='background-color: black;width:70%'>
+                            <i class='fab fa-google'></i> Sign Up with Google
+                        </button>

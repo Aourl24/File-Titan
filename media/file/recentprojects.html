@@ -1,0 +1,46 @@
+<br>
+	<br>
+	<div class='notN'>
+	<h5 class='color centr pi bold' style='color:white;text-align:left'>Recent Projects</h5>
+
+	<div class='box-border border-desk center bb ' style='background-color:#34282C;color:white;box-shadow:none;heigt:25cm'>
+	<div class='flex-wrp center bol' style='color:blck;text-align:left'>
+	{%for pro in project%}
+
+	<div class='center'>
+
+
+	<div class='box-border flex-wrap' id='leave' style='backgrond-color:#34282C;text-align:center;border:none;box-shadow:none;padding:0px;width:auto;height:5cm;align-contnts:center;align-itms:center;text-align:center;justify-contents:center;gap:0px'>
+	{%for img in pro.image.all|slice:'2'%}
+
+
+	<div class='' style='flex-grow:2;flex-basis:3.5cm;height:auto;with:4cm;max-heght:6cm'>
+	<a href='{{pro.get_absolute_url}}' class='normal' style=''>
+	<div class='allimage b' style='width:3cm;height:3cm;padding:0px;margn:2px;border:none;flex-bais:3.5cm; flex-gow:2'>
+	<img src={{img.image.url}}  loading='lazy' id={{img.id}} class='box-border' style=';wdth:100%;heiht:;padding:0px;border:none;box-shadow:none;border-radius:3px'/>
+	</div>
+	</a>
+	</div>
+
+	{%endfor%}
+
+	</div>
+	</div>
+	<a href='{{pro.get_absolute_url}}' class='normal' style='color:white'>
+	<p class='mesize scolor center' style='color:white'>{{pro.title|title}}</p>
+	<div class='desize' style='txt-align:left;font-weight:light'>{{pro.about|safe|truncatewords:'15'}}
+	 </div>
+	 </a>
+	 
+	<hr>
+
+
+	{%endfor%}
+	</div>
+	</div>
+
+	</div>
+	{%if page_count%}
+	<div class='' hx-get="?page={{page_count}}" hx-trigger='revealed' hx-swap='beforeend' hx-target='#holder'> 
+	</div>
+	{%endif%}

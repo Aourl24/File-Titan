@@ -1,0 +1,124 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<style>
+input{
+	width: 70%;
+}
+@media(min-width:600px){
+input{
+width:100%
+}
+}
+</style>
+<p class='mesize pcolor padd' style='fon-size:14px'>
+	{%if file.parent%}
+		<a class='normal pcolor' href='{{file.parent.get_absolute_url}}' >{{file.parent.name}}</a>
+	{%endif%}
+	<i class='fas fa-folder-open'></i> <b style="font-size:20px">{{file.name|title|truncatechars:'14'}}</b> 
+	<a class='normal' href="{{file.download}}" download><span style='float:right'> <i class='fas fa-download'></i></span></a>
+	<p class='passive desize curve padd sbcoor black'>
+	<span class='scolor'>{{originalFile.count}}</span> files | <span class='scolor'>{{file.child_folder.count}}</span> folders
+	<span class='desize black' style='float:right'>
+		<span class='passive desize'> owner </span> 
+		<span class='bold scolor'>{{file.owner.user.username|title|truncatechars:'5'}} </span>
+	</span> 
+	 </p>
+</p>
+{%if file.info%}
+<p class='mesize'>{{file.info}}</p>
+{%endif%}	
+<hr>
+<div>
+	{%for folder in file.child_folder.all %}
+		<div class='mesize box'>
+			<a class='pdd black ' style='color: white' href={{folder.get_absolute_url}} >
+				<i class='fas fa-folder'></i>  {{folder.name|title}}  
+			</a>
+			{%if folder.owner == prof %}
+				<span style='display:inline-block;float:right;padding:4px'>
+					<a class='padd mesize' style='margin: 10px;background-color:ed;color:red;' href="{%url 'FolderDeleteUrl' folder.id%}" > Delete </a>
+				</span>
+			{%endif%}
+		</div>
+		<hr>
+	{%endfor%}
+</div>
+
+
+<div id='holder'>
+	<p style='padding-top:0px'>
+		{%include 'FshareTemplate/file.html'%}
+	</p>
+</div>
+
+<br>
+<br>
+
+{%if file.owner == prof %}
+	<div class='navbar fixed-bottom pbcolor' style='padding-bottom:25px'>
+	<button onclick="$('#create').toggleClass('show')" class='button mesize'><i class='fas fa-file'></i> <div class='mesize white'>New</div> </button>
+
+	<button class='button mesize' onclick="$('#newfile').toggleClass('show')" ><i class='fas fa-file-import'></i> <div class='mesize white'>Upload </div></button> 
+
+	<button class='button mesize' onclick="$('#newfolder').toggleClass('show')" ><i class='fas fa-plus'></i> <div class='mesize white'> Folder </div> </button>
+	</div>
+{%endif%}
+<p>
+	<div class='pop'>
+<form id='create' class='hide bpop boder' style='' method='post' action="{%url 'CreateUrl' %}" > 
+	{%csrf_token%}
+	<input name='folderid' value={{file.id}} class='input' type='hidden'>
+	<input name='filename' required placeholder='name' style='widh:70%;border:none' class='input' >
+	<button class='button bbcolor'> Create </button>
+</form>
+</div>
+</p>
+
+
+<p>
+<div class='pop'>
+<form method='POST' enctype="multipart/form-data" id='newfile' class='hide bpop bordr' style='with:70%' action="{%url 'FileFormUrl' %}">
+<input type='hidden' name='folder' class='input' value={{file.id}} >
+{%csrf_token%}
+{{fileForm}}
+
+<p><button class='button bbcolor'>Upload</button></p>
+</form>
+</div>
+</p>
+
+<div  class='pop' style='top:40px'>
+	<div id='newfolder' class='bpop hide border' style='widt:70%'>
+	{% include 'FshareTemplate/folderform.html' %}
+	</div>
+</div>
+<script type="text/javascript">
+
+$(document).ready(function(){
+$('#fle').attr({'webkitdirectory':false,'directory':false});
+$('#fle').removeAttr('webkitdirectory');
+$('#fle').removeAttr('directory')
+}
+)
+
+
+</script>
+{%endblock%}
+
+<form method='POST'>
+	{%csrf_token%}
+<p><textarea style='font-size:16px;border: 2px solid black;width:100%;height:100%' name='word'>{{file.openFile}}</textarea></p>
+
+<button>submit</button>
+</form>
+
+
+<form method='POST'>
+
+	{%csrf_token%}
+	<p class='desize'>Local Path Directory<i>
+<input name='path' value={{file.local_path}} style='width:80%'></i> <button class='normal' style='color:blue'> Change </button></p>
+</form>
+
+ <img class='avaar circle' src='{{file.owner.profile_photo.url}}' style='height:10px,width:10px;border:black' >
