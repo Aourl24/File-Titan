@@ -1,0 +1,94 @@
+<input type='hidden' id='filepath' value='{{file.name}}'>
+<div class='container-fluid' style="">
+    {% if allow%}
+    
+    <div class='' style='height:100%;'>
+        <form name='other' id='edo' hx-post='' onsubmit="accept()" hx-target='#feedback'>
+            {%csrf_token%}
+            <div class='wap'>
+                {%comment%}
+                <div id='edit' name='wrd' class='container' style='font-sie: 15px;backgrond-color:#472d2d;clor:white;height:100%;position:absolute;'>
+                    {{file.opeFile}}
+                </div>
+                {%endcomment%}
+                <textarea id='editor' style='width:100%;height:100vw'>{{file.openFile}}
+                </textarea>
+            </div>
+            <input name='wod' id='cov' type='hidden' value='{{file.openFile}}'>
+            <input name='word' id='ov' type='hidden'>
+        </form>
+    </div>
+    
+    
+    {%else%}
+    <div class=''>
+        <div id='editor_read' style='width:100%;height:150vw;top:0;bottom:0;position:'relative';' class='container'>
+            {{file.openFile}}
+        </div>
+    </div>
+
+    {%endif%}
+
+    {%if allow%}
+    <div class='navbar fixed-bottom color-bg-p' stye=''>
+        <div class='row'>
+            <div class='col'>
+                <button id='ssav' onclick='checkM()' form='edo' class='normal white mesize' style=''>
+                    <i class='fas fa-save'></i>
+                    <div class='col'>
+                        save
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col'>
+                <button class='normal mesize white' onclick="$('#import').toggleClass('show')">
+                    <i class='fas fa-file-import'></i>
+                    <div class='col'>
+                        import
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class='row'>
+            <div class=''>
+                <button class='normal mesize white' hx-get="{% url 'ShellUrl' file.id %}" hx-target='#feedback'>
+                    <i class='fas fa-play'></i><div class='col'>
+                        run
+                    </div>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    {%else%}
+    <div class='container fixed-bottom pbcolor center' style="position:fixed">
+        <button class='button' hx-get="{% url 'ShellUrl' file.id %}" hx-target='#feedback'> <i class='fas fa-play'></i> <div class='desize'>
+            Run File
+        </div>
+        </button>
+    </div>
+    {%endif%}
+
+
+
+    <div id='import' class='hide pop' style='background-color:white;z-index:100000000'>
+        <div class='mesize black pcolor'>
+            Import File
+        </div>
+
+        <form method='post' action="{%url 'ImportFileUrl' %}" enctype="multipart/form-data">
+            {%csrf_token%}
+            <input type='hidden' name='filename' value='{{file.id}}'>
+            <p>
+                <input name='importfile' type='file'>
+            </p>
+
+            <p>
+                <button class='bblack button desize' style='width:100%'> import </button>
+            </p>
+        </form>
+    </div>
+</div>

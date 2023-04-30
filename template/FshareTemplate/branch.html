@@ -1,0 +1,59 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<div class='container'>
+    <div class='row color-p m-1 align-items-center' style=''>
+        <div class='col-md col-sm-12 sz-18' style="">
+            {{file.name}} <span class='color-s'>branches </span>
+        </div>
+        <div class='col sz-12 my-2'>
+        <span class="color-bg-s p-2 color-white rounded"> {{file.edited_file.count}} branches  |
+            <a href="{%url 'CreateBranchUrl' file.id%}" class='color-p'> <i class='fas fa-file-copy'></i> create branch </a> 
+        </span>
+        </div>
+    </div>
+
+<div>
+
+    {%include 'FshareTemplate/file.html' with originalFile=file.edited_file.all %}
+
+</div>
+
+
+{%endblock%}
+
+{%comment%}
+
+<hr>
+
+{%for f in file.edited_file.all %}
+
+<div class='box border mesize' style='text-align: ;'>
+    <p class='insize'>
+        <a href={{f.get_absolute_url}} class='black'> <i class='fas fa-file-code'></i> {{f.name|title}}   
+            <span class='desize passive'>Branch owner {{f.edit_owner.user.username}}</span>
+        </a>
+    <span style='display:inline-block;float: right;'>
+
+    {%if f.edited_file%}
+
+    <a href={{f.branch}} > {{f.edited_file.count}} branch </a>
+    
+    {%endif%}
+
+    <a href={{f.file.url}}  download> <i class='fas fa-file-download'></i> </a> |
+    <button class='button' style='background-color: white;color:red' hx-get= "{%url 'FileDeleteUrl' f.id%}"  hx-target='#holder' hx-swap='innerHTML' hx-include='#folderId'><i class='fas fa-eraser'></i>  </a>
+</span>
+</p>
+</div>
+{%endfor%}
+
+{%if file.folder.owner == prof %}
+
+<form>
+    Merge branches, clicking this button means you have merged branches and it will overide the original file
+<button > Merge all branches
+</form>
+{%endif%}
+
+{%endcomment%}

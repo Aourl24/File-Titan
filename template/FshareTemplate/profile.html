@@ -1,0 +1,47 @@
+{%extends 'base.html'%}
+{%block user%}
+{%endblock%}
+{%block content%}
+<div class='container'>
+	<div class='row m-1'>
+		<div class='col-10'>
+			<img class='circle' src='{{profile.profile_photo.url}}' style='height:35px;width:35px;border:black'
+			 > {{profile.user.username|title}}
+		</div> 
+		{% if profile.user == request.user %}
+			<div class='col'>
+				<a href="{%url 'ProfileEditUrl' %}" style='font-size:13px' > <i class='fas fa-pen'> </i> edit profile </a>
+			</div>
+		{%endif%}
+	</div>
+
+	<div class='row m-1'>
+		<div class='mesize col'><span class='passive'> Date Joined</span> {{profile.date_joined|date}} </div>
+	</div>
+
+	{%if profile.bio%}
+	<div class='row m-2'>
+		 <div class=' col'>{{profile.bio}}</div>
+	</div>
+	{%endif%}
+
+	<hr />
+	<div class='insize pcolor m-2'>Directories</div>
+
+	{% if not profile.folder.all %}
+	<p class='insize ceter' style='color:red'> No Directory Available </p>
+	{%endif%}
+    
+    {%include 'FshareTemplate/folderlist.html' with folders=profile.folder.all %}
+    
+	<div class='insize pcolor m-2'>Branches</div>
+
+	{%if not branches %}
+	<p class='insize ceter' style='color:red'> No branches Available </p>
+	{%endif%}
+    
+    {%include 'FshareTemplate/file.html' with originalFile=branches %}
+
+</div>    
+{%endblock%}
+

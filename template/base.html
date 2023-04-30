@@ -1,0 +1,340 @@
+{%load static %}
+<!--DOCTYPE html>-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name='viewport' content='width=device-width initial-scale=1'>
+    <!--<meta name="theme-color" content="orange" />-->
+    <link rel='stylesheet' href="{%static 'css/bootstrap/bootstrap.min.css'%}">
+    <link rel='stylesheet' href="{%static 'css/fontawesome_5/css/all.min.css'%}" media="print" onload="this.media='all'">
+    <link rel='stylesheet' href="{%static 'css/acss/acss_desktop.css'%}">
+    <link rel='stylesheet' href="{%static 'css/animate.min.css'%}">
+    <!-- <link rel='stylesheet' href="{%static 'css/default.min.css'%}" media="print" onload="this.media='all'"> -->
+    <link rel='stylesheet' href="{%static 'css/acss/acss_animation.css'%}" media="print" onload="this.media='all'">
+
+
+    <link rel='stylesheet' href="{%static 'css/acss/acss_basic.css'%}">
+    <link rel='stylesheet' href="{%static 'css/acss/acss.css'%}">
+    <script src="{%static 'js/ace.min.js'%}"></script>
+    <script src="{%static 'js/react.production.min.js'%}"></script>
+    <script src="{%static 'js/react-dom.production.min.js'%}"></script>
+    <script src="{%static 'js/babel.min.js'%}"></script>
+    <script async src="{%static 'js/htmx.min.js'%}"></script>
+    <script src="{%static 'js/jquery.min.js'%}"></script>
+    <!--<script type='text/javascript'>hljs.highlightAll()</script> -->
+    <title> File-Titan </title>
+</head>
+<style>
+:root {
+    --primary-color: darkblue;
+    --secondary-color: orange;
+    --tertiary-color: #f5f3f9;
+}
+    {
+        1DA1F2,4b8ef1
+    }
+    .header {
+        word-spacing: 25px;
+
+    }
+    
+    .preloader{
+    height:100%;
+    width:100%;
+    position:absolute;
+    z-index:10000000;
+    background-color:white;
+    text-align:center;
+    }
+    
+    .dot{
+     display:inline-block;
+     height:20px;
+     width:20px;
+    }
+
+    .rounded {
+        border-radius: 40px;
+    }
+    .small {
+        display: inline-block;
+        height: 25px;
+        width: 25px;
+        border-radius: 200px;
+        border: 2px solid white;
+    }
+
+    body {
+        background-color: white;
+        font-size: 20px;
+        font-famly: monspace
+    }
+
+    p-bg-color {
+        background: color: #1DA1F2 !important
+    }
+
+    .dropdown {
+        display: none;
+    }
+
+    .header-area .nav .main-nav {
+        margin: 0px;
+        padding: 0px;
+        height: 10px;
+        line-height: 0px;
+    }
+
+    .header-area .min-nav .na {
+        height: 10px !important;
+        line-height: 5px !important;
+        margin-top: 0px !important;
+        padding: 0px !important;
+    }
+
+    body {
+        backgrond-color: black;
+        color: black !important;
+        padding: 3px
+    }
+
+    .wow {
+        font-fmily: monospace;
+    }
+    .mesize {
+        color: black
+    }
+    .passive {
+        color: #808080
+    }
+
+    .message {
+        background-color: #4b8ef1;
+        color: white;
+        padding: 3px;
+        z-index: 1000000000000000000000;
+    }
+
+    .pop {
+        position: fixed;
+        top: 40%;
+        z-index: 1000000000
+    }
+
+    {
+        var(--secondary-color)
+    }
+    .bpop {
+        background-color: white;
+        coor: white;
+        border-radius: 5px;
+        border: 2px solid white;
+        padding: 10px;
+        z-index: 1000000000;
+        ox-shadow: 0 0 2px black;
+    }
+
+    p {
+        color: black;
+        padding: 5px;
+    }
+
+    .mesize {
+        15px
+    }
+
+    .desize {
+        12px
+    }
+</style>
+
+<body class='font-apple sz-16 color-bg-t bg-light'>
+    <div id="preloader" class="preloader">
+        <div class="preloader-inner">
+            <span class=""></span>
+            <div class="dots container position-fixed" style='top:50%;bottom:50%'>
+                <span class='dot animate__animated animate__bounce animate__infinite rounded-circle color-bg-p animate__sow' style=''></span>
+                <span class='dot animate__animated animate__bounce animate__infinite rounded-circle color-bg-p animate__fast'></span>
+                <span class='dot animate__animated animate__bounce animate__infinite rounded-circle color-bg-p '></span>
+            </div>
+        </div>
+    </div>
+
+
+    {%block header%}
+    <header class="sticky-top navbar sz-12 animate__animated animate__slideInDown m-1 p-1" style="">
+        <div class='container-fluid color-bg-p p-0 color-white rounded m-0' style='border-radis:7px;border:1px solid white'>
+            <div class="sz-24 px-2">
+                File-Titan
+            </div>
+
+
+            <div class='row display-sm-none'>
+                <div>
+                    <a class='col-md col-sm-3' href="{%url 'FileViewUrl' %} ">
+                        <span class='color-white'> Home </span>
+                    </a>
+                </div>
+                <div>
+                    <a class='col-md col-sm-3' href="{%url 'FolderFormUrl' %} ">
+                        <span class='color-white'> Create Directory </span>
+                    </a>
+                </div>
+            </div>
+            <div class="col display-md-none sz-24" style="text-align:right">
+                <i class="fas fa-caret-down animate__animated animate__bounce bordr rounded p-1" id="tri" onclick="show()"></i>
+            </div>
+            <div class='row display-sm-none'>
+                <form method='POST' class='col-sm-12 col-md mt-2' action="{%url 'SearchUrl' %}">
+                    {%csrf_token%}
+                    <input type='search' placeholder='search files and directories' class='form-control' name='search' style='width:100%'>
+                </form>
+                {%block user%}
+
+                <div class='col-sm col-md mt-2'>
+                    {%if request.user.is_authenticated %}
+
+                    {%comment%}
+                    <img class='avaar circle' src={{request.user.profile.profile_photo.url}} height='...' width='...' alt='img'style='height:10px,width:10px;border:black'>
+                    {%endcomment%}
+                    <div class='display-md-none sticky-top'>
+                        <button onclick="$('#ok').toggleClass('show')" hx-get="{%url 'MenuUrl' %}" class='btn btn-link' hx-target='#feedback2' hx-swap='innerHTML'><i class='fas fa-bars'></i> </button><a class='normal scolor' href="{%url 'ProfileUrl' request.user.profile.id %}"> {{request.user|title}}</a>
+                        <div id='ok' class='hide'>
+                            <div class='' id='feedback2' style="display:absolute">
+                            </div>
+                            <button onclick="$('#ok').removeClass('show')" class='btn btn-danger p-1'>close</button>
+                        </div>
+                    </div>
+
+                    {%else%}
+
+                    <a class='normal whie color-p' style="" href="{%url 'account_login' %}"> Log in </a>
+
+                    {%endif%}
+                </div>
+                {%endblock%}
+            </div>
+        </div>
+    </div>
+</header>
+{%endblock%}
+
+
+<div class='pop hide' id='searchpop' style='background-color:white;width:100%;top:10%'>
+    <form method='POST' action="{%url 'SearchUrl' %}">
+        {%csrf_token%}
+        <input type='search' placeholder='search files and directories' class='input' name='search' style='width:100%'>
+    </form>
+</div>
+
+
+
+<div class='' style=''>
+
+    <div class='holder' id='messageholder' style='position:fixed;z-index:10000;let:45%'></div>
+    <div class='row'>
+
+
+        <div class='col-md color color-black display-sm-none bg-light rounded' style='border-rght:2px solid black;'>
+            {%block sidebar%}
+            <div class='container'>
+                <div class='row m-2'hx-get="{%url 'MenuUrl' %}" hx-trigger='load' hx-target='#feedback'>
+                    {%if request.user.is_authenticated %}
+
+                    <a class='color-white' href="{%url 'ProfileUrl' request.user.profile.id %}"> {{request.user|title}}
+                    </a>
+                    <div class='color-black'>
+                        |<a class='color-white' href="{% url 'account_logout'%}">Log Out</a>
+                    </div>
+                    {%endif%}
+                </div>
+                <div class='row m-2' id='feedback'>
+                </div>
+            </div>
+            {%endblock%}
+        </div>
+
+
+        <div class='col-md-10 col-sm-12 p-0'>
+
+            {%block content%}
+
+            {%endblock content%}
+        </div>
+    </div>
+</div>
+
+
+{%block bottom%}
+
+{%endblock%}
+<div id="dropdown" class="container-fluid position-fixed hide animate__animated animate__slideInDown overflow-auto" style="z-index:100000000;background-color: white; top:50px;height: 100%;overflow:auto;">
+    <br />
+    <div class="row">
+        <div class="col">
+            <form method='POST' class="" action="{%url 'SearchUrl' %}">
+                {%csrf_token%}
+                <input type='search' placeholder='search files and directories' class='form-control' name='search' style='width:80%'>
+            </form>
+        </div>
+    </div>
+    <div class="row my-3">
+        <a class='col sz-18 color-p' href="{%url 'FileViewUrl' %} ">
+             Explore
+        </a>
+    </div>
+    <div class="row my-3">
+        <a class='col sz-18 color-p' href="{%url 'FolderFormUrl' %} ">
+            Create Directory       
+        </a>
+    </div>
+    {%if request.user.is_authenticated %}
+    <div class="row my-3">
+        <div class="col sz-18">
+            <a class='color-p' href="{%url 'ProfileUrl' request.user.profile.id %}"> My Dashboard
+            </a>
+        </div>
+    </div>
+    <div class='row my-3'>
+        <div class='col sz-18'>
+            <a class='color-p' href="{% url 'account_logout'%}">Log Out</a>
+        </div>
+    </div>
+    {%else%}
+    <div class="row my-2">
+        <div class="col">
+            <a class='whie color-p btn color-bg-s color-white' style="" href="{%url 'account_login' %}"> Log in </a>
+        </div>
+    </div>
+    {%endif%}
+    <div class='' hx-get="{%url 'MenuUrl' %}" hx-trigger='load' hx-target='#feedbac'></div>
+    <div id="feedbac" class="" ></div>
+    <br />
+
+</div>
+
+</body>
+<script>
+$(window).on('load', function() {
+$('#preloader').fadeOut()})
+function show() {
+$('#dropdown').toggleClass('show')
+}
+
+function cheMessage() {
+j = document.getElementById('message')
+v = document.body.contains(j)
+if (v) {
+$('.message').fadeOut()
+}
+}
+
+function checkM() {
+setTimeout(cheMessage, 5000)
+}
+
+//$('#signal').click(chek)
+function confirm(x) {}
+
+</script>
+</html>

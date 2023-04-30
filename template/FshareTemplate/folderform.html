@@ -1,0 +1,109 @@
+<style>
+    body {
+        color: black
+    }
+    .input {
+        color: black
+    }
+    input {
+        color: black;
+        border: 2px solid black;
+        height: 1.2cm;
+    }
+    button {
+        height: 1.2cm;
+    }
+
+    .change {
+        background-color: red;
+        color: white;
+    }
+</style>
+<div class='container rounded p-2 color-bg-whie'>
+    <div class='insize color-p my-2'>
+        Add Folder
+    </div>
+    <br />
+    {%if warning%}
+    <p class='warning'>
+        {{warning}}
+    </p>
+    {%endif%}
+    <form method='POST' class='black' enctype="multipart/form-data" action="{%url 'FolderFormUrl' %}">
+        {%csrf_token%}
+        <input name='folderid' type='hidden' value='{{file.id}}'>
+        <div class='color-s'>
+            <div class='m-2 color-s'>
+                Name
+            </div>
+            {%for f in form%}
+            {{f.as_widget}}
+            {%endfor%}
+        </div>
+        <div class='m-2 color-s'>
+            Privacy
+        </div>
+        <input type='hidden' id='privacy' name='privacy' />
+        <div class='row my-3'>
+            <div class='col '>
+                <div id='public' class='btn border rounded sz-16' type='button' onclick="ch('public')">
+                    Public
+                </div>
+            </div>
+            <div class='col'>
+                <div id='private' class='btn border rounded sz-16' type='button' onclick="ch('private')">
+                    Private
+                </div>
+            </div>
+            <div class='col'>
+                <div id='author' class='btn border rounded sz-16' type='button' onclick="ch('author')">
+                    Authorize
+                </div>
+            </div>
+        </div>
+
+        <div class='hide my-3' id='password'>
+            <p class='scolor' style='font-size:13px'>
+                Password is neccessary if your folder is Authorize, Private Folder will be only accessible to you while Public Folders will be accessible to all
+            </p>
+            <p>
+                Password:
+                <div>
+                    <input name='password' class='form-control' type='password' />
+                </div>
+            </p>
+            <p>
+                Confirm Password:
+                <div>
+                    <input name='confirm_password' class='form-control' type='password' />
+                </div>
+            </p>
+        </div>
+        <br />
+        <div class='center my-3'>
+            <button class='btn btn-block color-bg-s rounded color-white' style='height:1.2cm;'>Create</button>
+        </div>
+    </form>
+
+
+    <script>
+        function get() {
+            c = $("input[name='privacy']").val()
+            console.log(c)
+        }
+
+        function ch(x) {
+            $('.btn').removeClass('color-bg-p color-white')
+            $('#password').removeClass('show')
+            $('#'+x).toggleClass('color-bg-p color-white')
+            if (x == 'private') {
+                $('#privacy').val('private')
+            } else if (x == 'author') {
+                $('#privacy').val('authorize');
+                $('#password').toggleClass('show')
+            } else {
+                $('#privacy').val('public')
+            }
+        }
+    </script>
+</div>

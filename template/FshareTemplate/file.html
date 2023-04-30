@@ -1,0 +1,109 @@
+<input id='folderId' name='folderId' value='{{file.id}}' type='hidden'>
+
+<div class="row m-1">
+    {%for f in originalFile%}
+    <div class='col-md-12 col-sm-12 rounded p-3 color-bg-white m-2' style=''>
+        <div class='row align-items-center' style=''>
+            <div class='col sz-16'>
+                <a href={{f.get_absolute_url}} class='black'>
+                    <div class='row' style=''>
+                        <div class='col-2 sz-18'>
+                            <i class='far fa-file sz-24'></i>
+                        </div>
+                        <div class='col'>
+                            {%if f.name|length > 20 %}
+                            {{f.name|slice:':20'}}...
+                            {%else%}
+                            {{f.name}}
+                            {%endif%}
+                            {%if f.edited_file.count != 0 %}
+                            | <a href={{f.branch}} class='color-p sz-12'> {{f.edited_file.count}} b </a>
+                            {%endif%}
+                            {%if f.clone%}
+                            | <i class='sz-12 passive'> clone </i>
+                            {%endif%}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-2">
+                <span class='sz-18 color-black' style='display:inline-block;float:right;'>
+                    <button class='btn color-black btn-link' onclick="$('#{{f.id}}menu').toggleClass('show')"> <i class='fas fa-ellipsis-v sz-18 color-black'></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div id='{{f.id}}menu' class="hide sz-18 color-bg-white shadow boder rounded" style="z-index:10000;position:absolute;margin-left:-18px;width:50%;">
+            <div class="row m-2" style="">
+                {%comment%}
+                <div class='col-12 sz-18 color-black py-2'>
+                    <b style=''>{{f.name}}</b> <span class='color-black'></span>
+                </div>
+                <div class='col-12 sz-18 color-black py-2'>
+                    <span class="col-t">Date Created </span><br />
+                    <b>{{f.date_created}}</b> <span class='color-black'></span>
+                </div>
+                {%endcomment%}
+
+
+
+
+                {% if f.edited %}
+                <div class='col-12 sz-16 color-black py-2'>
+                    <span class='desize passive'>branch owner {{f.edit_owner.user.username}}</span>
+                </div>
+                {%endif%}
+
+                {%if f.edited_file.count != 0 %}
+                <div class='col-12 sz-14 color-black py-2'>
+                    <a href={{f.branch}} class='color-s'> {{f.edited_file.count}} branch </a>
+                </div>
+                {%endif%}
+                {%if not f.edited %}
+                <div class='col-12 sz-14 color-black py-2'>
+                    <a href="{%url 'CreateBranchUrl' f.id%}" class='color-black'> Create branch </a>
+                </div>
+                {%endif%}
+
+                {%if  f.edited %}
+                {%if prof == file.folder.owner %}
+                <div class='col-12  color-black py-2'>
+                    <button id='signal' onclick="checkM()" class='btn btn-link p-0 sz-14 color-black' hx-get="{%url 'MergeUrl' file.id f.id %}" hx-target='#messageholder' hx-swap='innerHTML'>
+                        Merge
+                    </button>
+                </div>
+                <div class='col-12 sz-14 color-black py-2'>
+                    <button onclick="checkM()" id='signal' class='btn btn-link p-0 sz-14 color-black' hx-get="{%url 'ReplaceUrl' file.id f.id %}" hx-target='#messageholder' hx-swap='innerHTML'>
+                        <div class='htmx-indicator loder rig rtate wite' style='border:4px solid #EAF0F6;height: 1.5cm;left:50%;top:50%;width:1.5cm;position:absolute;border-top:4px solid #4b8ef1'></div>
+                        Replace
+                    </button>
+                </div>
+                {%endif%}
+                {%endif%}
+
+
+                {%if request.user.is_authenticated%}
+                <div class='col-12 sz-14 color-black py-2'>
+                    <button id='signal' onclick="checkM()" class='btn btn-link color-black p-0 sz-14' style='' hx-get="{%url 'CloneFolderUrl' f.id%}" hx-target='#messageholder' hx-swap='innerHTML'> Clone </button>
+                </div>
+                {%endif%}
+
+                <div class='col-12 color-black py-2 color-s'>
+                    <a class='color-black sz-14' style='' href='{{f.file.url}}' download> Download </a>
+                </div>
+                {%if file.owner == prof %}
+                <div class='col-12 sz-14 color-black py-2'>
+                    <button class='btn btn-link p-0 color-black text-danger sz-16' style='color:red' hx-get="{%url 'FileDeleteUrl' f.id%}" hx-target='#holder' hx-swap='innerHTML' hx-include='#folderId'> Delete </button>
+                </div>
+                {%endif%}
+
+                {%if f.edit_owner == prof %}
+                <div class='col-12 sz-14  py-2 text-danger'>
+                    <a class='color-black' href="{%url 'DeleteBranchUrl' f.id%}">Delete branch </a>
+                </div>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+</div>

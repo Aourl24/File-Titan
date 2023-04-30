@@ -1,0 +1,14 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<div class='container'>
+<div class='row m-2'> This Folder require a password to gain access</div>
+<div class='row mesize m-2' style='color:red'>{{Error}}</div>
+<form method='post'>
+	{%csrf_token%}
+	<div class='row m-2'><input type='password' name='password'  class='form-control sz-18' placeholder="Enter Password" style="height:1.2cm;"></div> 
+	<br />
+	<div class='row m-2'><div class='col'><button class='btn btn-block color-bg-s color-white sz-18'> ok </button></div></div>	
+</form>
+</div>
+{%endblock%}

@@ -1,0 +1,20 @@
+{%extends 'base.html' %}
+
+{%block content%}
+<style>
+.form-conrol{
+	width:80%;
+}
+</style>
+
+<div class='container'>
+<p class='pcolor'>Edit Profile Form </p>
+<form method='post' enctype="multipart/form-data">
+	{%csrf_token%}
+	<p> Username <input class='form-control' name='username' value={{profile.user.username}} > </p>
+<p>{{form.as_p}}</p>
+
+<p> <button class='btn btn-block btn-success'>Save changes</button></p>
+</form>
+</div>
+{%endblock%}
