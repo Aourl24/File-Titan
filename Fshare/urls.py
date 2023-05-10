@@ -10,9 +10,9 @@ def filt(x):
 	return str(b)
 
 urlpatterns=[
-	path('',landingView,name='LandingUrl'),
+	#path('',landingView,name='LandingUrl'),
 	path('fileform',FileFormView,name='FileFormUrl'),
-	path('file',folderListView,name='FileViewUrl'),
+	path('',folderListView,name='FileViewUrl'),
 	path('<int:id>',FileDetailView,name='FileDetailViewUrl'),
 	path('<int:id>/<str:typ>',FileDetailView,name='FileDetailViewTypeUrl'),
 	path('<int:fid>folder',folderDetailView,name='FolderDetailViewUrl'),

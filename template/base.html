@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name='viewport' content='width=device-width initial-scale=1'>
-    <!--<meta name="theme-color" content="orange" />-->
+    <meta name="theme-color" content="orange" />
     <link rel='stylesheet' href="{%static 'css/bootstrap/bootstrap.min.css'%}">
     <link rel='stylesheet' href="{%static 'css/fontawesome_5/css/all.min.css'%}" media="print" onload="this.media='all'">
     <link rel='stylesheet' href="{%static 'css/acss/acss_desktop.css'%}">
@@ -37,20 +37,20 @@
         word-spacing: 25px;
 
     }
-    
-    .preloader{
-    height:100%;
-    width:100%;
-    position:absolute;
-    z-index:10000000;
-    background-color:white;
-    text-align:center;
+
+    .preloader {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        z-index: 10000000;
+        background-color: white;
+        text-align: center;
     }
-    
-    .dot{
-     display:inline-block;
-     height:20px;
-     width:20px;
+
+    .dot {
+        display: inline-block;
+        height: 20px;
+        width: 20px;
     }
 
     .rounded {
@@ -148,23 +148,23 @@
     }
 </style>
 
-<body class='font-apple sz-16 color-bg-t bg-light'>
+<body class='font-lato sz-16 color-bg-t bg-light'>
     <div id="preloader" class="preloader">
         <div class="preloader-inner">
             <span class=""></span>
             <div class="dots container position-fixed" style='top:50%;bottom:50%'>
-                <span class='dot animate__animated animate__bounce animate__infinite rounded-circle color-bg-p animate__sow' style=''></span>
-                <span class='dot animate__animated animate__bounce animate__infinite rounded-circle color-bg-p animate__fast'></span>
-                <span class='dot animate__animated animate__bounce animate__infinite rounded-circle color-bg-p '></span>
+                <span class='dot animate__animated animate__bounce animate__infinite rounded-circle color-bg-s animate__sow' style=''></span>
+                <span class='dot animate__animated animate__bounce animate__infinite rounded-circle color-bg-s animate__fast'></span>
+                <span class='dot animate__animated animate__bounce animate__infinite rounded-circle color-bg-s '></span>
             </div>
         </div>
     </div>
 
 
     {%block header%}
-    <header class="sticky-top navbar sz-12 animate__animated animate__slideInDown m-1 p-1" style="">
-        <div class='container-fluid color-bg-p p-0 color-white rounded m-0' style='border-radis:7px;border:1px solid white'>
-            <div class="sz-24 px-2">
+    <header id='heder' class="sticky-top navbar fixd-top rouded sz-12 bg-light animate__animated animate__slideInDown m-0 p-1 color-s" style="width:100%;borer-bottom:1px solid silver">
+        <div class='container-fluid coor-bg-p p-0 rounded m-0' style='border-radis:7px;'>
+            <div class="sz-24 px-2 center font-lato bold">
                 File-Titan
             </div>
 
@@ -172,17 +172,17 @@
             <div class='row display-sm-none'>
                 <div>
                     <a class='col-md col-sm-3' href="{%url 'FileViewUrl' %} ">
-                        <span class='color-white'> Home </span>
+                        <span class='color-black'> Home </span>
                     </a>
                 </div>
                 <div>
                     <a class='col-md col-sm-3' href="{%url 'FolderFormUrl' %} ">
-                        <span class='color-white'> Create Directory </span>
+                        <span class='color-black'> Create Directory </span>
                     </a>
                 </div>
             </div>
             <div class="col display-md-none sz-24" style="text-align:right">
-                <i class="fas fa-caret-down animate__animated animate__bounce bordr rounded p-1" id="tri" onclick="show()"></i>
+                <i class="fas fa-bars animate__animated animate__bounce border rounded p-1" id="tri" onclick="show()"></i>
             </div>
             <div class='row display-sm-none'>
                 <form method='POST' class='col-sm-12 col-md mt-2' action="{%url 'SearchUrl' %}">
@@ -217,6 +217,7 @@
         </div>
     </div>
 </header>
+
 {%endblock%}
 
 
@@ -256,7 +257,11 @@
 
 
         <div class='col-md-10 col-sm-12 p-0'>
-
+            {%block index%}
+            {%if request.user.is_anonymous%}
+            {%include 'index.html'%}
+            {%endif%}
+            {%endblock%}
             {%block content%}
 
             {%endblock content%}
@@ -268,7 +273,7 @@
 {%block bottom%}
 
 {%endblock%}
-<div id="dropdown" class="container-fluid position-fixed hide animate__animated animate__slideInDown overflow-auto" style="z-index:100000000;background-color: white; top:50px;height: 100%;overflow:auto;">
+<div id="dropdown" class="container-fluid position-fixed hide animate__animated animate__slideInDown overflow-auto" style="z-index:100000000;background-color: white; top:45px;height: 100%;overflow:auto;">
     <br />
     <div class="row">
         <div class="col">
@@ -280,12 +285,12 @@
     </div>
     <div class="row my-3">
         <a class='col sz-18 color-p' href="{%url 'FileViewUrl' %} ">
-             Explore
+            Explore
         </a>
     </div>
     <div class="row my-3">
         <a class='col sz-18 color-p' href="{%url 'FolderFormUrl' %} ">
-            Create Directory       
+            Create Directory
         </a>
     </div>
     {%if request.user.is_authenticated %}
@@ -308,7 +313,7 @@
     </div>
     {%endif%}
     <div class='' hx-get="{%url 'MenuUrl' %}" hx-trigger='load' hx-target='#feedbac'></div>
-    <div id="feedbac" class="" ></div>
+    <div id="feedbac" class=""></div>
     <br />
 
 </div>
@@ -317,9 +322,14 @@
 <script>
 $(window).on('load', function() {
 $('#preloader').fadeOut()})
+
 function show() {
 $('#dropdown').toggleClass('show')
 }
+
+$(window).on('scroll', function() {
+$('#header').addClass('animate__slideInUp color-bg-p color-white')
+})
 
 function cheMessage() {
 j = document.getElementById('message')

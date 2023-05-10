@@ -1,27 +1,14 @@
-{%extends 'base.html'%}
 {%load static%}
-{%block sidebar%}
-<br />
-<div class='position-fixed'>
-<div class='row center'>
-    <div class='col'>
-        <button class='btn btn-block btn-danger color-white'>Sign Up</button>
-    </div>
-</div>
-</div>
-{%endblock%}
-
-{%block content%}
 <style>
     .bac {
-        
-        background-image:url("{%static 'images/images.jpeg'%}");
+
+        background-image: url("{%static 'images/images.jpeg'%}");
         backgrund-repeat: no-repeat;
-        background-position: right;
-        with:100%;
+        background-position: bottom;
+        with: 100%;
     }
-    .sz-30{
-    font-size:30
+    .sz-30 {
+        font-size: 30
     }
 @media(max-width:600px) {
         newline {
@@ -38,12 +25,12 @@
     }
 
 </style>
-<div class="container color-bg-white">
-    <div class="row align-items-center bac p-2">
+<div class="container-fluid colr-bg-white center">
+    <div class="row align-items-cener bac p-2">
         <div class="col-md col-sm-12">
-            <div class="row m-2">
-                <div class="col sz-30 bold color-white" style="">
-                   Manage your files Effortlessly
+            <div class="row m-1">
+                <div class="col bold color-white" style="font-size:20">
+                    Manage your files Effortlessly
                 </div>
             </div>
             <div class="row m-2">
@@ -51,10 +38,17 @@
                     We Understand that managing your files and documents can be hassle, and that is why we have created an intuitive and user-friendly file manager to help you stay organized and efficient
                 </div>
             </div>
-            
-            <div class="row m-2 py-2">
-                <div class="col sz-24 color-white">
-                   <span class='rounded color-bg-s p-2'>Get started</span>
+
+            <div class="row m-1 py-2">
+                <div class="col sz-18 color-white">
+                    <a class='btn btn-block color-bg-s sz-18 color-white' href="{% url 'account_signup'%}" style='baground-color:357417'>
+                        Signup
+                    </a>
+                </div>
+                <div class="col sz-18 color-white">
+                    <a class='btn btn-block color-bg-s sz-18 color-white' href="{% url 'account_login'%}" style='baground-color:357417'>
+                        Log In
+                    </a>
                 </div>
             </div>
         </div>
@@ -68,7 +62,7 @@
     {%for header in headers%}
     <div class="row sz-30 m-2 bold color-p">
         <div class="col">
-          {{header.title}}  
+            {{header.title}}
         </div>
     </div>
     <div class="bg-light">
@@ -80,14 +74,14 @@
                         {{sub.title}}
                     </div>
                 </div>
-             {{sub.body}}
+                {{sub.body}}
             </div>
             {%endfor%}
         </div>
     </div>
     <br />
     {%endfor%}
-
+    {%comment%}
     <div class="row center">
         <img class="container" src="{%static 'images/file.png'%}" alt="file.png" />
     </div>
@@ -101,6 +95,7 @@
     <div class="row center">
         This website is owned by Awwal email awwalmustapha13@gmail.com
     </div>
+    {%endcomment%}
 </div>
 
 
@@ -113,4 +108,3 @@
 <script src="{%static '/js/popup.js' %}"></script>
 <script src="{%static '/js/custom.js' %}"></script>
 </div>
-{%endblock%}

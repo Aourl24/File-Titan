@@ -2,8 +2,14 @@
 {%extends 'base.html'%}
 {%load static%}
 {%load socialaccount%}
+{%block header%}
 
+{%endblock%}
 {%block content%}
+
+{%block index%}
+
+{%endblock%}
 <style>
 body{
     background-color: white;
@@ -12,7 +18,7 @@ input{
     height: 1.1cm;
 }
 </style>
-<br />
+
 <div class='container rounded' style=''>
     <div class='row rounded p-2' style=''>
         <div class='col-md-6 p-3 rounded color-bg-white'>
@@ -70,7 +76,7 @@ input{
             </form>    
         </div>
         <div class='col p-3 rounded color-bg-white'>
-            <br />
+            
             <div class="row">
                 <div class="col">
                     <a href="% provider_login_url 'google' %}" class='btn border p-2 sz-18 rounded btn-block color-black'>
