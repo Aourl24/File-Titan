@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-&xcj+zg8o$!yd6oe(2raph4&y0^%j(zr2@6ok=zyr7wms4=(-$
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+AWS = True
 ALLOWED_HOSTS = ['*']
 #ALLOWED_HOSTS = ['filetitan.pythonanywhere.com']
 
@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google'
+    'allauth.socialaccount.providers.google',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -151,7 +152,25 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+STORAGES = {"aws":
+    {"BACKEND":
+        "storages.backends.s3boto3.S3Boto3Storage"
+    },
+    'default':{
+        "BACKEND":"django.core.files.storage.FileSystemStorage"
+        },
+   "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 
+AWS_ACCESS_KEY_ID = "AKIAYBL54CDA7P337S6P"
+AWS_SECRET_ACCESS_KEY ="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"
+AWS_STORAGE_BUCKET_NAME ="filesharebucket001"
+AWS_S3_FILE_OVERWRITE = False  
+AWS_DEFAULT_ACL = None  
+AWS_S3_REGION_NAME = "eu-north-1"  
+AWS_S3_ADDRESSING_STYLE = "virtual"
 
 if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000 # One year in seconds

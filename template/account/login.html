@@ -1,6 +1,7 @@
 
 {%extends 'base.html'%}
 {%load static%}
+{%load account%}
 {%load socialaccount%}
 {%block header%}
 
@@ -78,7 +79,7 @@ input{
             
             <div class="row">
                 <div class="col">
-                    <a href="% provider_login_url 'google' %}" class='btn border p-2 sz-18 rounded btn-block color-black'>
+                    <a href="% provider_login_url 'google' process='connect'%}" class='btn border p-2 sz-18 rounded btn-block color-black'>
                         <i class='fab fa-google text-danger'></i> Login with Google
                     </a>
                 <div>

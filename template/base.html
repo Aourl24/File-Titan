@@ -7,7 +7,7 @@
     <meta name="theme-color" content="orange" />
     <link rel='stylesheet' href="{%static 'css/bootstrap/bootstrap.min.css'%}">
     <link rel='stylesheet' href="{%static 'css/fontawesome_5/css/all.min.css'%}" media="print" onload="this.media='all'">
-    <link rel='stylesheet' href="{%static 'css/acss/acss_desktop.css'%}">
+   
     <link rel='stylesheet' href="{%static 'css/animate.min.css'%}">
     <!-- <link rel='stylesheet' href="{%static 'css/default.min.css'%}" media="print" onload="this.media='all'"> -->
     <link rel='stylesheet' href="{%static 'css/acss/acss_animation.css'%}" media="print" onload="this.media='all'">
@@ -15,6 +15,9 @@
 
     <link rel='stylesheet' href="{%static 'css/acss/acss_basic.css'%}">
     <link rel='stylesheet' href="{%static 'css/acss/acss.css'%}">
+    {%if 'dark' in request.session.keys %}
+     <link rel='stylesheet' href="{%static 'css/acss/acss_dark.css'%}">
+     {%endif%}
     <script src="{%static 'js/ace.min.js'%}"></script>
     <script src="{%static 'js/react.production.min.js'%}"></script>
     <script src="{%static 'js/react-dom.production.min.js'%}"></script>
@@ -43,7 +46,7 @@
         width: 100%;
         position: absolute;
         z-index: 10000000;
-        background-color: white;
+        backgrond-color: white;
         text-align: center;
     }
 
@@ -148,8 +151,8 @@
     }
 </style>
 
-<body class='font-lato sz-16 color-bg-t bg-light'>
-    <div id="preloader" class="preloader">
+<body class='font-lato sz-16 coor-bg-t b-light'>
+    <div id="preloader" class="preloader color-bg-white">
         <div class="preloader-inner">
             <span class=""></span>
             <div class="dots container position-fixed" style='top:50%;bottom:50%'>
@@ -162,7 +165,7 @@
 
 
     {%block header%}
-    <header id='heder' class="sticky-top navbar fixd-top rouded sz-12 bg-light animate__animated animate__slideInDown m-0 p-1 color-s" style="width:100%;borer-bottom:1px solid silver">
+    <header id='heder' class="sticky-top navbar fixd-top rouded sz-12 bg-liht animate__animated animate__slideInDown m-0 p-1 color-s" style="width:100%;borer-bottom:1px solid silver">
         <div class='container-fluid coor-bg-p p-0 rounded m-0' style='border-radis:7px;'>
             <div class="sz-24 px-2 center font-lato bold">
                 File-Titan
@@ -182,7 +185,7 @@
                 </div>
             </div>
             <div class="col display-md-none sz-24" style="text-align:right">
-                <i class="fas fa-bars animate__animated animate__bounce border rounded p-1" id="tri" onclick="show()"></i>
+                <i class="fas fa-bars animate__animated animate__bounce bordr rounded p-1" id="tri" onclick="show()"></i>
             </div>
             <div class='row display-sm-none'>
                 <form method='POST' class='col-sm-12 col-md mt-2' action="{%url 'SearchUrl' %}">
@@ -232,7 +235,7 @@
 
 <div class='' style=''>
 
-    <div class='holder' id='messageholder' style='position:fixed;z-index:10000;let:45%'></div>
+    <div class='holder' id='messageholder' style='position:fixed;z-index:10000000;let:45%'></div>
     <div class='row'>
 
 
@@ -273,7 +276,7 @@
 {%block bottom%}
 
 {%endblock%}
-<div id="dropdown" class="container-fluid position-fixed hide animate__animated animate__slideInDown overflow-auto" style="z-index:100000000;background-color: white; top:45px;height: 100%;overflow:auto;">
+<div id="dropdown" class="container-fluid position-fixed hide animate__animated animate__slideInDown overflow-auto bg-light" style="z-index:100000000;backgrund-color: white; top:45px;height: 100%;overflow:auto;">
     <br />
     <div class="row">
         <div class="col">
@@ -281,6 +284,11 @@
                 {%csrf_token%}
                 <input type='search' placeholder='search files and directories' class='form-control' name='search' style='width:80%'>
             </form>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col align-items-center color-p'>
+            User : <img class='rounded-circle' src="{{request.user.profile.profile_photo.url}}" width='30px' height='30px' /> {{request.user}}
         </div>
     </div>
     <div class="row my-3">
@@ -300,6 +308,7 @@
             </a>
         </div>
     </div>
+    
     <div class='row my-3'>
         <div class='col sz-18'>
             <a class='color-p' href="{% url 'account_logout'%}">Log Out</a>
@@ -312,6 +321,17 @@
         </div>
     </div>
     {%endif%}
+     <div class='row my-3'>
+        <div class='col'>
+            <a class='color-p' href="{%url 'DarkModeUrl' request.path_info %}"/>
+                {%if 'dark' in request.session.keys %}
+                   Light mode 
+                {%else%}
+                    Dark mode
+                {%endif%}
+           </a>
+        </div>
+    </div>
     <div class='' hx-get="{%url 'MenuUrl' %}" hx-trigger='load' hx-target='#feedbac'></div>
     <div id="feedbac" class=""></div>
     <br />

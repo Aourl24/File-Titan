@@ -2,7 +2,7 @@
 {%block content%}
 <div id='box' class='container'>
 	<br />
-	<h4 class='row m-2'>Search Results </h4>
+	<h4 class='row m-2 sz-18 color-p'>Search Results </h4>
 	<div class=''>
 		
 		<div class='row m-1'>
@@ -10,31 +10,14 @@
 			{% if not result_folders%}
 				
 			{%endif%}
-
-			{%for result in result_folders%}
-				<div class='col-md-12 col-sm-12 rounded p-3 color-bg-white m-2' style=''>
-				<div class='row' style=''>
-					<div class='col sz-18'>
-					<a class='color-p' href="{{result.get_absolute_url}}" > <i class='fas fa-folder sz-24'></i> {{result.name}} </a>
-					<div class='desize'> 
-						<a class='normal color-black' href="{% url 'ProfileUrl' result.owner.id %}">
-							{%comment%}
-							<img class='avaar circle' src={{result.owner.profile_photo.url}} style='height:10px,width:10px;border:black' > 
-							{%endcomment%} 
-							{%comment%}
-							Owner- {{result.owner|title}} 
-							{%endcomment%}
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-				
-			{%endfor%}
+			<div class='container-fluid p-0'>
+           
+	            {%include 'FshareTemplate/folderlist.html' with folders=result_folders %}
+            </div>
+			
 		</div>
 	</div>
 
-	<br stye="line-height:10px">
 
 	<div class=''>
 		
@@ -43,26 +26,10 @@
 			{% if not result_files%}
 				<div class='warning row m-2'> </div>
 			{%endif%}
-
-			{%for result in result_files%}
-				<div class='col-md-12 col-sm-12 rounded p-3 color-bg-white m-2' style=''>
-				<div class='row' style=''>
-					<div class='col sz-18'>
-					<a class='color-p' href="{{result.get_absolute_url}}"><i class='fas fa-file sz-24'></i> {{result.name}} </a>
-					<div class='desize'> 
-						<a class='normal color-black' href="{% url 'ProfileUrl' result.folder.owner.id %}">
-							{%comment%}
-							<img class='avaar circle' src={{result.folder.owner.profile_photo.url}} style='height:10px,width:10px;border:black' >
-							{%endcomment%}
-							{%comment%}
-							{{result.folder.owner|title}}
-							{%endcomment%}
-						</a>
-					</div>
-				</div>
-			</div>
-				</div>
-			{%endfor%}
+			<div class='container-fluid p-0'>
+             {%include 'FshareTemplate/file.html' with originalFile=result_files %}
+            </div>
+			
 		</div>
 	</div>
 </div>

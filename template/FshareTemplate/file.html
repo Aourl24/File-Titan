@@ -2,10 +2,10 @@
 
 <div class="row m-1">
     {%for f in originalFile%}
-    <div class='col-md-12 col-sm-12 rounded p-3 color-bg-white m-2' style=''>
+    <div class='col-md-12 col-sm-12 rounded p-3 colr-bg-white m-2' style=''>
         <div class='row align-items-center' style=''>
             <div class='col sz-16'>
-                <a href={{f.get_absolute_url}} class='black'>
+                <a href={{f.get_absolute_url}} class='color-black'>
                     <div class='row' style=''>
                         <div class='col-2 sz-18'>
                             <i class='far fa-file sz-24'></i>
@@ -33,7 +33,7 @@
             </div>
         </div>
 
-        <div id='{{f.id}}menu' class="hide sz-18 color-bg-white shadow boder rounded" style="z-index:10000;position:absolute;margin-left:-18px;width:50%;">
+        <div id='{{f.id}}menu' class="hide sz-18 color-bg-white shaow boder rounded" style="z-index:10000;position:absolute;margin-left:-18px;width:50%;">
             <div class="row m-2" style="">
                 {%comment%}
                 <div class='col-12 sz-18 color-black py-2'>

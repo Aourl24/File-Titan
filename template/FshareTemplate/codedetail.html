@@ -9,33 +9,25 @@
         <div class='col'>
         <form name='other' id='edo' hx-post='' onsubmit="accept()" hx-target='#feedba' hx-swap='innerHTML'>
             {%csrf_token%}
-                <textarea id='editor' name='' class='container shadow color-bg-white' style='border:none;width:100%;height:150vw' onclick="$('#msg').fadeOut()">{{file.openFile}}
+                <textarea id='editor' name='' class='container border color-bg-white color-black' style='border:none;width:100%;height:150vw' onclick="$('#msg').fadeOut()">{{file.openFile}}
                 </textarea>
             <input name='wod' id='cov' type='hidden' value='{{file.openFile}}'>
             <input name='word' id='ov' type='hidden'>
         </form>
         </div>
         </div>   
-    <div class='navbar fixed-bottom color-bg-p' stye=''>
-        <div class='row'>
-            <div class='col'>
+    <div class='navbar fix d-bottom color-bg-s' stye=''>
+        <div class='rw'>
                 <button id='ssav' onclick='chckM()' form='edo' class='btn btn-link color-white' style=''>
                     <i class='fas fa-save'></i>
-                    <div class='col'>
                         save
-                    </div>
                 </button>
-            </div>
         </div>
-        <div class='row'>
-            <div class='col'>
+        <div class='rw'>
                 <button class='btn btn-link color-white' onclick="$('#import').toggleClass('show')">
                     <i class='fas fa-file-import'></i>
-                    <div class='col'>
                         import
-                    </div>
                 </button>
-            </div>
         </div>
         {%comment%}
         <div class='row'>
@@ -51,14 +43,15 @@
 
     </div>
     {%else%}
-    <div class='container shadow color-bg-white' style='border:none;width:100%;height:150vw;overflow:scroll'>
+    <div class='container border color-bg-white color-black' style='border:none;width:100%;height:150vw;overflow:scroll'>
     {{file.openFile}}
     </div>
     {%endif%}
     
   
-   <div id='import' class='container hide position-fixed' style='z-index:100000000;leftl:10px;top:50%;bottom:50%'>
-        <div class='container'>
+   <div id='import' class='container modal hide position-fixed' style='z-index:100000000;left:0px;t p:50%;bttom:50%'>
+       <div class='modal-dialog-centered'>
+           <div class='modal-body bg-light'>
         <div class='sz-18 row'>
         <div class='col'>
             Import File
@@ -82,6 +75,6 @@
             </div>
             </div>
         </form>
+        </div>
     </div> 
-    </div>
 </div>

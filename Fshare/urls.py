@@ -1,7 +1,7 @@
 from django.urls import path,include
 from .views import folderListView,FileFormView,FileDetailView,FolderFormView,DeleteView,CloneView,\
 giveAcessView,createFileView,branchView,shellView,createBranch, replaceView , mergeView,profileView,profileEdit,landingView, \
-cloneFolder,importFile,searchFile,menuView,deleteBranch,downloadView,editFolder, folderDetailView
+cloneFolder,importFile,searchFile,menuView,deleteBranch,downloadView,editFolder, folderDetailView, darkView
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -36,7 +36,8 @@ urlpatterns=[
 	path('profile',profileView,name='ProfileLandingUrl'),
 	path('deleteBranch<int:id>',deleteBranch,name='DeleteBranchUrl'),
 	path('download<int:id>',downloadView,name='DownloadUrl'),
-	path('edit<int:id>folder<path:next>',editFolder,name='EditFolderUrl')
+	path('edit<int:id>folder<path:next>',editFolder,name='EditFolderUrl'),
+	path("darkmode/<path:path>",darkView,name='DarkModeUrl')
 ]
 
 if settings.DEBUG:

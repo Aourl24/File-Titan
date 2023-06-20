@@ -14,7 +14,7 @@ from django.core.paginator import Paginator
 Error="<div class='message' id='message'>Unable to Perform Action, Check your Path </div>"
 Saved="<div class='' id='msg' style=''> Saved </div>"
 t='FshareTemplate/'
-
+#POST https://titleId.playfabapi.com/File/GetFiles
 def landingView(request):
 	# The landing page
 	header=Header.objects.all()
@@ -44,7 +44,7 @@ def createFileView(request):
 		file_name=request.POST.get('filename')
 		d=request.POST.get('folderid')
 		folder=Folder.objects.get(id=d)
-		file_created=File.objects.create(name=file_name,folder=folder,file=ContentFile('',name=f'{file_name}'))
+		file_created=File.objects.create(name=str(file_name),folder=folder,file=ContentFile(b'',name=f'{file_name}'))
 	template=t + 'create.html'
 	return HttpResponseRedirect(reverse('FileDetailViewUrl',kwargs={'id':file_created.id}))
 
@@ -447,3 +447,10 @@ def editFolder(request,id=None,next=None):
 		return redirect(next)
 
 	return render(request,template,context)
+	
+def darkView(request,path):
+    if 'dark' in request.session.keys():
+        del request.session['dark']
+    else:
+        request.session['dark'] = True
+    return redirect(path)

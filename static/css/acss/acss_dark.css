@@ -1,0 +1,27 @@
+
+
+body{
+    color:white!important;
+    background-color: #34282C!important;
+}
+
+
+.bg-light{
+     background-color: #34282C!important;
+}
+
+.color-white{
+    color:black;
+}
+
+.color-black{
+    color:white;
+}
+
+.color-p{
+    color:#2B60DE;
+}
+
+.color-bg-white{
+    background-color: black;
+}

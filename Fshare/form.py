@@ -6,7 +6,7 @@ class FileForm(forms.ModelForm):
 	class Meta:
 		model=File
 		fields=['file']
-		widgets={'file':forms.ClearableFileInput(attrs={'multiple':True,'id':'fle','class':'form-control'})}
+		widgets={'file':forms.ClearableFileInput(attrs={'multiple':False,'id':'fle','class':'form-control'})}
 
 
 class FolderForm(forms.ModelForm):

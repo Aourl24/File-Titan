@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from FileShare.settings import BASE_DIR
+from FileShare.settings import BASE_DIR,MEDIA_ROOT
 from django.http import StreamingHttpResponse,HttpResponse,FileResponse
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
@@ -9,7 +9,29 @@ from django.dispatch import receiver
 from django.core.files.base import ContentFile
 from datetime import datetime
 import zipfile
+from django.conf  import settings
+from django.core.files import File
+from django.core.files.storage import storages
+from django.core.files.storage import FileSystemStorage
+from pathlib import Path
 
+def select_storage():
+    if settings.AWS:
+        return storages['aws']
+    else:
+        return storages['default']
+     
+fs = FileSystemStorage(location=f"{BASE_DIR}/media")
+
+def upload_file(self,filename):
+    root = self.folder
+    path = f'{root.name}/'
+    while root.parent:
+        path = root.parent.name + '/' + path
+        root = root.parent
+    print(path)
+    return f"file/{path}/{filename}"
+    
 class Header(models.Model):
     title=models.CharField(max_length=1000)
     background_color=models.CharField(max_length=100,default='white')
@@ -31,7 +53,7 @@ class Profile(models.Model):
     date_joined=models.DateTimeField(auto_now_add=True, blank=True, null=True)
     bio=models.CharField('About', max_length=100, blank=True, null=True)
     location=models.CharField(max_length=100, blank=True, null=True)
-    profile_photo=models.ImageField(upload_to='profileimage', default='media/profile.png', null=True, blank=True)
+    profile_photo=models.ImageField(upload_to='profileimage', default='profileimage/profile.png', null=True, blank=True,storage=fs)
     mode=models.CharField(max_length=100, default='white')
     
     def __str__(self):
@@ -73,59 +95,18 @@ class Folder(models.Model):
 				self.createZip(z,fold,da,folder.name)
 		
 		return None
-
+		
 	def download(self):
-		files=File.objects.filter(folder=self)
-		files=self.file.all()
-		k=Folder.objects.get(id=self.id).child_folder.all()
-		n=Folder.objects.get(id=self.id).child_folder.all()
-		q=[x.id for x in n]
-		c=0
-		pa=''
-		path=str(BASE_DIR.joinpath(f'media/file/{self.name}.zip'))
-		with zipfile.ZipFile(f'{path}',mode='w') as z:
-			for i in files:
-				p=str(BASE_DIR.joinpath())
-				z.write(str(BASE_DIR.joinpath(f'media/{i.file}')),arcname=f'{i.folder}/{i}')
-
-			pa=self.name + '/'
-			m=list()
-			done=list()
-			if q:
-				k=Folder.objects.get(id=q[c])
-			else:
-				k=False
-			while k:
-				for j in k.file.all():
-					z.write(str(BASE_DIR.joinpath(f'media/{j.file}')),arcname=f'{self.name}/{j.folder}/{j}')
-				v=Folder.objects.get(id=k.id).child_folder.all()
-
-				if v:
-					m.append(k.id)
-
-				for no in m:
-
-					Fold=Folder.objects.get(id=no).child_folder.all()
-
-					for fod in Fold:
-						self.createZip(z,fod,fod.parent.parent.name,fod.parent.name)
-
-
-				if c == len(q):
-					k=False
-				else:
-					k= Folder.objects.get(id=q[c])
-
-					pa+=k.name + '/'
-					c+=1
-
-		return f'media/file/{self.name}.zip'
-	
+        	root = Path(f"{str(MEDIA_ROOT)}/file/{self.name}")
+        	with zipfile.ZipFile(f"{MEDIA_ROOT}/zip/{self.name}.zip",mode="w") as archive:
+        		for path in root.rglob("*"):
+                		archive.write(path,arcname=path.relative_to(root))
+        	return f'media/zip/{self.name}.zip'
 
 class File(models.Model):
 	folder=models.ForeignKey(Folder,related_name='file', on_delete=models.CASCADE,null=True,blank=True)
 	name=models.CharField(max_length=10000)
-	file=models.FileField(upload_to='file',default='file/empty.txt')
+	file=models.FileField(upload_to=upload_file,default='file/empty.txt',storage=select_storage)
 	edited=models.ForeignKey('self',related_name='edited_file',blank=True,null=True,on_delete=models.CASCADE)
 	edit_owner=models.ForeignKey(Profile,null=True,blank=True,related_name='my_file_edit',on_delete=models.CASCADE)
 	date_created=models.DateTimeField(auto_now_add=True)
@@ -137,37 +118,35 @@ class File(models.Model):
 
 	def Delete(self):
 		File.objects.get(id=self.id).delete()
+		return
 		#return reverse('FileViewUrl')
 		
-
 	def openFile(self):
-		f_name=str(BASE_DIR.joinpath(self.file.url[1:]))
-		with open(f_name,'r') as obj:
-			a=obj.read()
-			
-		return str(a)
-
+		path = f"{MEDIA_ROOT}"
+		try:
+			a = self.file.read()
+		except FileNotFoundError:
+			print(self.file.name)
+			with open(f"{path}/{self.file.name}",'r') as obj:
+				a = obj.read()
+		return a
+		
 	def branch(self):
 		return reverse('BranchUrl',args=[self.id])
 
 	def saveFile(self,words):
 		words=words.replace('”','"')
-		f_name=str(BASE_DIR.joinpath(self.file.url[1:]))
-		with open(f_name,'w',encoding='utf-8') as obj:
-			obj.write(str(words.replace('“','"')))
-	
-
+		try:
+			self.file.open(mode='w')
+			self.file.write(words)
+			self.file.close()
+		except FileNotFoundError:
+			path = f"{MEDIA_ROOT}"
+			with open(f"{path}/{self.file.name}",'w',encoding='utf-8') as obj:
+				obj.write(str(words.replace('“','"')))
+				
 	def saveLocally(self,words,path=None):
-		if self.folder:
-			f_nam=str(self.folder.local_path)
-		else:
-			f_nam=path
-		f_name=str(BASE_DIR.joinpath(f_nam  +'/' + self.name))
-		with open(f_name,'w',encoding='utf-8') as obj:
-			obj.write(words)
-		
-		return
-
+		pass
 
 	def get_absolute_url(self):
 		#support code ,video , music
@@ -213,8 +192,9 @@ class File(models.Model):
 @receiver(post_save, sender=User)
 def ProfileCreated(sender, created, instance,**kwargs):
     if created:
-        Profile.objects.create(user=instance)
-
+        prof=Profile.objects.create(user=instance)
+        #prof.profile_photo = f"{MEDIA_ROOT}/profileimage/profile.png"
+        # prof.save()
 # @reciver(post_save,sender=File)
 # def OwnerFile(sender,created,instance,**kwargs):
 # 	if created:
