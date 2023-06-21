@@ -136,7 +136,7 @@ LOGIN_REDIRECT_URL = 'ProfileLandingUrl'
 LOGOUT_REDIRECT_URL='FileViewUrl'
 #AUTH_USER_MODEL = 'core.User'
 AUTHENTICATION_BACKENDS=['django.contrib.auth.backends.ModelBackend', 'allauth.account.auth_backends.AuthenticationBackend']
-SITE_ID = 2
+SITE_ID = 3
 ACCOUNT_EMAIL_REQUIRED=False
 ACCOUNT_EMAIL_VERIFICATION='none'
 ACCOUNT_SIGNUP_REDIRECT_URL='ProfileLandingUrl'
@@ -167,9 +167,9 @@ STORAGES = {"aws":
 AWS_ACCESS_KEY_ID = "AKIAYBL54CDA7P337S6P"
 AWS_SECRET_ACCESS_KEY ="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"
 AWS_STORAGE_BUCKET_NAME ="filesharebucket001"
-AWS_S3_FILE_OVERWRITE = False  
-AWS_DEFAULT_ACL = None  
-AWS_S3_REGION_NAME = "eu-north-1"  
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_REGION_NAME = "eu-north-1"
 AWS_S3_ADDRESSING_STYLE = "virtual"
 
 if not DEBUG:

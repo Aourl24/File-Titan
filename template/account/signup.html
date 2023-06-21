@@ -24,7 +24,7 @@ input{
         <div class='col-md-6 p-3 rounded color-bg-white'>
             <div class='row'>
                 <div class='col'>
-                    <h2 style='' class='color-black'>  
+                    <h2 style='' class='color-black'>
                         Sign Up
                      </h2>
                 </div>
@@ -32,16 +32,16 @@ input{
 
             <form method='post'>
                 {%csrf_token%}
-                        
+
                             {%if form.errors %}
                             <p class='warning'>Invalid Username or Password</p>
                             {%endif%}
-                        
+
 
                     {% for field in form %}
                         {%if field.label == 'Remember Me' %}
                         {%else%}
-                        
+
 
                              {{field.errors}}
                             <div class='row my-3'>
@@ -64,7 +64,7 @@ input{
                                     Sign Up
                                 </button>
                         </div>
-                    </div>     
+                    </div>
 
                     <div class='row my-2'>
                         <div class='col-md-10 center'>
@@ -73,13 +73,13 @@ input{
                             </a>
                         </div>
                     </div>
-            </form>    
+            </form>
         </div>
         <div class='col p-3 rounded color-bg-white'>
-            
+
             <div class="row">
                 <div class="col">
-                    <a href="% provider_login_url 'google' %}" class='btn border p-2 sz-18 rounded btn-block color-black'>
+                    <a href="{% provider_login_url 'google' %}" class='btn border p-2 sz-18 rounded btn-block color-black'>
                         <i class='fab fa-google text-danger'></i> Sign Up with Google
                     </a>
                 <div>
