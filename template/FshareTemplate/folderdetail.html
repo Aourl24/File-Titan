@@ -14,11 +14,11 @@
     }
 </style>
 
-<div class="container">
-    <div class='row color-p m-1 sz-12 align-items-center' style=''>
+<div class="">
+    <div class='row color-black sz-12 align-items-center' style=''>
         <div class='col-md col-sm-12'>
             {%if file.parent%}
-            <a class='normal pcolor' href='{{file.parent.get_absolute_url}}'>{{file.parent.name}}</a>
+            <a class='normal color-s' href='{{file.parent.get_absolute_url}}'>{{file.parent.name}}</a>
             {%endif%}
             <i class='fas fa-folder-open'></i> <b style="font-size:20px">{{file.name|title|truncatechars:'14'}}</b>
         </div>
@@ -33,11 +33,14 @@
         </button>
     </div>
     <div class='col-md col'>
-        <div class='passive desize curve padd sbcoor black'>
-            <span class='scolor'>{{originalFile.count}}</span> files | <span class='scolor'>{{file.child_folder.count}}</span> folders
+        <div class='passive desize curve padd sbcoor color-black'>
+            <span class='color-s'>{{originalFile.count}}</span> files | <span
+            class='color-s'>{{file.child_folder.count}}</span> folders
             <span class='desize black' style=''>
                 <span class='passive desize'> | owner </span>
-                <a href={{file.owner.get_absolute_url}}><span class='bold scolor'>{{file.owner.user.username|title|truncatechars:'5'}} </span></a>
+                <a href={{file.owner.get_absolute_url}}><span class='bold
+                color-s'>{{file.owner.user.username|title|truncatechars:'5'}}
+                </span></a>
             </span>
         </div>
     </div>
@@ -47,6 +50,7 @@
     </div>
     {%endif%}
 </div>
+<br />
 {%include 'FshareTemplate/folderlist.html' with folders=file.child_folder.all %}
 
 
@@ -54,43 +58,52 @@
 {%include 'FshareTemplate/file.html'%}
 
 {%if file.owner == prof %}
-<div class='bottom-side rounded-circle color-bg-s p-3 m-2' style='boder-radius:12px;z-index:120' onclick="$('#createbox').fadeToggle()">
+<div class='bottom-side  ronded color-bg-s p-3 m-2'
+style='border-radius:20px;z-index:5000;right:10px;bottom:30px' onclick="$('#createbox').fadeToggle()">
     <i class='fas fa-plus sz-24'></i>
 </div>
 {%endif%}
 
-<div id='createbox' class='container modal sz-18 colr-bg-s color-white hide pol rounded animate__animated animate__faster  border shadow' style='z-index:100;with:300px;heiht:170px;tp:20%;background-color:rgba(300,300,300,0.7 )'>
-    <div class='moal-dialog moal-dalog-centered modal-sm'>
-        <div class='modal-body ceter bg-light'style='top:50px;width:250px'>
-            <div class='row'>
+<div id='createbox' class='modal sz-18 colr-bg-s color-white hide pol
+rounded animate__animated animate__faster  border shadow'
+style='z-index:4000;width:100%;heiht:170px;tp:20%;background-color:rgba(300,300,300,0.9
+)'>
+    <div class='moal-dialog modal-dialog-centered '>
+        <div class='modal-body ceter bg-ligt'style='top:50px;width:100%'>
+        	
+            <div class='row my-2'>
                 <div class='col-12'>
-                    <button onclick="$('.swap').fadeOut();$('#create').fadeIn()" class='btn btn-link'>
-                        <div class='color-s sz-16'>
+                    <button onclick="$('.swap').fadeOut();$('#create').fadeIn()"
+                    class='btn color-bg-s color-white'>
+                        <div class= 'sz-16'>
                             Create New File
                         </div>
                     </button>
                 </div>
             </div>
-            <div class='row'>
+            <div class='row my-2'>
                 <div class='col'>
-                    <button class='btn btn-link' onclick="$('.swap').fadeOut();$('#newfile').fadeIn()">
-                        <div class='sz-16 color-s'>
+                    <button class='btn color-bg-p color-white' onclick="$('.swap').fadeOut();$('#newfile').fadeIn()">
+                        <div class='sz-16'>
                             Upload Files
                         </div>
                     </button>
                 </div>
             </div>
-
-            <div class='row'>
+			
+            <div class='row my-2'>
                 <div class='col'>
-                    <button class='btn btn-link' onclick="$('.swap').fadeOut();$('#newfolder').fadeIn()">
-                        <div class='sz-16 color-s'>
+                    <button class='btn btn-success' onclick="$('.swap').fadeOut();$('#newfolder').fadeIn()">
+                        <div class='sz-16'>
                             Create New Folder
                         </div>
                     </button>
                 </div>
             </div>
-        <div id='create' class='hide pol swap border position-fixed bg-light' style='z-index:101;tp:40%;wdth:90%;left: 0px;right:0px'>
+        
+        <div id='create' class='hide pol swap borer position-fixed bg-light
+        pop-center'
+        style='z-index:101  ;left: 0px;right:0px'>
             <form class='p-2 ronded bg-lght boder' method='post' action="{%url 'CreateUrl' %}">
                 {%csrf_token%}
                 <p class='sz-18'>
@@ -107,7 +120,7 @@
     </div>
 
 
-    <div class='cotainer border p-2 hide swap pol rounded' id='newfile' style='z-index:101;position:fixed;t:40%;wdth:90%;left:0'>
+    <div class='cotainer borer pop-center p-2 hide swap pol rounded' id='newfile' style='z-index:101;position:fixed;t:40%;wdth:90%;left:0'>
         <form method='POST' enctype="multipart/form-data" id='newfile' class='col-12 p-2 ronded bg-light' style='' action="{%url 'FileFormUrl' %}">
                 <p class='sz-18'>
                     Upload Files
@@ -126,18 +139,13 @@
 </div>
 
 
-
-<div class='container swap border hide rounded bg-light pol p-2 bg-light' id='newfolder' style='position:fixed;tp:40%;widh:90%;left:0px'>
-    <div id='' class='col-12 p-0 rouned b-light' style='z-index:101;'>
+    <div class='cotainer borer color-bg-white pop-center p-2 hide swap pol rounded'
+    id='newfolder' style='z-index:103;position:fixed;top:30%;width:100%;left:0'>
         {% include 'FshareTemplate/folderform.html' %}
 
         <p onclick="$('#newfolder').fadeOut()" class='btn btn-link btn-block text-danger'>
             close window
         </p>
-
-    </div>
-    <br>
-    <br>
 </div>
 </div>
 </div>

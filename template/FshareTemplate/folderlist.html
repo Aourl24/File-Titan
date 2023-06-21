@@ -4,30 +4,36 @@ This page shows the folders in list
 
 
 {%if folders%}
-<div class='row m-1' style=''>
+<div class='row' style=''>
     {%for folder in folders%}
-    <div class='col-md-12 col-sm-12 rounded p-3 color-bg-whie m-2' style=''>
+    <div class='col-md-12 col-sm-12 rounded p-3 color-bg-whie my-2 color-bg-t
+    m-2 color-bg-dark-light' style=''>
         <div class='row align-items-center' style=''>
             <div class='col sz-16'>
-                <a class='color-black' style='' href={{folder.get_absolute_url}}>
+                <a class='color-black color-dark-white' style='' href={{folder.get_absolute_url}}>
                     <div class='row'>
                         <div class='col-2'>
-                            <i class='far fa-folder color-black sz-24'></i>
+                            <i class='far fa-folder color-bd-p  sz-24'></i>
                         </div>
                         <div class='col'>
                             {{folder.name}} {% if folder.privacy == 'authorize' %}
-                            <i class='fas fa-lock sz-sm color-black'></i>
+                            <i class='fas fa-lock sz-sm color-black
+                            color-dark-white'></i>
                             {%endif%}
                         </div>
                     </div>
                 </a>
             </div>
+
             <div class="col-2">
                 <span class='sz-24 color-black' style='display:inline-block;float:right;'>
-                    <button class='btn color-black btn-link' onclick="$('#{{folder.id}}menu').toggleClass('show');$('#{{folder.id}}swap').toggleClass('hide')"> <i class='fas fa-ellipsis-v sz-18 color-black'></i></button>
+                    <button class='btn color-black btn-link color-dark-white'
+                    onclick="$('#{{folder.id}}menu').toggleClass('hide')">
+                    <i class='fas fa-ellipsis-v sz-14 border p-2 color-bd-s rounded'></i></button>
                 </span>
             </div>
         </div>
+        
         <div id='{{folder.id}}menu' class="hide sz-14 color-bg-white color-white shadow boder rounded anmate__animated animate__slideInDown animate__faster" style="z-index:10000;position:absolute;margin-left:-18px;width:50%">
             <div class="row m-2" style="">
                 {%comment%}

@@ -1,6 +1,6 @@
 <input type='hidden' id='filepath' value='{{file.name}}'>
 
-<div class='container' style="">
+<div class='' style="">
     <div class='row'>
     <div id='feedba' class='col'></div>
     </div>
@@ -18,13 +18,14 @@
         </div>   
     <div class='navbar fix d-bottom color-bg-s' stye=''>
         <div class='rw'>
-                <button id='ssav' onclick='chckM()' form='edo' class='btn btn-link color-white' style=''>
+                <button id='ssav' onclick='chckM()' form='edo' class='btn
+                btn-link color-white color-dark-white' style=''>
                     <i class='fas fa-save'></i>
                         save
                 </button>
         </div>
         <div class='rw'>
-                <button class='btn btn-link color-white' onclick="$('#import').toggleClass('show')">
+                <button class='btn btn-link color-white color-dark-white' onclick="$('#import').toggleClass('show')">
                     <i class='fas fa-file-import'></i>
                         import
                 </button>
@@ -43,13 +44,13 @@
 
     </div>
     {%else%}
-    <div class='container border color-bg-white color-black' style='border:none;width:100%;height:150vw;overflow:scroll'>
+    <div class='continer border color-bg-white color-black' style='border:none;width:100%;height:150vw;overflow:scroll'>
     {{file.openFile}}
     </div>
     {%endif%}
     
   
-   <div id='import' class='container modal hide position-fixed' style='z-index:100000000;left:0px;t p:50%;bttom:50%'>
+   <div id='import' class='container modal hide position-fixed color-black' style='z-index:100000000;left:0px;t p:50%;bttom:50%'>
        <div class='modal-dialog-centered'>
            <div class='modal-body bg-light'>
         <div class='sz-18 row'>

@@ -19,11 +19,10 @@
         color: white;
     }
 </style>
-<div class='container rounded p-2 color-bg-whie'>
-    <div class='sz-18 color-p my-2'>
+<div class='color-bg-white'>
+    <div class='sz-18 color-black my-2'>
         Create Folder
     </div>
-    <br />
     {%if warning%}
     <p class='warning'>
         {{warning}}
@@ -33,7 +32,7 @@
         {%csrf_token%}
         <input name='folderid' type='hidden' value='{{file.id}}'>
         <div class='color-s'>
-            <div class='m-2 color-s'>
+            <div class='my-2 color-s'>
                 Name
             </div>
             {%for f in form%}
@@ -100,7 +99,7 @@
                 $('#privacy').val('private')
             } else if (x == 'author') {
                 $('#privacy').val('authorize');
-                $('#password').toggleClass('show')
+                $('#password').toggleClass('hide')
             } else {
                 $('#privacy').val('public')
             }

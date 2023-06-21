@@ -1,8 +1,8 @@
 <input id='folderId' name='folderId' value='{{file.id}}' type='hidden'>
 
-<div class="row m-1">
+<div class="row">
     {%for f in originalFile%}
-    <div class='col-md-12 col-sm-12 rounded p-3 colr-bg-white m-2' style=''>
+    <div class='col-md-12 col-sm-12 bg-light m-2 rounded p-3 colr-bg-white my-2' style=''>
         <div class='row align-items-center' style=''>
             <div class='col sz-16'>
                 <a href={{f.get_absolute_url}} class='color-black'>
@@ -17,7 +17,7 @@
                             {{f.name}}
                             {%endif%}
                             {%if f.edited_file.count != 0 %}
-                            | <a href={{f.branch}} class='color-p sz-12'> {{f.edited_file.count}} b </a>
+                             {{f.edited_file.count}} b 
                             {%endif%}
                             {%if f.clone%}
                             | <i class='sz-12 passive'> clone </i>
@@ -28,12 +28,17 @@
             </div>
             <div class="col-2">
                 <span class='sz-18 color-black' style='display:inline-block;float:right;'>
-                    <button class='btn color-black btn-link' onclick="$('#{{f.id}}menu').toggleClass('show')"> <i class='fas fa-ellipsis-v sz-18 color-black'></i></button>
+                    <button class='btn color-black btn-link'
+                    onclick="$('#{{f.id}}menu').toggleClass('hide')"> <i
+                    class='fas fa-ellipsis-v sz-14 p-2 color-black border rounded
+                    '></i></button>
                 </span>
             </div>
         </div>
 
-        <div id='{{f.id}}menu' class="hide sz-18 color-bg-white shaow boder rounded" style="z-index:10000;position:absolute;margin-left:-18px;width:50%;">
+        <div id='{{f.id}}menu' class="hide sz-18 color-bg-white shadow boder
+        bg-lght rounded"
+        style="z-index:10000;position:absolute;margin-left:-18px;width:50%;">
             <div class="row m-2" style="">
                 {%comment%}
                 <div class='col-12 sz-18 color-black py-2'>

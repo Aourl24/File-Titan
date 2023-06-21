@@ -1,0 +1,53 @@
+{%load static%}
+<style>
+    .bac {
+
+        background-image: url("{%static 'images/images.jpeg'%}");
+        backgrund-repeat: no-repeat;
+        background-position: bottom;
+        background-color: rgba(0,0,0,0.5);
+        with: 100%;
+    }
+    .sz-30 {
+        font-size: 30
+    }
+@media(max-width:600px) {
+        newline {
+            display: block;
+        }
+        .right-image {
+            width: 300px;
+            height: 250px;
+        }
+    }
+
+    .wow {
+        z-index: 0;
+    }
+
+</style>
+<div class="conainer-fluid colr-bg-white center" style='z-index:500'>
+    <div class="row align-items-center bord r rounded bac p-2">
+        <div class="col-md col-sm-12">
+            <div class="row m-1">
+                <div class="col bold color-white" style="font-size:20">
+                    
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col sz-18 color-dark-white color-white">
+                    Explore and Download Files
+                </div>
+            </div>
+            <div class="row m-1 py-2">
+                <div class="col sz-18 color-white">
+                     <form method='POST' class="" action="{%url 'SearchUrl' %}">
+                                {%csrf_token%}
+                                <input type='search' placeholder='search files and directories' class='form-control'
+                                name='search' style='width:100%'>
+                            </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -25,28 +25,32 @@
     }
 
 </style>
-<div class="container-fluid colr-bg-white center">
-    <div class="row align-items-cener bac p-2">
+<div class="contaner-fluid colr-bg-white center" style='z-index:500 p-0 m-0'>
+    <div class="row align-items-center bac p-2">
         <div class="col-md col-sm-12">
-            <div class="row m-1">
+            <div class="row m1">
                 <div class="col bold color-white" style="font-size:20">
-                    Manage your files Effortlessly
+                    
                 </div>
             </div>
-            <div class="row m-2">
-                <div class="col sz-18 color-white">
+            <div class="row ">
+                <div class="col sz-18 color-dark-white color-white">
                     We Understand that managing your files and documents can be hassle, and that is why we have created an intuitive and user-friendly file manager to help you stay organized and efficient
                 </div>
             </div>
 
             <div class="row m-1 py-2">
                 <div class="col sz-18 color-white">
-                    <a class='btn btn-block color-bg-s sz-18 color-white' href="{% url 'account_signup'%}" style='baground-color:357417'>
+                    <a class='btn btn-block btn-warning sz-18 color-white
+                    color-dark-white' href="{% url 'account_signup'%}"
+                    style='baground-color:357417'>
                         Signup
                     </a>
                 </div>
                 <div class="col sz-18 color-white">
-                    <a class='btn btn-block color-bg-s sz-18 color-white' href="{% url 'account_login'%}" style='baground-color:357417'>
+                    <a class='btn btn-block btn-danger sz-18 color-white
+                    color-dark-white' href="{% url 'account_login'%}"
+                    style='baground-color:357417'>
                         Log In
                     </a>
                 </div>
@@ -107,4 +111,3 @@
 <script src="{%static '/js/imagesloaded.js' %}"></script>
 <script src="{%static '/js/popup.js' %}"></script>
 <script src="{%static '/js/custom.js' %}"></script>
-</div>

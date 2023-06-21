@@ -3,9 +3,9 @@
 {%block user%}
 {%endblock%}
 {%block content%}
-<div class='container'>
+<div class=''>
 
-	<div class='row m-1'>
+	<div class='row my-1'>
 		<div class='col-10'>
 			<img class='circle' src='{{profile.profile_photo.url}}' style='height:35px;width:35px;border:black'
 			 > {{profile.user.username|title}}
@@ -43,7 +43,7 @@
 	
 	{%else%}
     
-    <div class='insize pcolor m-2'>Directories</div>
+    <div class='sz-18 my-2'>Directories</div>
 
     {%include 'FshareTemplate/folderlist.html' with folders=profile.folder.all %}
     
@@ -52,7 +52,7 @@
     {%if not branches %}
     
     {%else%}
-	<div class='insize pcolor m-2'>Branches</div>
+	<div class='sz-18 my-2'>Branches</div>
 	
     {%include 'FshareTemplate/file.html' with originalFile=branches %}
     {%endif%}
