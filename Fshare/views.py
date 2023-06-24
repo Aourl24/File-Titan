@@ -82,7 +82,7 @@ def FolderFormView(request):
 	if request.method == 'POST':
 		folderForm=FolderForm(request.POST)
 		folder_id=request.POST.get('folderid')
-		
+
 		if folderForm.is_valid():
 			fod=folderForm.save(commit=False)
 			#check=folderForm['privacy'].value()
@@ -105,12 +105,12 @@ def FolderFormView(request):
 					return render(request,template,context)
 				else:
 					fod.password=password
-			
+
 			fod.owner=Profile.objects.get(user=request.user)
 			if folder_id:
 				fod.parent=Folder.objects.get(id=folder_id)
 			fod.save()
-		return redirect('FolderDetailViewUrl', fid=fod.id)	
+		return redirect('FolderDetailViewUrl', fid=fod.id)
 	return render(request,template,context)
 
 
@@ -149,18 +149,18 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 		elif file.name.endswith('.py') or typ == 'code':
 			code_file = True
 		else:
-			unknown_file = True 
+			unknown_file = True
 
 		if request.method== 'POST':
- 
+
 			b=request.POST.get('word')
-			
+
 			if request.user.is_authenticated:
 				prof=Profile.objects.get(user=request.user)
 				if file.folder.owner != prof:
 					folder=Folder.objects.get(id=file.folder.id)
 					edit_word=ContentFile(b,name=f'{request.user}_branch_{file.name}')
-					
+
 					try:
 						edit_file=File.objects.get(name=f'{file.name}',edit_owner=prof)
 						edit_file.saveFile(str(b))
@@ -177,7 +177,7 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 					return HttpResponse(Saved)
 			else:
 				return HttpResponse('You can not save file because you are not logged in')
-			
+
 			# if 'path' in request.POST:
 			# 	b=request.POST.get('word')
 			# 	c=request.POST.get('path')
@@ -188,9 +188,9 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 			# 		return HttpResponse(Error)
 
 			return HttpResponse(Saved)
-	
+
 	context=dict(file=file,audio_file=audio_file,code_file=code_file,video_file=video_file,unknown_file=unknown_file,fileForm=Ff,originalFile=real_file,prof=prof,form=folderform,allow=allow)
-	return render(request,template,context) 
+	return render(request,template,context)
 
 @CheckAccess
 def folderDetailView(request,fid):
@@ -229,7 +229,7 @@ def DeleteView(request,id=None,fid=None):
 	if id:
 		file=File.objects.get(id=id)
 		file.Delete()
-		
+
 		if 'folderId' in request.GET:
 			file=Folder.objects.get(id=request.GET.get('folderId'))
 			real_file=file.file.filter(edited=None)
@@ -258,7 +258,7 @@ def CloneView(request,id):
 	    print('from view1',f.name)
 	    f.Clone(profile, folder)
 	return HttpResponse("<div class='container color-bg-s color-white'>File cloned Successfully</div>")
-	
+
 def cloneFolder(request, id):
     f=File.objects.get(id=id)
     print('from view2',f.name)
@@ -266,7 +266,7 @@ def cloneFolder(request, id):
     profile=Profile.objects.get(user=request.user)
     folder=Folder.objects.filter(owner=profile)
     context=dict(file=f, folder=folder)
-    return render(request, template, context) 
+    return render(request, template, context)
 
 def EditorView(request,id=None):
 
@@ -274,7 +274,7 @@ def EditorView(request,id=None):
 	return JsonResponse(context)
 
 def giveAcessView(request, id=None):
-	
+
 	Error=''
 
 	if request.method == 'POST':
@@ -284,7 +284,7 @@ def giveAcessView(request, id=None):
 		if passw == password:
 			request.session[f'folder{id}']='allow'
 			return redirect('FolderDetailViewUrl',fid=id)
-		
+
 		else:
 			Error="Wrong Password"
 			#return (request.path_info)
@@ -447,10 +447,15 @@ def editFolder(request,id=None,next=None):
 		return redirect(next)
 
 	return render(request,template,context)
-	
-def darkView(request,path):
+
+def darkView(request,path=None):
+    host = 'https://filetitan.pythonanywhere.com/'
+    #host = request.get_host()
     if 'dark' in request.session.keys():
         del request.session['dark']
     else:
         request.session['dark'] = True
-    return redirect(path)
+
+    if not path:
+        return redirect(host)
+    return redirect(f'{host}/{path}')

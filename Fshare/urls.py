@@ -20,7 +20,7 @@ urlpatterns=[
 	path('<int:fid>delete',DeleteView,name='FolderDeleteUrl'),
 	path('<int:id>del',DeleteView,name='FileDeleteUrl'),
 	path('<int:id>clone',CloneView,name='CloneUrl'),
-	path('<int:id>clfolder', cloneFolder, name='CloneFolderUrl'), 
+	path('<int:id>clfolder', cloneFolder, name='CloneFolderUrl'),
 	path('giveacess<int:id>',giveAcessView,name='GiveAcessUrl'),
 	path('create',createFileView,name='CreateUrl'),
 	path('branch<int:id>',branchView,name='BranchUrl'),
@@ -37,7 +37,9 @@ urlpatterns=[
 	path('deleteBranch<int:id>',deleteBranch,name='DeleteBranchUrl'),
 	path('download<int:id>',downloadView,name='DownloadUrl'),
 	path('edit<int:id>folder<path:next>',editFolder,name='EditFolderUrl'),
-	path("darkmode/<path:path>",darkView,name='DarkModeUrl')
+	path("darkmode/<path:path>",darkView,name='DarkModeUrl'),
+	path("darkmode/",darkView,name="DarkModeUrl")
+
 ]
 
 if settings.DEBUG:
