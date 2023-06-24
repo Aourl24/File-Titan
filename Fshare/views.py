@@ -56,18 +56,12 @@ def FileFormView(request):
 	if request.method == 'POST':
 		Ff=FileForm(request.POST,request.FILES)
 		others=request.FILES.getlist('file')
-		if Ff.is_valid():
-			if 'folder' in request.POST:
-				fod=request.POST.get('folder')
-				for files in others:
-					file=File.objects.create(name=files.name,file=files,folder=Folder.objects.get(id=fod))
-				return redirect('FolderDetailViewUrl',fid=int(fod))
-
-			else:
-				for files in others:
-					file=File.objects.create(name=files.name,file=files)
-			file.save()
-			return redirect('FileViewUrl')
+		if 'folder' in request.POST:
+			fod=request.POST.get('folder')
+			for files in others:
+				file=File.objects.create(name=files.name,file=files,folder=Folder.objects.get(id=fod))
+			return redirect('FolderDetailViewUrl',fid=int(fod))
+			#return redirect('FileViewUrl')
 	context=dict(fileForm=Ff)
 	return render (request,template,context)
 
@@ -455,7 +449,7 @@ def darkView(request,path=None):
         del request.session['dark']
     else:
         request.session['dark'] = True
-
+	#print(host)
     if not path:
         return redirect(host)
     return redirect(f'{host}/{path}')
