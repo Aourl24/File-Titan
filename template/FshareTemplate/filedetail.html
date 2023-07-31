@@ -1,0 +1,138 @@
+{%extends 'base.html'%}
+
+{%block heder%}
+<div class='p-1'>
+    <button class='btn btn-default color-bg-s color-white' onclick="window.history.back()">
+        <i class='fas fa-arrow-left'></i></button>
+</div>
+{%endblock%}
+{%block sidbar%}
+
+{%endblock%}
+{%block content%}
+
+
+{%load static%}
+<style type="text/css">
+    hljs-name {
+        color: yellow;
+    }
+
+    .editor {
+        height: auto;
+        font-size: 15px;
+        position: fixd;
+        tp: 180px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+    }
+
+    .fullscreen {
+        position: fixed;
+        height: 100%;
+        top: 0px;
+        bottom: 0;
+        margin-bttom: 0px;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .halfscreen {
+        width: 100%;
+        height: 50%;
+        overflow: scroll;
+    }
+
+    .error {
+        font-size: 24px;
+        background-color: red;
+        color: white;
+    }
+
+    .wide {
+        width: 5cm;
+    }
+@media(max-width:700px) {
+        .setting {
+            width: 80%;
+        }
+    }
+</style>
+
+
+
+<div class='contaner'>
+    <div class='row m-1' style=''>
+        <div class="col color-s sz-16">
+            {%if file.name|length > 20 %}
+					{{file.name|slice:':20'}}...
+					{%else%}
+					{{file.name}}
+					{%endif%}
+            {%if file.edited %} <span class='passive'>branch</span> {%endif%}
+        </div>
+        {%comment%}
+        <div class='col'>
+            <a href=''>Refresh </a>
+        </div>
+        <div class='col'>
+            <button class='normal pcolor' hx-get="{%url 'MenuUrl' %}" hx-target='#feedback'>
+                shortcuts
+            </button>
+        </div>
+        {%endcomment%}
+    </div>
+
+    <div id='feedback' class='' style='z-index:10000000000000'></div>
+    {%if video_file%}
+    {%include 'FshareTemplate/videofiledetail.html'%}
+    {%elif audio_file%}
+    {%include 'FshareTemplate/audiofile.html'%}
+    {%elif code_file%}
+    {%include 'FshareTemplate/codedetail.html'%}
+    {%else%}
+    {%include 'FshareTemplate/openwith.html'%}
+    {%endif%}
+</div>
+<script>
+    //ace.config.set('basePath',"{%static 'js'%}")
+    //ace.config.set('themePath',"{%static 'js'%}")
+    ace.config.set('modePath', "{%static 'js'%}")
+    editor_read = ace.edit('editor_read')
+    editor_read.setTheme('ace/theme/monokai');
+    editor_read.session.setMode('ace/mode/python')
+    editor_read.setReadOnly(true)
+    //editor=document.getElementById('editor')
+    function accept() {
+        //var editor = ace.edit('editor');
+        //code = editor.getValue();
+        code = $('#editor').val();
+        $('#ov').val(code)
+    }
+
+    function preview() {
+
+        $('.edit').css('height', '100%').toggleClass('fullscreen');
+    }
+
+    function che() {
+        j = document.getElementById('Saved')
+        v = document.body.contains(j)
+        if (v) {
+            $('.Saved').fadeOut()
+        }
+    }
+
+    function check() {
+        setTimeout(che, 5000)
+    }
+
+    $('#ssave').click(check)
+</script>
+
+<script type='text/babel' src="{%static 'js/react.js'%}"></script>
+
+
+{%endblock%}

@@ -1,0 +1,37 @@
+{%extends 'base.html' %}
+{%block content%}
+<div id='box' class='container'>
+	<br />
+	<h4 class='row m-2 sz-18 color-p'>Search Results </h4>
+	<div class=''>
+		
+		<div class='row m-1'>
+			<br style="line-height:5px">
+			{% if not result_folders%}
+				
+			{%endif%}
+			<div class='container-fluid p-0'>
+           
+	            {%include 'FshareTemplate/folderlist.html' with folders=result_folders %}
+            </div>
+			
+		</div>
+	</div>
+
+
+	<div class=''>
+		
+		<div class='row m-2'>
+			<br style="line-height:10px">
+			{% if not result_files%}
+				<div class='warning row m-2'> </div>
+			{%endif%}
+			<div class='container-fluid p-0'>
+             {%include 'FshareTemplate/file.html' with originalFile=result_files %}
+            </div>
+			
+		</div>
+	</div>
+</div>
+
+{%endblock%}

@@ -1,0 +1,41 @@
+<div id='menu' style='positin:absolute;z-inde:10000;' class='rounded color-bg-wite bg-ligt'>
+    <div class="sz-18 color-p my-2">
+        My Files
+    </div>
+    {%if warning%}
+    <div class='warning mesize'>
+        {{warning}}
+    </div>
+    {%endif%}
+ <div >
+    {%for folder in folders%}
+
+    <div class='sz-16 my-2 rounded p-2 olor-bg-white' onclick="sho({{folder.name}})">
+        <a href={{folder.get_absolute_url}} class='color-black' >
+        <span class='btn sz-16 p-0'><i class='far fa-folder'></i> {{folder.name}}
+        </span>
+        </a>
+    </div>
+
+    <div class='mx-1 color-black ml-3 hide' id="{{folder.name}}">
+        {%for file in folder.file.all%}
+        {%if file.edited %}
+
+        {%else%}
+        <div class='sz-14 m-2 row rounded color-bg-white p-2'>
+            <a class='color-black' href="{{file.get_absolute_url}}">
+                <i class='far fa-file'></i> </i>{{file.name}}
+        </a>
+    </div>
+    {%endif%}
+    {%endfor%}
+</div>
+</div>
+{%endfor%}
+</div>
+<script>
+    var sho=(x)=>{
+        $('#'+x).fadeIn()
+    }
+    
+</script>

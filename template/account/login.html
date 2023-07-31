@@ -1,0 +1,112 @@
+
+{%extends 'base.html'%}
+{%load static%}
+{%load account%}
+{%load socialaccount%}
+{%block header%}
+
+{%endblock%}
+{%block index%}
+
+{%endblock%}
+{%block content%}
+<style>
+body{
+    background-color: white;
+}
+input{
+    height: 1.1cm;
+}
+</style>
+
+<div class='container rounded' style=''>
+    <div class='row rounded p-2' style=''>
+        <div class='col-md-6 p-3 rounded color-bg-white'>
+            <div class='row'>
+                <div class='col'>
+                    <h2 style='' class='color-black'>
+                        Log In
+                     </h2>
+                </div>
+            </div>
+
+            <form method='post'>
+                {%csrf_token%}
+
+                            {%if form.errors %}
+                            <p class='warning'>Invalid Username or Password</p>
+                            {%endif%}
+
+
+                    {% for field in form %}
+                        {%if field.label == 'Remember Me' %}
+                        {%else%}
+
+
+                             {{field.errors}}
+                            <div class='row my-3'>
+                                <div class='col sz-14 bold color-s'>
+                                    {{field.label}}
+                                </div>
+                            </div>
+                             <div class='row my-3' >
+                                <div class='col-md-10 col-sm'>
+                                    {{ field.as_widget }}
+                                </div>
+                            </div>
+
+                        {%endif%}
+                    {% endfor %}
+                    <br />
+                    <div class='row my-3'>
+                        <div class='col-md-10 col-sm-12'>
+                                <button class='btn btn-block color-bg-p color-white sz-18'>
+                                    Login
+                                </button>
+                        </div>
+                    </div>
+
+                    <div class='row my-2'>
+                        <div class='col-md-10 center'>
+                            <a class='color-p' href="{% url 'account_reset_password'%}" style=''>
+                            Forget Password
+                            </a>
+                        </div>
+                    </div>
+            </form>
+        </div>
+        <div class='col p-3 rounded color-bg-white'>
+
+            <div class="row">
+                <div class="col">
+                    <a href="{% provider_login_url 'google' %}" class='btn border p-2 sz-18 rounded btn-block color-black'>
+                        <i class='fab fa-google text-danger'></i> Login with Google
+                    </a>
+                <div>
+            </div>
+            <br/>
+            <div class='row my-2 center'>
+                <div class='col-md-10'>
+                    If You Don't have an account
+                </div>
+            </div>
+            <div class='row my-2 center'>
+                <div class='col'>
+                    <a class='btn btn-block color-bg-s sz-18 color-white' href="{% url 'account_signup'%}" style='baground-color:357417'>
+                        Signup
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(window).on('load',function(){
+    $('input').addClass('form-control')
+})
+
+</script>
+{%endblock%}
+
+

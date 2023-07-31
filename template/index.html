@@ -1,0 +1,113 @@
+{%load static%}
+<style>
+    .bac {
+
+        background-image: url("{%static 'images/images.jpeg'%}");
+        backgrund-repeat: no-repeat;
+        background-position: bottom;
+        with: 100%;
+    }
+    .sz-30 {
+        font-size: 30
+    }
+@media(max-width:600px) {
+        newline {
+            display: block;
+        }
+        .right-image {
+            width: 300px;
+            height: 250px;
+        }
+    }
+
+    .wow {
+        z-index: 0;
+    }
+
+</style>
+<div class="contaner-fluid colr-bg-white center" style='z-index:500 p-0 m-0'>
+    <div class="row align-items-center bac p-2">
+        <div class="col-md col-sm-12">
+            <div class="row m1">
+                <div class="col bold color-white" style="font-size:20">
+                    
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col sz-18 color-dark-white color-white">
+                    We Understand that managing your files and documents can be hassle, and that is why we have created an intuitive and user-friendly file manager to help you stay organized and efficient
+                </div>
+            </div>
+
+            <div class="row m-1 py-2">
+                <div class="col sz-18 color-white">
+                    <a class='btn btn-block btn-warning sz-18 color-white
+                    color-dark-white' href="{% url 'account_signup'%}"
+                    style='baground-color:357417'>
+                        Signup
+                    </a>
+                </div>
+                <div class="col sz-18 color-white">
+                    <a class='btn btn-block btn-danger sz-18 color-white
+                    color-dark-white' href="{% url 'account_login'%}"
+                    style='baground-color:357417'>
+                        Log In
+                    </a>
+                </div>
+            </div>
+        </div>
+        {%comment%}
+        <div class="col-md col-sm-12" style="">
+            <img class="container" src="{%static 'images/images.jpeg'%}" alt="file image" />
+        </div>
+        {%endcomment%}
+    </div>
+    <br />
+    {%for header in headers%}
+    <div class="row sz-30 m-2 bold color-p">
+        <div class="col">
+            {{header.title}}
+        </div>
+    </div>
+    <div class="bg-light">
+        <div class="row m-2">
+            {%for sub in header.SubHeader.all%}
+            <div class="col-12 col-md-6 sz-18 my-2 rounded color-bg-white">
+                <div class="row sz-24 bold color-s">
+                    <div class="col py-2">
+                        {{sub.title}}
+                    </div>
+                </div>
+                {{sub.body}}
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+    <br />
+    {%endfor%}
+    {%comment%}
+    <div class="row center">
+        <img class="container" src="{%static 'images/file.png'%}" alt="file.png" />
+    </div>
+    <div class="row center m-2">
+        <div class="col sz-18">
+            Whether you are an individual or a business, File-Titan is designed to make your life easier.Try it out today and see how it can help you streamline your file management process
+        </div>
+    </div>
+    <hr />
+    <br />
+    <div class="row center">
+        This website is owned by Awwal email awwalmustapha13@gmail.com
+    </div>
+    {%endcomment%}
+</div>
+
+
+<!-- Scripts -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{%static '/js/owl-carousel.js' %}"></script>
+<script src="{%static '/js/animation.js' %}"></script>
+<script src="{%static '/js/imagesloaded.js' %}"></script>
+<script src="{%static '/js/popup.js' %}"></script>
+<script src="{%static '/js/custom.js' %}"></script>

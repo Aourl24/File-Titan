@@ -1,0 +1,62 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block user%}
+{%endblock%}
+{%block content%}
+<div class=''>
+
+	<div class='row my-1'>
+		<div class='col-10'>
+			<img class='circle' src='{{profile.profile_photo.url}}' style='height:35px;width:35px;border:black'
+			 > {{profile.user.username|title}}
+		</div> 
+		{% if profile.user == request.user %}
+			<div class='col'>
+				<a href="{%url 'ProfileEditUrl' %}" style='font-size:13px' > <i class='fas fa-pen'> </i> edit profile </a>
+			</div>
+		{%endif%}
+	</div>
+
+	<div class='row m-1'>
+		<div class='sz-12 col'><span class='passive'> Date Joined</span> {{profile.date_joined|date}} </div>
+	</div>
+
+	{%if profile.bio%}
+	<div class='row m-2'>
+		 <div class=' col'>{{profile.bio}}</div>
+	</div>
+	{%endif%}
+
+	
+	
+	{% if not profile.folder.all %}
+	<br/>
+	<div class='row center'>
+	<div class='col my-2'>
+	    <p> You currently have no directory </p>
+	    <div class="col-md col-sm-12 my-3" style="">
+            <img class="container" src="{%static 'images/file.png'%}" alt="file image" />
+        </div>
+	    <a class='btn  color-bg-p color-white' href="{%url 'FolderFormUrl' %}" style='color:white'>Click to create</a>
+	</div>
+	</div>
+	
+	{%else%}
+    
+    <div class='sz-18 my-2'>Directories</div>
+
+    {%include 'FshareTemplate/folderlist.html' with folders=profile.folder.all %}
+    
+    {%endif%}
+    
+    {%if not branches %}
+    
+    {%else%}
+	<div class='sz-18 my-2'>Branches</div>
+	
+    {%include 'FshareTemplate/file.html' with originalFile=branches %}
+    {%endif%}
+    
+</div>    
+{%endblock%}
+

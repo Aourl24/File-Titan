@@ -1,0 +1,327 @@
+{%load static %}
+<!--DOCTYPE html>-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name='viewport' content='width=device-width initial-scale=1'>
+    <meta name="theme-color" content="white" />
+    <link rel='stylesheet' href="{%static 'css/bootstrap/bootstrap.min.css'%}">
+    <link rel='stylesheet' href="{%static 'css/fontawesome_5/css/all.min.css'%}" media="print" onload="this.media='all'">
+
+    <link rel='stylesheet' href="{%static 'css/animate.min.css'%}">
+    <!-- <link rel='stylesheet' href="{%static 'css/default.min.css'%}" media="print" onload="this.media='all'"> -->
+    <link rel='stylesheet' href="{%static 'css/acss/acss_animation.css'%}" media="print" onload="this.media='all'">
+
+
+    <link rel='stylesheet' href="{%static 'css/acss/acss_basic.css'%}">
+    <link rel='stylesheet' href="{%static 'css/acss/acss.css'%}">
+    {%if 'dark' in request.session.keys %}
+    <link rel='stylesheet' href="{%static 'css/acss/acss_dark.css'%}">
+    {%endif%}
+    <script src="{%static 'js/ace.min.js'%}"></script>
+    <script src="{%static 'js/react.production.min.js'%}"></script>
+    <script src="{%static 'js/react-dom.production.min.js'%}"></script>
+    <script src="{%static 'js/babel.min.js'%}"></script>
+    <script async src="{%static 'js/htmx.min.js'%}"></script>
+    <script src="{%static 'js/jquery.min.js'%}"></script>
+    <!--<script type='text/javascript'>hljs.highlightAll()</script> -->
+    <title> File-Titan </title>
+</head>
+<style>
+:root {
+    --primary-color:#0020C2;
+    --secondary-color:#151B54 ;
+    --tertiary-color:#EBF4FA  ;
+}
+    {
+        1DA1F2,4b8ef1
+    }
+    .header {
+        word-spacing: 25px;
+
+    }
+
+    .preloader {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        z-index: 10000000;
+        backgrond-color: white;
+        text-align: center;
+    }
+
+    .dot {
+        display: inline-block;
+        height: 20px;
+        width: 20px;
+    }
+
+    .rounded {
+        border-radius: 40px;
+    }
+    .small {
+        display: inline-block;
+        height: 25px;
+        width: 25px;
+        border-radius: 200px;
+        border: 2px solid white;
+    }
+
+    body {
+        background-color: white;
+        font-size: 20px;
+        font-famly: monspace
+    }
+
+    p-bg-color {
+        background: color: #1DA1F2 !important
+    }
+
+    .dropdown {
+        display: none;
+    }
+
+    .header-area .nav .main-nav {
+        margin: 0px;
+        padding: 0px;
+        height: 10px;
+        line-height: 0px;
+    }
+
+    .header-area .min-nav .na {
+        height: 10px !important;
+        line-height: 5px !important;
+        margin-top: 0px !important;
+        padding: 0px !important;
+    }
+
+    body {
+        backgrond-color: black;
+        color: black !important;
+        padding: 3px
+    }
+
+    .wow {
+        font-fmily: monospace;
+    }
+    .mesize {
+        color: black
+    }
+    .passive {
+        color: #808080
+    }
+
+    .message {
+        background-color: #4b8ef1;
+        color: white;
+        padding: 3px;
+        z-index: 1000000000000000000000;
+    }
+
+    .pop {
+        position: fixed;
+        top: 40%;
+        z-index: 1000000000
+    }
+
+    {
+        var(--secondary-color)
+    }
+    .bpop {
+        background-color: white;
+        coor: white;
+        border-radius: 5px;
+        border: 2px solid white;
+        padding: 10px;
+        z-index: 1000000000;
+        ox-shadow: 0 0 2px black;
+    }
+
+    p {
+        color: black;
+        padding: 5px;
+    }
+
+    .mesize {
+        15px
+    }
+
+    .desize {
+        12px
+    }
+    .dropD{
+    	width:200px;
+    	height:100%;
+    }
+    @media(max-width:600px){
+    	.dropD{
+    		width:100%;
+    		height:200%;
+    	}
+    	.dropB{
+    		height:100%;
+    		width:100%;
+    		left:0px;
+    	}
+    }
+</style>
+
+<body class='font-apple sz-16 coor-bg-t b-light'>
+    <div id="preloader" class="preloader color-bg-white">
+        <div class="preloader-inner">
+            <span class=""></span>
+            <div class="dots container position-fixed" style='top:50%;bottom:50%'>
+                <span class='dot animate__animated animate__bounce animate__infinite rounded-circle color-bg-s animate__sow' style=''></span>
+                <span class='dot animate__animated animate__bounce animate__infinite rounded-circle color-bg-s animate__fast'></span>
+                <span class='dot animate__animated animate__bounce animate__infinite rounded-circle color-bg-s '></span>
+            </div>
+        </div>
+    </div>
+
+
+    {%block header%}
+    <header id='' class="navbar justify-content-space-around d-flex fixd-top rouded sz-12 bg-liht
+        animate__animated animate__slideInDown m-0 p-1 color-black"
+        style=" z-index:1000">
+    
+        <div class="sz-18 px-2 center font-lato bold">
+            File-Titan
+        </div>
+        <div class="display-md-none sz-18 " style="text-align:right">
+            <i class="fas fa-bars animate__animated animate__bounce bordr rounded p-1" id="tri" onclick="show()"></i>
+        </div>
+        </div>
+    
+    </header>
+    {%endblock%}
+
+    <div class='container-fluid'>
+        <div class='row'>
+            <div class='col'>
+            	<div id='hold' class='position-fixed m-0 color-bg-white color-bg-dark-light
+            	conner' style='z-index:6000;'>
+                <div id="dropdown" class="dropD
+                display-sm-none animate__animated animate__slideInDown overflow-auto
+                color-bg-white color-bg-dark-light m-0 p-3 rounded"
+                style="overflow:auto">
+                    
+                    <div class="row">
+                        <div class="col">
+                            <form method='POST' class="" action="{%url 'SearchUrl' %}">
+                                {%csrf_token%}
+                                <input type='search' placeholder='search files and directories' class='form-control'
+                                name='search' style='width:100%'>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    {%if request.user.is_authenticated %}
+                    <div class='row'>
+                        <div class='col align-items-center color-p'>
+                            <img class='rounded-circle'
+                            src="{{request.user.profile.profile_photo.url}}"
+                            width='30px' height='30px' /> {{request.user|title}}
+                        </div>
+                    </div>
+                    {%endif%}
+                    <div class="row my-3">
+                        <a class='col sz-18 color-black' href="{%url 'FileViewUrl' %} ">
+                            Explore
+                        </a>
+                    </div>
+                    <div class="row my-3">
+                        <a class='col sz-18 color-black' href="{%url 'FolderFormUrl' %} ">
+                            Create Directory
+                        </a>
+                    </div>
+                    {%if request.user.is_authenticated %}
+                    <div class="row my-3">
+                        <div class="col sz-18">
+                            <a class='color-black' href="{%url 'ProfileUrl' request.user.profile.id %}"> My Dashboard
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class='row my-3'>
+                        <div class='col sz-18'>
+                            <a class='color-black' href="{% url 'account_logout'%}">Log Out</a>
+                        </div>
+                    </div>
+                    {%else%}
+                    <div class="row my-2">
+                        <div class="col">
+                            <a class='whie color-black btn color-bg-s color-white' style="" href="{%url 'account_login' %}"> Log in </a>
+                        </div>
+                    </div>
+                    {%endif%}
+                    <div class='row my-3'>
+                        <div class='col sz-18'>
+                            <a class='color-black' href="{%url 'DarkModeUrl' request.path_info %}" />
+                            {%if 'dark' in request.session.keys %}
+                            Light mode
+                            {%else%}
+                            Dark mode
+                            {%endif%}
+                        	</a>
+                        </div>
+                    </div>
+                    
+                    {%if request.user.is_authenticated %}
+                	<div class='' hx-get="{%url 'MenuUrl' %}" hx-trigger='load' hx-target='#feedbac'></div>
+                	<div id="feedbac" class=""></div>
+                	{%endif%}
+                	<br />
+                </div>
+                </div>
+            </div>
+            
+        	<div class='col-md-9 col-sm-12'>
+                <div class='holder' id='messageholder' style='position:fixed;z-index:10000000;let:45%'></div>
+                {%block index%}
+                {%if request.user.is_anonymous%}
+                {%include 'index.html'%}
+                {%else%}
+                
+                {%endif%}
+                {%endblock%}
+            	<div class='contaier-fluid m-1'>
+                {%block content%}
+
+                {%endblock content%}
+                </div>
+        	</div>
+    	</div>
+	</div>
+
+
+        </body>
+        <script>
+            $(window).on('load', function() {
+                $('#preloader').fadeOut()})
+
+            function show() {
+                $('#dropdown').toggleClass('display-sm-none ');
+                $('#hold').toggleClass('dropB')
+            }
+
+            $(window).on('scroll', function() {
+                $('#header').addClass('animate__slideInUp color-bg-p color-white')
+            })
+
+            function cheMessage() {
+                j = document.getElementById('message')
+                v = document.body.contains(j)
+                if (v) {
+                    $('.message').fadeOut()
+                }
+            }
+
+            function checkM() {
+                setTimeout(cheMessage, 5000)
+            }
+
+            //$('#signal').click(chek)
+            function confirm(x) {}
+
+        </script>
+    </html>
