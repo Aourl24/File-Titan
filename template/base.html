@@ -150,19 +150,19 @@
         12px
     }
     .dropD{
-    	width:200px;
-    	height:100%;
+        width:200px;
+        height:100%;
     }
     @media(max-width:600px){
-    	.dropD{
-    		width:100%;
-    		height:200%;
-    	}
-    	.dropB{
-    		height:100%;
-    		width:100%;
-    		left:0px;
-    	}
+        .dropD{
+            width:100%;
+            height:200%;
+        }
+        .dropB{
+            height:100%;
+            width:100%;
+            left:0px;
+        }
     }
 </style>
 
@@ -188,7 +188,7 @@
             File-Titan
         </div>
         <div class="display-md-none sz-18 " style="text-align:right">
-            <i class="fas fa-arrow-left animate__animated animate__bounce bordr rounded p-1" id="tri" onclick="show()"></i>
+            <i class="fas fa-bars animate__animated animate__bounce bordr rounded p-1" id="tri" onclick="show()"></i>
         </div>
         </div>
     
@@ -197,9 +197,9 @@
 
     <div class='container-fluid'>
         <div class='row'>
-            <div class='col'>
-            	<div id='hold' class='position-fixed m-0 color-bg-white color-bg-dark-light
-            	conner' style='z-index:6000;'>
+            <div class='col-2'>
+                <div id='hold' class='position-fixed m-0 color-bg-white color-bg-dark-light
+                conner' style='z-index:6000;'>
                 <div id="dropdown" class="dropD
                 display-sm-none animate__animated animate__slideInDown overflow-auto
                 color-bg-white color-bg-dark-light m-0 p-3 rounded"
@@ -262,20 +262,20 @@
                             {%else%}
                             Dark mode
                             {%endif%}
-                        	</a>
+                            </a>
                         </div>
                     </div>
                     
                     {%if request.user.is_authenticated %}
-                	<div class='' hx-get="{%url 'MenuUrl' %}" hx-trigger='load' hx-target='#feedbac'></div>
-                	<div id="feedbac" class=""></div>
-                	{%endif%}
-                	<br />
+                    <div class='' hx-get="{%url 'MenuUrl' %}" hx-trigger='load' hx-target='#feedbac'></div>
+                    <div id="feedbac" class=""></div>
+                    {%endif%}
+                    <br />
                 </div>
                 </div>
             </div>
             
-        	<div class='col-md-9 col-sm-12'>
+            <div class='col-md-6 col-sm-12'>
                 <div class='holder' id='messageholder' style='position:fixed;z-index:10000000;let:45%'></div>
                 {%block index%}
                 {%if request.user.is_anonymous%}
@@ -284,14 +284,14 @@
                 
                 {%endif%}
                 {%endblock%}
-            	<div class='contaier-fluid m-1'>
+                <div class='contaier-fluid m-1'>
                 {%block content%}
 
                 {%endblock content%}
                 </div>
-        	</div>
-    	</div>
-	</div>
+            </div>
+        </div>
+    </div>
 
 
         </body>

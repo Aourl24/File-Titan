@@ -1,7 +1,7 @@
 from django.urls import path,include
 from .views import folderListView,FileFormView,FileDetailView,FolderFormView,DeleteView,CloneView,\
 giveAcessView,createFileView,branchView,shellView,createBranch, replaceView , mergeView,profileView,profileEdit,landingView, \
-cloneFolder,importFile,searchFile,menuView,deleteBranch,downloadView,editFolder, folderDetailView, darkView
+cloneFolder,importFile,searchFile,menuView,deleteBranch,downloadView,editFolder, folderDetailView, darkView,likeFolder
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -38,8 +38,8 @@ urlpatterns=[
 	path('download<int:id>',downloadView,name='DownloadUrl'),
 	path('edit<int:id>folder<path:next>',editFolder,name='EditFolderUrl'),
 	path("darkmode/<path:path>",darkView,name='DarkModeUrl'),
-	path("darkmode/",darkView,name="DarkModeUrl")
-
+	path("darkmode/",darkView,name="DarkModeUrl"),
+	path('likefolder<int:folder_id>',likeFolder,name="LikeFolderUrl")
 ]
 
 if settings.DEBUG:

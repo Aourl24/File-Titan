@@ -16,11 +16,16 @@
 
 <div class="">
     <div class='row color-black sz-12 align-items-center' style=''>
+<img class='container-fluid p-0 my-2'
+style='height:150px;width:100%;object-fit:cover;object-position:top'
+src="{{file.cover_photo.url}}"
+/>
         <div class='col-md col-sm-12'>
             {%if file.parent%}
             <a class='normal color-s' href='{{file.parent.get_absolute_url}}'>{{file.parent.name}}</a>
             {%endif%}
-            <i class='fas fa-folder-open'></i> <b style="font-size:20px">{{file.name|title|truncatechars:'14'}}</b>
+            <i class='fas fa-folder-open'></i> <b
+            style="font-size:20px">{{file.name|title }}</b>
         </div>
         <hr />
     <div class='col-md col-sm-12 my-sm-3'>
@@ -50,6 +55,18 @@
     </div>
     {%endif%}
 </div>
+
+<div class='row p-2 sz-12'>
+                <div class='col-2 center'>
+                    <i class='far fa-heart'></i>
+                    2543
+                </div>
+                <div class='col-2 center'>
+                    <i class='fas fa-download'></i>
+                    2000
+                </div>
+            </div>
+             
 <br />
 {%include 'FshareTemplate/folderlist.html' with folders=file.child_folder.all %}
 
@@ -70,7 +87,7 @@ style='z-index:4000;width:100%;heiht:170px;tp:20%;background-color:rgba(300,300,
 )'>
     <div class='moal-dialog modal-dialog-centered '>
         <div class='modal-body ceter bg-ligt'style='top:50px;width:100%'>
-        	
+            
             <div class='row my-2'>
                 <div class='col-12'>
                     <button onclick="$('.swap').fadeOut();$('#create').fadeIn()"
@@ -90,7 +107,7 @@ style='z-index:4000;width:100%;heiht:170px;tp:20%;background-color:rgba(300,300,
                     </button>
                 </div>
             </div>
-			
+            
             <div class='row my-2'>
                 <div class='col'>
                     <button class='btn btn-success' onclick="$('.swap').fadeOut();$('#newfolder').fadeIn()">
@@ -126,10 +143,14 @@ style='z-index:4000;width:100%;heiht:170px;tp:20%;background-color:rgba(300,300,
                     Upload Files
                 </p>
             <input type='hidden' name='folder' class='input' value={{file.id}}>
-            {%csrf_token%}
+             {%csrf_token%}
+           {%comment%}
+            
             {%for f in fileForm%}
             {{f.as_widget}}
             {%endfor%}
+            {%endcomment%}
+            <input name='file' class='form-control' type='file' multiple />
             <br />
         <button class='btn btn-block color-bg-s color-white'>Upload</button>
         <div onclick="$('#newfile').fadeOut()" class='btn btn-link btn-block text-danger'>

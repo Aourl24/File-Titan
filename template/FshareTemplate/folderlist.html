@@ -6,16 +6,21 @@ This page shows the folders in list
 {%if folders%}
 <div class='row' style=''>
     {%for folder in folders%}
-    <div class='col-md-12 col-sm-12 rounded p-3 color-bg-whie my-2 color-bg-t
-    m-2 color-bg-dark-light' style=''>
-        <div class='row align-items-center' style=''>
+    <div class='col-md-12 col-sm-12 rounded color-bg-whie my-2 colr-bg-t
+    m-2 color-bg-dark-light p-0  border' style=''>
+        {%if not folder.parent%}
+<img class='container-fluid p-0 m-0'
+style='height:150px;width:100%;object-fit:cover;object-position:top'
+src="{{folder.cover_photo.url}}"
+/>
+{%endif%}
+        <div class='row align-items-center m-2' style=''>
             <div class='col sz-16'>
                 <a class='color-black color-dark-white' style='' href={{folder.get_absolute_url}}>
+                    
                     <div class='row'>
-                        <div class='col-2'>
-                            <i class='far fa-folder color-bd-p  sz-24'></i>
-                        </div>
-                        <div class='col'>
+                        
+                        <div class='col bold'>
                             {{folder.name}} {% if folder.privacy == 'authorize' %}
                             <i class='fas fa-lock sz-sm color-black
                             color-dark-white'></i>
@@ -24,15 +29,34 @@ This page shows the folders in list
                     </div>
                 </a>
             </div>
+            
 
             <div class="col-2">
                 <span class='sz-24 color-black' style='display:inline-block;float:right;'>
                     <button class='btn color-black btn-link color-dark-white'
                     onclick="$('#{{folder.id}}menu').toggleClass('hide')">
-                    <i class='fas fa-ellipsis-v sz-14 border p-2 color-bd-s rounded'></i></button>
+                    <i class='fas fa-ellipsis-v sz-14'></i></button>
                 </span>
             </div>
         </div>
+        <div class='sz-12 m-2 row'>
+            <div class='col'>
+            This is a folder that include all fils you need to know about each
+            other well being
+            </div>
+        </div>
+        {%if not folder.parent%}
+        <div class='row sz-12 py-2'>
+                <div class='col-4 center' hx-get="{%url 'LikeFolderUrl' folder.id %}" hx-swap='innerHTML'>
+                    <i class='{%if prof in folder.likes.all%} fas fa-heart text-danger {%else%} far fa-heart text-primary{%endif%}'></i>
+                    {{folder.likes.count}}
+                </div>
+                <div class='col-3 center'>
+                    <i class='fas fa-download'></i>
+                    2000
+                </div>
+            </div>
+         {%endif%}
         
         <div id='{{folder.id}}menu' class="hide sz-14 color-bg-white color-white shadow boder rounded anmate__animated animate__slideInDown animate__faster" style="z-index:10000;position:absolute;margin-left:-18px;width:50%">
             <div class="row m-2" style="">

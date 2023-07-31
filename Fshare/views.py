@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse
-from .models import Folder,File, Profile,Header,SubHeader
+from .models import Folder,File, Profile
+
 from .form import FolderForm,FileForm,EditUser,EditFolder
 from django.http import StreamingHttpResponse,HttpResponse,HttpResponseRedirect
 from .decorators import CheckAccess
@@ -74,7 +75,8 @@ def FolderFormView(request):
 	context=dict(form=folderForm,filform=fileForm)
 
 	if request.method == 'POST':
-		folderForm=FolderForm(request.POST)
+		folderForm=FolderForm(request.POST,request.FILES)
+
 		folder_id=request.POST.get('folderid')
 
 		if folderForm.is_valid():
@@ -424,7 +426,7 @@ def editFolder(request,id=None,next=None):
 	context=dict(folder=folder,form=form)
 
 	if request.method == 'POST':
-		form = EditFolder(request.POST,instance=folder)
+		form = EditFolder(request.POST,request.FILES,instance=folder)
 		if form.is_valid():
 			b=form.save(commit=False)
 			c=request.POST.get('privacy')
@@ -453,3 +455,15 @@ def darkView(request,path=None):
     if not path:
         return redirect(host)
     return redirect(f'{host}/{path}')
+
+@login_required(login_url='login')
+def likeFolder(request,folder_id):
+	folder = Folder.objects.get(id=folder_id)
+	profile = Profile.objects.get(user=request.user)
+	check = folder.likes.filter(user=request.user).exists()
+	if check:
+		folder.likes.remove(profile)
+		return HttpResponse(f"<i class='far fa-heart text-primary'></i> {folder.likes.count()}")
+	else:
+		folder.likes.add(profile)
+		return HttpResponse(f"<i class='fas fa-heart text-danger'></i> {folder.likes.count()}")

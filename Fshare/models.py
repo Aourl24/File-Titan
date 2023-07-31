@@ -15,13 +15,15 @@ from django.core.files.storage import storages
 from django.core.files.storage import FileSystemStorage
 from pathlib import Path
 
-def select_storage():
-    if settings.AWS:
-        return storages['aws']
-    else:
-        return storages['default']
+
+# def select_storage():
+#     if settings.AWS:
+#         return storages['aws']
+#     else:
+#         return storages['default']
      
 fs = FileSystemStorage(location=f"{BASE_DIR}/media")
+
 
 def upload_file(self,filename):
     root = self.folder
@@ -31,6 +33,7 @@ def upload_file(self,filename):
         root = root.parent
     print(path)
     return f"file/{path}/{filename}"
+
     
 class Header(models.Model):
     title=models.CharField(max_length=1000)
@@ -48,12 +51,13 @@ class SubHeader(models.Model):
     def __str__(self):
         return self.title
         
+
 class Profile(models.Model):
     user=models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
     date_joined=models.DateTimeField(auto_now_add=True, blank=True, null=True)
     bio=models.CharField('About', max_length=100, blank=True, null=True)
     location=models.CharField(max_length=100, blank=True, null=True)
-    profile_photo=models.ImageField(upload_to='profileimage', default='profileimage/profile.png', null=True, blank=True,storage=fs)
+    profile_photo=models.ImageField(upload_to='profileimage', default='profileimage/profile.png', null=True, blank=True)
     mode=models.CharField(max_length=100, default='white')
     
     def __str__(self):
@@ -64,15 +68,21 @@ class Profile(models.Model):
 
 class Folder(models.Model):
 	owner=models.ForeignKey(Profile, related_name='folder', null=True, blank=True, on_delete=models.CASCADE)
-	profiles=models.ManyToManyField(Profile, blank=True, related_name='our_folder')
+	#profiles=models.ManyToManyField(Profile, blank=True, related_name='our_folder')
 	name=models.CharField(max_length=10000)
 	local_path=models.CharField(max_length=10000,default='C:/Users/USER/Documents/WDP/Django/',null=True,blank=True)
 	parent=models.ForeignKey('self',related_name='child_folder',blank=True,null=True, on_delete=models.CASCADE)
+	contributors=models.ManyToManyField(Profile, blank=True, related_name='our_folder')
+	name=models.CharField(max_length=10000)
+	cover_photo = models.ImageField(null=True,blank=True,upload_to='folder_cover_photos')
+	parent=models.ForeignKey('self',related_name='child_folder',blank=True,null=True,
+	on_delete=models.CASCADE)
 	privacy=models.CharField(choices=[('public', 'public'), ('private', 'private'), ('authorize', 'authorize')], default='public', max_length=20)
 	password=models.CharField(max_length=20, blank=True, null=True)
 	date_created=models.DateTimeField(auto_now_add=True)
 	last_updated=models.DateTimeField(auto_now=True)
 	info=models.TextField('About Directory' ,null=True,blank=True)
+	likes = models.ManyToManyField(Profile,related_name='folder_like',blank=True)
 
 	def __str__(self):
 		return self.name
@@ -106,7 +116,7 @@ class Folder(models.Model):
 class File(models.Model):
 	folder=models.ForeignKey(Folder,related_name='file', on_delete=models.CASCADE,null=True,blank=True)
 	name=models.CharField(max_length=10000)
-	file=models.FileField(upload_to=upload_file,default='file/empty.txt',storage=select_storage)
+	file=models.FileField(upload_to=upload_file,default='file/empty.txt')
 	edited=models.ForeignKey('self',related_name='edited_file',blank=True,null=True,on_delete=models.CASCADE)
 	edit_owner=models.ForeignKey(Profile,null=True,blank=True,related_name='my_file_edit',on_delete=models.CASCADE)
 	date_created=models.DateTimeField(auto_now_add=True)
