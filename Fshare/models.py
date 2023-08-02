@@ -83,6 +83,7 @@ class Folder(models.Model):
 	last_updated=models.DateTimeField(auto_now=True)
 	info=models.TextField('About Directory' ,null=True,blank=True)
 	likes = models.ManyToManyField(Profile,related_name='folder_like',blank=True)
+	download_count = models.IntegerField(default=0)
 
 	def __str__(self):
 		return self.name
@@ -107,11 +108,13 @@ class Folder(models.Model):
 		return None
 		
 	def download(self):
-        	root = Path(f"{str(MEDIA_ROOT)}/file/{self.name}")
-        	with zipfile.ZipFile(f"{MEDIA_ROOT}/zip/{self.name}.zip",mode="w") as archive:
-        		for path in root.rglob("*"):
-                		archive.write(path,arcname=path.relative_to(root))
-        	return f'media/zip/{self.name}.zip'
+		root = Path(f"{str(MEDIA_ROOT)}/file/{self.name}")
+		with zipfile.ZipFile(f"{MEDIA_ROOT}/zip/{self.name}.zip",mode="w") as archive:
+			for path in root.rglob("*"):
+		    		archive.write(path,arcname=path.relative_to(root))
+		self.download_count += 1
+		self.save()
+		return f'media/zip/{self.name}.zip'
 
 class File(models.Model):
 	folder=models.ForeignKey(Folder,related_name='file', on_delete=models.CASCADE,null=True,blank=True)

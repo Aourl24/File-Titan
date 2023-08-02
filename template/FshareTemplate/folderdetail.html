@@ -16,11 +16,18 @@
 
 <div class="">
     <div class='row color-black sz-12 align-items-center' style=''>
-<img class='container-fluid p-0 my-2'
+        {%if file.cover_photo%}
+<img class='container-fluid p-0 m-0'
 style='height:150px;width:100%;object-fit:cover;object-position:top'
 src="{{file.cover_photo.url}}"
 />
-        <div class='col-md col-sm-12'>
+{%else%}
+<div class='container-fluid p-0 m-0 justify-content-center d-flex align-items-center' style="height:150px;width:100%;object-fit:cover;object-position:top">
+<i class='fas fa-folder sz-48'></i>
+</div>
+{%endif%}
+
+        <div class='col-md col-sm-12 center'>
             {%if file.parent%}
             <a class='normal color-s' href='{{file.parent.get_absolute_url}}'>{{file.parent.name}}</a>
             {%endif%}
@@ -28,7 +35,7 @@ src="{{file.cover_photo.url}}"
             style="font-size:20px">{{file.name|title }}</b>
         </div>
         <hr />
-    <div class='col-md col-sm-12 my-sm-3'>
+    <div class='col-md col-sm-12 my-sm-3 center'>
         <button class='btn btn-link sz-sm p-0 color-s' style='' hx-get="{%url 'DownloadUrl' file.id%}"
             hx-swap='outerHTML'> <i class='fas fa-download'> </i> Download this Folder
             <div class='htmx-indicator' style='position:absolute;'>
@@ -37,7 +44,7 @@ src="{{file.cover_photo.url}}"
             </div>
         </button>
     </div>
-    <div class='col-md col'>
+    <div class='col-md col center'>
         <div class='passive desize curve padd sbcoor color-black'>
             <span class='color-s'>{{originalFile.count}}</span> files | <span
             class='color-s'>{{file.child_folder.count}}</span> folders
@@ -50,24 +57,16 @@ src="{{file.cover_photo.url}}"
         </div>
     </div>
     {%if file.owner == prof %}
-    <div class='col-md col-2'>
-        <a class='sz-sm color-p' href="{%url 'EditFolderUrl' file.id request.path_info%}">edit</a>
+    <div class='col-md col-12 center '>
+        <a class='sz-sm btn btn-danger color-white p-1' href="{%url 'EditFolderUrl' file.id request.path_info%}">edit</a>
     </div>
     {%endif%}
 </div>
 
-<div class='row p-2 sz-12'>
-                <div class='col-2 center'>
-                    <i class='far fa-heart'></i>
-                    2543
-                </div>
-                <div class='col-2 center'>
-                    <i class='fas fa-download'></i>
-                    2000
-                </div>
-            </div>
-             
-<br />
+    {%if not folder.parent%}
+        {%include 'FshareTemplate/like.html' with folder=file%}
+    {%endif%}             
+<hr />
 {%include 'FshareTemplate/folderlist.html' with folders=file.child_folder.all %}
 
 
@@ -161,7 +160,7 @@ style='z-index:4000;width:100%;heiht:170px;tp:20%;background-color:rgba(300,300,
 
 
     <div class='cotainer borer color-bg-white pop-center p-2 hide swap pol rounded'
-    id='newfolder' style='z-index:103;position:fixed;top:30%;width:100%;left:0'>
+    id='newfolder' style='z-index:103;position:fixed;top:0%;width:100%;left:0;overflow:auto;height: 100%;'>
         {% include 'FshareTemplate/folderform.html' %}
 
         <p onclick="$('#newfolder').fadeOut()" class='btn btn-link btn-block text-danger'>

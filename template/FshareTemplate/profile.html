@@ -5,10 +5,11 @@
 {%block content%}
 <div class=''>
 
-	<div class='row my-1'>
-		<div class='col-10'>
-			<img class='circle' src='{{profile.profile_photo.url}}' style='height:35px;width:35px;border:black'
-			 > {{profile.user.username|title}}
+	<div class='row align-items-center p-2 center'>
+		<div class='col-12 sz-24'>
+			<img class='rounded-circle' src='{{profile.profile_photo.url}}' style='height:50px;width:50px;'
+			 > 
+			 <br />{{profile.user.username|title}}
 		</div> 
 		{% if profile.user == request.user %}
 			<div class='col'>
@@ -17,9 +18,12 @@
 		{%endif%}
 	</div>
 
-	<div class='row m-1'>
+	<hr />
+	{%comment%}
+	<div class='row p-2 justify-content-center'>
 		<div class='sz-12 col'><span class='passive'> Date Joined</span> {{profile.date_joined|date}} </div>
 	</div>
+	{%endcomment%}
 
 	{%if profile.bio%}
 	<div class='row m-2'>
@@ -37,7 +41,7 @@
 	    <div class="col-md col-sm-12 my-3" style="">
             <img class="container" src="{%static 'images/file.png'%}" alt="file image" />
         </div>
-	    <a class='btn  color-bg-p color-white' href="{%url 'FolderFormUrl' %}" style='color:white'>Click to create</a>
+	    <a class='btn  btn-block color-bg-p color-white' href="{%url 'FolderFormUrl' %}" style='color:white'>Click to create</a>
 	</div>
 	</div>
 	

@@ -1,0 +1,291 @@
+Deploying Django with PostgreSQL on Vercel
+
+<p>In this blog, we will walk through the steps involved in deploying a Django application on Vercel with PostgreSQL and also how to upload our media files.
+</p>
+<p>
+Our goal is to make the deployment process as simple as possible, so you can focus on developing and improving your application. so let start
+<p>
+<h4>Requirements</h4>
+<ol>
+<li>Django</li>
+<li>django_environ</li>
+<li>psycopg2-binary</li>
+<li>django-cloudinary-storage</li>
+</ol>
+
+
+
+<h4>Configuring Django app</h4>
+
+<p> In your project's root directory create a new file and name it build_files.sh then paste the code below inside it.
+
+
+<pre>
+# build_files.sh
+pip install -r requirements.txt
+
+# make migrations
+python3.9 manage.py migrate 
+python3.9 manage.py collectstatic
+</pre>
+</p>
+
+<p>In your projects root directory create a new JSON file and name it vercel.json then paste the code below inside it and change the project name.
+
+
+<pre>
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "project_name/wsgi.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
+    },
+    {
+      "src": "build_files.sh",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "staticfiles"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "project_name/wsgi.py"
+    }
+  ],
+  "outputDirectory": "staticfiles"
+}
+
+
+</pre>
+Remmber to change the project_name to the name of your project
+</p>
+
+<p> Now go to your projects settings.py and paste  the code below
+
+
+<pre>
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+</pre>
+This is the path to our static files storage
+</p>
+
+<p> Create an empty folder and name it static in your project's root directory (this is where all our static files will be stored). Next, update your project's urls.py by importing👇
+<pre>
+from django.conf import settings
+from django.conf.urls.static import static
+</pre>
+
+copy the configuration settings below after urlpatterns=[ ];
+
+<pre>
+# add at the last
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+</pre>
+</p>
+<p> Next step is to go to your settings.py file and update your ALLOWED_HOST to permit vercel.app to be a valid hostname for your Django app.
+
+
+<pre>
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
+# Or * to allow all
+ALLOWED_HOSTS = ['*']
+</pre>
+</p>
+<p>Go to your wsgi.py file created for you by Django in your project directory and append in the line of code below
+<pre>
+    app = application
+</pre>
+So your wsgi.py will look like this
+<pre>
+
+import os
+
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'saveplate.settings')
+application = get_wsgi_application()
+app = application #add here
+</pre>
+</p>
+<h4>Connecting to PostgreSQL</h4>
+<p>
+    Django comes with SQlite Database but vercel does not support the database so we have to use another one.For our project we are using PostgreSQL, To use the database on your machine create a local PostgreSQL database. To connect our Django app that will be hosted on Vercel we need to host our database on a remote server. We can use Supabase to host the database
+</p>
+
+<p class='bold'>Configure your Django app for connecting to PostgreSQL
+</p>
+
+<p>Install the package to connect with PostgreSQL. Recommended downloading the binary package.
+
+<pre>pip install psycopg2-binary</pre>
+Update your settings.py file with the below-given code
+
+<pre>
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': env("HOST"),
+        'NAME': env("NAME"),
+        'USER': env("USER"),
+        'PASSWORD':env("PASSWORD"),
+        'PORT':env("PORT"),
+
+    }
+}
+</pre>
+</p>
+<p> To store the local database connection info create a .env file inside the main app folder app/.env
+
+
+<pre>
+DB_NAME=DB_NAME
+DB_USER=DB_USER
+DB_PASSWORD=DB_PASSWORD
+DB_HOST=DB_HOST
+DB_PORT=DB_PORT
+</pre>
+<p>
+
+<p>To load the environment variables in file settings.py
+
+Install package pip install django-environ
+
+
+<pre>
+# settings.py
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+</pre>
+</p>
+
+<h4>Configuring Media Storage and Uploads</h4>
+There are many website that offer cloud storage for your media files but we are using cloudinary because it is easy and free to use
+<p>First thing you need to do is to install a Django package called django-cloudinary-storage that helps in connecting your Django project to the cloudinary platform. To do so execute the command below in your terminal to install the package.
+
+<pre>pip install django-cloudinary-storage</pre>
+Wait for package to finish installing then add the package to your installed app.
+</p>
+<p>
+There are two ways to add the package and what you are going to be using it for will determine which one to use.
+
+ If you are going to use this package for static and/or media files, make sure that cloudinary_storage is before django.contrib.staticfiles as shown below
+
+<pre>
+INSTALLED_APPS = [
+    # ...
+    'cloudinary_storage',
+    'django.contrib.staticfiles',
+    'cloudinary',
+    # ...
+]
+</pre>
+If you are going to use it only for media files though, it is django.contrib.staticfiles which has to be first as shown below;
+
+<pre>
+    INSTALLED_APPS = [
+    # ...
+    'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
+    # ...
+]
+</pre>
+</p>
+<p>
+Confirm that the following configurations are in your projects urls.py file
+
+<pre>
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+</pre>
+
+<p>
+Next go to your settings.py file and add this below the staticfiles configuration. What this does is that it makes all the media files you upload from then onwards to be uploaded to cloudinary.
+
+<pre>
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+</pre>
+if you are using new django version
+<pre>
+    STORAGES = {'default':{"BACKEND":'cloudinary_storage.storage.MediaCloudinaryStorage'
+}, 
+"staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    }, 
+}
+    
+</pre>
+</p>
+<p>
+Next go to the cloudinary website  and create a free cloudinary account. After your account have been created go to the dashboard page and copy the cloud name, api key and api secret.
+
+</p>
+
+<p>Finally copy and paste this into your project settings.py file;
+
+<pre>
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME':env('CLOUD_NAME'),
+    'API_KEY':env('API_KEY'),
+    'API_SECRET':env('API_SECRET'), 
+}
+</pre>
+Then update your environment variables;
+<pre>
+CLOUD_NAME=******
+API_KEY=********
+API_SECRET=*****
+</pre>
+And that's all you need to do to setup cloudinary as a media storage for your Django project.
+</p>
+<p> Update requirements.txt
+
+<pre>
+pip freeze > requirements.txt
+</pre>
+💡When hosting a project it's recommended to store the secret keys as environment variables. Since we are deploying the project on Vercel we will add the environment variables there. So now let's tell git to ignore the local env file which has the DB configurations.
+
+</p>
+<p> Add the .env file in gitignore.
+
+
+<pre>
+.env
+</pre>
+
+Push your code on GitHub 🚀.
+
+<p> We are all set for Deployment 🔥
+Create an account on Vercel and connect to your GitHub account.
+
+</p>
+
+<p>Import the project from GitHub</p>
+
+
+
+<p> Get the database information from supabase and add the environment variables. Name them as you named them in the settings.py file.
+</p>
+
+
+<p> Click on Deploy</p>
+
+And that is it !!!🎉
+Your project is up and running 🔥
+
+
+
+Finishing up 👋
+You can choose a different database just add the database details in the environment variables and everything will work fine 😁.

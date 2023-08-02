@@ -22,8 +22,8 @@
         color: white;
     }
 </style>
-<div class='container'>
-<div class='container color-bg-whie'>
+<div class=''>
+<div class='color-bg-whie'>
     <div class='insize color-p my-2'>
         Edit <span class='color-s'>{{folder.name}}</span>
     </div>
@@ -37,11 +37,12 @@
         {%csrf_token%}
         <input name='folderid' type='hidden' value='{{file.id}}'>
         <div class='color-s'>
-            <div class='m-2 color-s'>
-                Name
-            </div>
             {%for f in form%}
-            {{f.as_widget}}
+            <div class='m-2 color-s'>
+                {{f.label}}
+            </div>
+
+           <p> {{f.as_widget}} </p>
             {%endfor%}
         </div>
         <div class='m-2 color-s'>

@@ -9,10 +9,18 @@ This page shows the folders in list
     <div class='col-md-12 col-sm-12 rounded color-bg-whie my-2 colr-bg-t
     m-2 color-bg-dark-light p-0  border' style=''>
         {%if not folder.parent%}
+
+{%if folder.cover_photo%}
 <img class='container-fluid p-0 m-0'
 style='height:150px;width:100%;object-fit:cover;object-position:top'
 src="{{folder.cover_photo.url}}"
 />
+{%else%}
+<div class='container-fluid p-0 m-0 justify-content-center d-flex align-items-center' style="height:150px;width:100%;object-fit:cover;object-position:top">
+<i class='fas fa-folder sz-48'></i>
+</div>
+{%endif%}
+
 {%endif%}
         <div class='row align-items-center m-2' style=''>
             <div class='col sz-16'>
@@ -45,18 +53,10 @@ src="{{folder.cover_photo.url}}"
             other well being
             </div>
         </div>
+        
         {%if not folder.parent%}
-        <div class='row sz-12 py-2'>
-                <div class='col-4 center' hx-get="{%url 'LikeFolderUrl' folder.id %}" hx-swap='innerHTML'>
-                    <i class='{%if prof in folder.likes.all%} fas fa-heart text-danger {%else%} far fa-heart text-primary{%endif%}'></i>
-                    {{folder.likes.count}}
-                </div>
-                <div class='col-3 center'>
-                    <i class='fas fa-download'></i>
-                    2000
-                </div>
-            </div>
-         {%endif%}
+        {%include 'FshareTemplate/like.html'%}
+        {%endif%}
         
         <div id='{{folder.id}}menu' class="hide sz-14 color-bg-white color-white shadow boder rounded anmate__animated animate__slideInDown animate__faster" style="z-index:10000;position:absolute;margin-left:-18px;width:50%">
             <div class="row m-2" style="">

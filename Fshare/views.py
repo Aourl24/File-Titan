@@ -456,11 +456,19 @@ def darkView(request,path=None):
         return redirect(host)
     return redirect(f'{host}/{path}')
 
-@login_required(login_url='login')
+
 def likeFolder(request,folder_id):
+	
+	if request.user.is_anonymous:
+		resp = HttpResponse('')
+		resp['HX-Refresh'] = 'true'
+		print(resp)
+		return resp
+	
 	folder = Folder.objects.get(id=folder_id)
 	profile = Profile.objects.get(user=request.user)
 	check = folder.likes.filter(user=request.user).exists()
+
 	if check:
 		folder.likes.remove(profile)
 		return HttpResponse(f"<i class='far fa-heart text-primary'></i> {folder.likes.count()}")

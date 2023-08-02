@@ -20,7 +20,7 @@
     }
 </style>
 <div class='color-bg-white'>
-    <div class='sz-18 color-black my-2'>
+    <div class='sz-24 color-p my-2'>
         Create Folder
     </div>
     {%if warning%}
@@ -32,11 +32,11 @@
         {%csrf_token%}
         <input name='folderid' type='hidden' value='{{file.id}}'>
         <div class='color-s'>
-            <div class='my-2 color-s'>
-                Name
-            </div>
             {%for f in form%}
-            {{f.as_widget}}
+            <div class='my-2 color-s'>
+                {{f.label}}
+            </div>
+            <p>{{f.as_widget}} </p>
             {%endfor%}
         </div>
         <div class='m-2 color-s'>
