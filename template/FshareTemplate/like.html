@@ -1,10 +1,10 @@
-<div class='row sz-12 m-2 justify-content-center'>
-    <div class='col-4' hx-get="{%url 'LikeFolderUrl' folder.id %}" hx-swap='innerHTML'>
+
+    <div class='col sz-14' hx-get="{%url 'LikeFolderUrl' folder.id %}" hx-swap='innerHTML'>
         <i class='{%if prof in folder.likes.all%} fas fa-heart text-danger {%else%} far fa-heart text-primary{%endif%}'></i>
         {{folder.likes.count}}
     </div>
-    <div class='col-3'>
-        <i class='fas fa-download'></i>
+    <div class='col sz-14' hx-get="{%url 'DownloadUrl' folder.id%}" hx-swap='outerHTML'>
+        <i class='fas fa-download text-danger'></i>
         {{folder.download_count}}
     </div>
-</div>
+

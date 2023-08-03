@@ -10,7 +10,7 @@
  <div >
     {%for folder in folders%}
 
-    <div class='sz-16 my-2 rounded p-2 olor-bg-white' onclick="sho({{folder.name}})">
+    <div class='sz-16 my-2 rounded olor-bg-white' onclick="sho({{folder.name}})">
         <a href={{folder.get_absolute_url}} class='color-black' >
         <span class='btn sz-16 p-0'><i class='far fa-folder'></i> {{folder.name}}
         </span>

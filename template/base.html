@@ -44,16 +44,13 @@
     .preloader {
         height: 100%;
         width: 100%;
-        position: absolute;
+        position:absolute;
         z-index: 10000000;
         backgrond-color: white;
-        text-align: center;
     }
 
     .dot {
         display: inline-block;
-        height: 20px;
-        width: 20px;
     }
 
     .rounded {
@@ -164,24 +161,21 @@
             left:0px;
         }
     }
+    .hideI{
+        display:none!important;
+    }
 </style>
 
 <body class='font-apple sz-16 coor-bg-t b-light'>
-    <div id="preloader" class="preloader color-bg-white">
-        <div class="preloader-inner">
-            <span class=""></span>
-            <div class="dots container position-fixed" style='top:50%;bottom:50%'>
-                <span class='dot animate__animated animate__bounce animate__infinite rounded-circle color-bg-s animate__sow' style=''></span>
-                <span class='dot animate__animated animate__bounce animate__infinite rounded-circle color-bg-s animate__fast'></span>
-                <span class='dot animate__animated animate__bounce animate__infinite rounded-circle color-bg-s '></span>
-            </div>
-        </div>
+    <div id="pre-loader" class="color-bg-white h-100 w-100 d-flex justify-content-center align-items-center position-fixed" style="z-index:10000">
+                <span class='dot animate__animated animate__bounce animte__delay-1s animate__infinite color-p aniate__slow' style=''> File </span>
+                <span class='dot animate__animated animate__bounce aniate__delay-2s animate__infinite color-s animate__fast'>Titan</span>  
     </div>
 
 
     {%block header%}
     <header id='' class="navbar justify-content-space-around d-flex fixd-top rouded sz-12 bg-liht
-        animate__animated animate__slideInDown m-0 p-1 color-black"
+        animate__animated animate__slideInDown m-0 p-1 color-p"
         style=" z-index:1000">
     
         <div class="sz-18 px-2 center font-lato bold">
@@ -267,8 +261,8 @@
                     </div>
                     
                     {%if request.user.is_authenticated %}
-                    <div class='' hx-get="{%url 'MenuUrl' %}" hx-trigger='load' hx-target='#feedbac'></div>
-                    <div id="feedbac" class=""></div>
+                    <div class='' hx-get="{%url 'MenuUrl' %}" hx-trigger='load' hx-swap='innerHTML'></div>
+                    
                     {%endif%}
                     <br />
                 </div>
@@ -297,7 +291,7 @@
         </body>
         <script>
             $(window).on('load', function() {
-                $('#preloader').fadeOut()})
+                $('#pre-loader').addClass('hideI')})
 
             function show() {
                 $('#dropdown').toggleClass('display-sm-none ');

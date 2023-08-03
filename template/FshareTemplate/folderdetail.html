@@ -15,9 +15,9 @@
 </style>
 
 <div class="">
-    <div class='row color-black sz-12 align-items-center' style=''>
+    <div class='row color-black sz-12' style=''>
         {%if file.cover_photo%}
-<img class='container-fluid p-0 m-0'
+<img class='container-fluid p-0 my-2'
 style='height:150px;width:100%;object-fit:cover;object-position:top'
 src="{{file.cover_photo.url}}"
 />
@@ -64,7 +64,9 @@ src="{{file.cover_photo.url}}"
 </div>
 
     {%if not folder.parent%}
+    <div class='row sz-12 m-2 center'>
         {%include 'FshareTemplate/like.html' with folder=file%}
+    </div>
     {%endif%}             
 <hr />
 {%include 'FshareTemplate/folderlist.html' with folders=file.child_folder.all %}
@@ -74,8 +76,8 @@ src="{{file.cover_photo.url}}"
 {%include 'FshareTemplate/file.html'%}
 
 {%if file.owner == prof %}
-<div class='bottom-side  ronded color-bg-s p-3 m-2'
-style='border-radius:20px;z-index:5000;right:10px;bottom:30px' onclick="$('#createbox').fadeToggle()">
+<div class='bottom-side  rounded-circle color-bg-p p-3 m-2'
+style='bordr-radius:20px;z-index:5000;right:10px;bottom:30px' onclick="$('#createbox').fadeToggle()">
     <i class='fas fa-plus sz-24'></i>
 </div>
 {%endif%}

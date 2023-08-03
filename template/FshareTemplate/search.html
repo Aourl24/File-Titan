@@ -1,8 +1,8 @@
 {%extends 'base.html' %}
 {%block content%}
-<div id='box' class='container'>
+<div id='box' class=''>
 	<br />
-	<h4 class='row m-2 sz-18 color-p'>Search Results </h4>
+	<h4 class='sz-18 color-p'>Search Results </h4>
 	<div class=''>
 		
 		<div class='row m-1'>
@@ -32,6 +32,9 @@
 			
 		</div>
 	</div>
+	{%if not result_files and result_folder%}
+		<h3>No Result Found </h3>
+	{%endif%}
 </div>
 
 {%endblock%}
