@@ -148,6 +148,8 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
+
 if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000 # One year in seconds
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True

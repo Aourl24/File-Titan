@@ -30,3 +30,4 @@ STORAGES = {'default':{"BACKEND":'cloudinary_storage.storage.MediaCloudinaryStor
     }, 
 }
 
+
