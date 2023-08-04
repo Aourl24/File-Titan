@@ -35,7 +35,7 @@ src="{{file.cover_photo.url}}"
             style="font-size:20px">{{file.name|title }}</b>
         </div>
         <hr />
-    <div class='col-md col-sm-12 my-sm-3 center'>
+    <div class='col-md-12 col-sm-12 my-sm-3 center'>
         <button class='btn btn-link sz-sm p-0 color-s' style='' hx-get="{%url 'DownloadUrl' file.id%}"
             hx-swap='outerHTML'> <i class='fas fa-download'> </i> Download this Folder
             <div class='htmx-indicator' style='position:absolute;'>

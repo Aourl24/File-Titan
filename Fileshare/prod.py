@@ -28,4 +28,5 @@ STORAGES = {'default':{"BACKEND":'cloudinary_storage.storage.MediaCloudinaryStor
 "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     }, 
-} 
+}
+

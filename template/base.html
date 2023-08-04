@@ -1,17 +1,23 @@
 {%load static %}
+{%load settings_tag%}
 <!--DOCTYPE html>-->
 <html>
 <head>
     <meta charset="utf-8">
     <meta name='viewport' content='width=device-width initial-scale=1'>
-    <meta name="theme-color" content="white" />
+    <meta name="theme-color" content="" />
+    {%settings_value 'LOCAL' as L %}
+
+    {%if L%}
     <link rel='stylesheet' href="{%static 'css/bootstrap/bootstrap.min.css'%}">
     <link rel='stylesheet' href="{%static 'css/fontawesome_5/css/all.min.css'%}" media="print" onload="this.media='all'">
 
     <link rel='stylesheet' href="{%static 'css/animate.min.css'%}">
     <!-- <link rel='stylesheet' href="{%static 'css/default.min.css'%}" media="print" onload="this.media='all'"> -->
     <link rel='stylesheet' href="{%static 'css/acss/acss_animation.css'%}" media="print" onload="this.media='all'">
-
+    {%else%}
+    {%include 'cdn.html'%}
+    {%endif%}
 
     <link rel='stylesheet' href="{%static 'css/acss/acss_basic.css'%}">
     <link rel='stylesheet' href="{%static 'css/acss/acss.css'%}">
@@ -164,6 +170,17 @@
     .hideI{
         display:none!important;
     }
+    a{
+        text-decoration: none;
+    }
+    a:hover {
+        color: var(--primary-color);
+        padding:3px;
+    }
+    button:hover{
+        background-color:silver;
+    }
+    
 </style>
 
 <body class='font-apple sz-16 coor-bg-t b-light'>
@@ -175,10 +192,10 @@
 
     {%block header%}
     <header id='' class="navbar justify-content-space-around d-flex fixd-top rouded sz-12 bg-liht
-        animate__animated animate__slideInDown m-0 p-1 color-p"
-        style=" z-index:1000">
+        animate__animated animate__slideInDown m-0 p-2 color-bg-white color-p"
+        style=" z-index:7000">
     
-        <div class="sz-18 px-2 center font-lato bold">
+        <div class="sz-20 px-2 center font-lato bold" style="font-size: 22px;">
             File-Titan
         </div>
         <div class="display-md-none sz-18 " style="text-align:right">
@@ -191,14 +208,16 @@
 
     <div class='container-fluid'>
         <div class='row'>
+            
             <div class='col-2'>
+                {%block sidebar%}
                 <div id='hold' class='position-fixed m-0 color-bg-white color-bg-dark-light
-                conner' style='z-index:6000;'>
+                conner bg-light h-100' style='z-index:6000;'>
                 <div id="dropdown" class="dropD
                 display-sm-none animate__animated animate__slideInDown overflow-auto
-                color-bg-white color-bg-dark-light m-0 p-3 rounded"
+                clor-bg-white color-bg-dark-light m-0 p-3 rounded"
                 style="overflow:auto">
-                    
+                
                     <div class="row">
                         <div class="col">
                             <form method='POST' class="" action="{%url 'SearchUrl' %}">
@@ -212,9 +231,9 @@
                     {%if request.user.is_authenticated %}
                     <div class='row'>
                         <div class='col align-items-center color-p'>
-                            <img class='rounded-circle'
+                            <img class='rounded-circle' style="object-fit:cover;"
                             src="{{request.user.profile.profile_photo.url}}"
-                            width='30px' height='30px' /> {{request.user|title}}
+                            width='30px' height='30px' /> {{request.user|title|truncatechars:'13'}}
                         </div>
                     </div>
                     {%endif%}
@@ -267,9 +286,11 @@
                     <br />
                 </div>
                 </div>
+                {%endblock%}
             </div>
             
-            <div class='col-md-6 col-sm-12'>
+
+            <div class='col-md col-sm-12'>
                 <div class='holder' id='messageholder' style='position:fixed;z-index:10000000;let:45%'></div>
                 {%block index%}
                 {%if request.user.is_anonymous%}

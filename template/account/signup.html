@@ -5,6 +5,9 @@
 {%block header%}
 
 {%endblock%}
+{%block sidebar%}
+
+{%endblock%}
 {%block content%}
 
 {%block index%}
@@ -20,8 +23,8 @@ input{
 </style>
 
 <div class='' style=''>
-    <div class='row rounded p-2' style=''>
-        <div class='col-md-6 p-3 rounded color-bg-white'>
+    <div class='row rounded p-2 justify-content-center' style=''>
+        <div class='col-12 p-3 rounded color-bg-white'>
             <div class='row'>
                 <div class='col'>
                     <h2 style='' class='color-black'>
@@ -50,7 +53,7 @@ input{
                                 </div>
                             </div>
                              <div class='row my-3' >
-                                <div class='col-md-10 col-sm'>
+                                <div class='col col-sm'>
                                     {{ field.as_widget }}
                                 </div>
                             </div>
@@ -59,15 +62,15 @@ input{
                     {% endfor %}
                     <br />
                     <div class='row my-3'>
-                        <div class='col-md-10 col-sm-12'>
-                                <button class='btn btn-block color-bg-p color-white sz-18'>
+                        <div class='col col-sm-12'>
+                                <button class='btn btn-block color-bg-p color-white sz-18 w-100'>
                                     Sign Up
                                 </button>
                         </div>
                     </div>
 
                     <div class='row my-2'>
-                        <div class='col-md-10 center'>
+                        <div class='col center'>
                             <a class='color-p' href="{% url 'account_reset_password'%}" style=''>
                             Forget Password
                             </a>
@@ -75,24 +78,24 @@ input{
                     </div>
             </form>
         </div>
-        <div class='col p-3 rounded color-bg-white'>
+        <div class='col-12 p-3 rounded color-bg-white'>
 
             <div class="row">
                 <div class="col">
-                    <a href="{% provider_login_url 'google' %}" class='btn border p-2 sz-18 rounded btn-block color-black'>
+                    <a href="{% provider_login_url 'google' %}" class='btn border p-2 sz-18 rounded btn-block color-black w-100'>
                         <i class='fab fa-google text-danger'></i> Sign Up with Google
                     </a>
                 <div>
             </div>
             <br/>
             <div class='row my-2 center'>
-                <div class='col-md-10'>
+                <div class='col'>
                     If You Already have an account
                 </div>
             </div>
             <div class='row my-2 center'>
                 <div class='col'>
-                    <a class='btn btn-block color-bg-s sz-18 color-white' href="{% url 'account_login'%}" style='baground-color:357417'>
+                    <a class='btn btn-block color-bg-s sz-18 color-white w-100' href="{% url 'account_login'%}" style='baground-color:357417'>
                         Log In
                     </a>
                 </div>

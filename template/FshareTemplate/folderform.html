@@ -45,17 +45,17 @@
         <input type='hidden' id='privacy' name='privacy' />
         <div class='row my-3'>
             <div class='col '>
-                <div id='public' class='btn border rounded sz-16' type='button' onclick="ch('public')">
+                <div id='public' class='pri p-2 center border rounded sz-16 w-100' type='button' onclick="ch('public')">
                     Public
                 </div>
             </div>
             <div class='col'>
-                <div id='private' class='btn border rounded sz-16' type='button' onclick="ch('private')">
+                <div id='private' class='pri p-2 center border rounded sz-16 w-100' type='button' onclick="ch('private')">
                     Private
                 </div>
             </div>
             <div class='col'>
-                <div id='author' class='btn border rounded sz-16' type='button' onclick="ch('author')">
+                <div id='author' class='pri p-2 center border rounded sz-16 w-100' type='button' onclick="ch('author')">
                     Authorize
                 </div>
             </div>
@@ -80,7 +80,7 @@
         </div>
         <br />
         <div class='center my-3'>
-            <button class='btn btn-block color-bg-s rounded color-white' style='height:1.2cm;'>Create</button>
+            <button class='btn btn-block color-bg-s rounded color-white w-100' style='color:white'>Create</button>
         </div>
     </form>
 
@@ -92,14 +92,14 @@
         }
 
         function ch(x) {
-            $('.btn').removeClass('color-bg-p color-white')
-            $('#password').removeClass('show')
-            $('#'+x).toggleClass('color-bg-p color-white')
+            $('.pri').removeClass('color-bg-p color-white')
+            $('#password').addClass('hide')
+            $('#'+x).addClass('color-bg-p color-white')
             if (x == 'private') {
                 $('#privacy').val('private')
             } else if (x == 'author') {
                 $('#privacy').val('authorize');
-                $('#password').toggleClass('hide')
+                $('#password').removeClass('hide')
             } else {
                 $('#privacy').val('public')
             }
