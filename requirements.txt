@@ -1,5 +1,5 @@
 Django==4.2.2
-django_ckeditor==6.6.1
+django-allauth
 django_environ==0.10.0
 psycopg2-binary==2.9.6
 Pillow==9.5.0

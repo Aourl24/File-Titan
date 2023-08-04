@@ -12,14 +12,14 @@ class FileForm(forms.ModelForm):
 class FolderForm(forms.ModelForm):
 	class Meta:
 		model=Folder
-		fields=['name','cover_photo','info']
-		widgets={'name':forms.TextInput(attrs={'class':'form-control'}),'info':forms.Textarea(attrs={'class':'form-control'}),'privacy':forms.Select(attrs={'class':'input'}),'cover_photo':forms.ClearableFileInput(attrs={'class':'form-control'})}
+		fields=['name','info']
+		widgets={'name':forms.TextInput(attrs={'class':'form-control'}),'info':forms.Textarea(attrs={'class':'form-control'}),'privacy':forms.Select(attrs={'class':'input'})}#'cover_photo':forms.ClearableFileInput(attrs={'class':'form-control'})}
 		#widgets={'password':forms.TextInput(attrs={'id':'password','class':'hide','type':'password'})}
 
 class EditFolder(forms.ModelForm):
 	class Meta:
 		model=Folder
-		fields =['name','cover_photo']
+		fields =['name']
 		widgets={'name':forms.TextInput(attrs={'class':'form-control'}),'cover_photo':forms.ClearableFileInput(attrs={'class':'form-control'})}
 
 class FolderFormAlt(forms.ModelForm):

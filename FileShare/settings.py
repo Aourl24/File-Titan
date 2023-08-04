@@ -28,7 +28,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-AWS = True
+LOCAL = False
 ALLOWED_HOSTS = ['*']
 #ALLOWED_HOSTS = ['filetitan.pythonanywhere.com']
 
@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'storages',
 ]
 
 MIDDLEWARE = [
@@ -83,13 +82,6 @@ WSGI_APPLICATION = 'FileShare.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation
@@ -156,26 +148,6 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-STORAGES = {"aws":
-    {"BACKEND":
-        "storages.backends.s3boto3.S3Boto3Storage"
-    },
-    'default':{
-        "BACKEND":"django.core.files.storage.FileSystemStorage"
-        },
-   "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    },
-}
-
-AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY =env('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME ="filesharebucket001"
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-AWS_S3_REGION_NAME = "eu-north-1"
-AWS_S3_ADDRESSING_STYLE = "virtual"
-
 if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000 # One year in seconds
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
@@ -187,3 +159,18 @@ if not DEBUG:
     STATIC_ROOT=str(BASE_DIR.joinpath('static'))
     #STATICFILES_DIRS=''
     ALLOWED_HOSTS = ['filetitan.pythonanywhere.com']
+
+
+# AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY =env('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME ="filesharebucket001"
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = None
+# AWS_S3_REGION_NAME = "eu-north-1"
+# AWS_S3_ADDRESSING_STYLE = "virtual"
+
+if LOCAL:
+    from .dev import *
+
+else:
+    from .prod import *

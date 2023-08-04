@@ -6,8 +6,7 @@ This page shows the folders in list
 {%if folders%}
 <div class='row' style=''>
     {%for folder in folders%}
-    <div class='col-md-12 col-sm-12 rounded color-bg-whie my-2 colr-bg-t
-    m-2 color-bg-dark-light p-0  border' style=''>
+    <div class='col-sm-12 col-md-5 my-2 mx-md-2 rounded color-bg-whie  color-bg-dark-light p-0  border ' style=''>
         {%if not folder.parent%}
 <a class='color-black color-dark-white' style='' href={{folder.get_absolute_url}}>
 {%if folder.cover_photo%}
