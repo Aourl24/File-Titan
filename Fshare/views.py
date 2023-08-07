@@ -16,11 +16,12 @@ Error="<div class='message' id='message'>Unable to Perform Action, Check your Pa
 Saved="<div class='' id='msg' style=''> Saved </div>"
 t='FshareTemplate/'
 #POST https://titleId.playfabapi.com/File/GetFiles
+
 def landingView(request):
 	# The landing page
-	header=Header.objects.all()
+	header=''
 	context=dict(headers=header)
-	return render(request, 'index.html',context)
+	return render(request, 'landing.html',context)
 
 def folderListView(request):
 	#This function display all folder both public and authorize

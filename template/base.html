@@ -212,7 +212,7 @@
             <div class='col-2'>
                 {%block sidebar%}
                 <div id='hold' class='position-fixed m-0 color-bg-white color-bg-dark-light
-                conner bg-light h-100' style='z-index:6000;'>
+                conner border-right h-100' style='z-index:6000;'>
                 <div id="dropdown" class="dropD
                 display-sm-none animate__animated animate__slideInDown overflow-auto
                 clor-bg-white color-bg-dark-light m-0 p-3 rounded"
@@ -294,7 +294,9 @@
                 <div class='holder' id='messageholder' style='position:fixed;z-index:10000000;let:45%'></div>
                 {%block index%}
                 {%if request.user.is_anonymous%}
+                {%comment%}
                 {%include 'index.html'%}
+                {%endcomment%}
                 {%else%}
                 
                 {%endif%}
