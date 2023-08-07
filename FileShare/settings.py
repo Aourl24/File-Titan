@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import environ
-
+import os
+ 
 env = environ.Env()
 environ.Env.read_env()
 
@@ -120,7 +121,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS=[str(BASE_DIR.joinpath('static'))]
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles', 'static')
 MEDIA_URL='media/'
 MEDIA_ROOT=str(BASE_DIR.joinpath('media'))
 # Default primary key field type
@@ -148,8 +149,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
-
+ 
 if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000 # One year in seconds
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
@@ -158,7 +158,7 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SECURE_HSTS_PRELOAD = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
-    STATIC_ROOT=str(BASE_DIR.joinpath('static'))
+    #STATIC_ROOT=str(BASE_DIR.joinpath('static'))
     #STATICFILES_DIRS=''
     ALLOWED_HOSTS = ['filetitan.pythonanywhere.com']
 
