@@ -17,6 +17,9 @@ Saved="<div class='' id='msg' style=''> Saved </div>"
 t='FshareTemplate/'
 #POST https://titleId.playfabapi.com/File/GetFiles
 
+def message (x):
+    return f"<div class='alert animate__animated animate__fadeOut animate__delay-5'>{x}</div>"
+    
 def landingView(request):
 	# The landing page
 	header=''
@@ -118,10 +121,15 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 	template=''
 	real_file=''
 	prof=''
-	code_file=''
-	video_file=''
-	audio_file=''
-	unknown_file = ''
+	code_file=False
+	video_file=False
+	audio_file=False
+	unknown_file = False
+	img_file = False
+	code_file_ext = ['py','js','txt','html','json','pdf',]
+	audio_file_ext = ['mp3','wav']
+	video_file_ext = ['mp4','ogv']
+	image_file_ext = ['jpeg','jpg','png','svg']
 	folderform=FolderForm()
 	if request.user.is_authenticated:
 		prof=Profile.objects.get(user=request.user)
@@ -139,12 +147,16 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 				allow=False
 
 		template=t + 'filedetail.html'
-		if file.name.endswith('.mp4') or typ == 'video':
+		file_ext = file.file.name.split('.')
+		extension = file_ext[-1]
+		if extension in video_file_ext or typ == 'video':
 			video_file = True
-		elif file.name.endswith('.mp3') or typ == 'audio':
+		elif extension in audio_file_ext or typ == 'audio':
 			audio_file = True
-		elif file.name.endswith('.py') or typ == 'code':
+		elif extension in code_file_ext or typ == 'code':
 			code_file = True
+		elif extension in image_file_ext or typ == 'image':
+		    img_file = True
 		else:
 			unknown_file = True
 
@@ -186,7 +198,7 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 
 			return HttpResponse(Saved)
 
-	context=dict(file=file,audio_file=audio_file,code_file=code_file,video_file=video_file,unknown_file=unknown_file,fileForm=Ff,originalFile=real_file,prof=prof,form=folderform,allow=allow)
+	context=dict(file=file,audio_file=audio_file,code_file=code_file,video_file=video_file,unknown_file=unknown_file,img_file=img_file,fileForm=Ff,originalFile=real_file,prof=prof,form=folderform,allow=allow)
 	return render(request,template,context)
 
 @CheckAccess
@@ -253,8 +265,8 @@ def CloneView(request,id):
 	    #f.folder=folder
 	    #f.save()
 	    print('from view1',f.name)
-	    f.Clone(profile, folder)
-	return HttpResponse("<div class='container color-bg-s color-white'>File cloned Successfully</div>")
+	    res = f.Clone(profile, folder)
+	return HttpResponse(message(res))
 
 def cloneFolder(request, id):
     f=File.objects.get(id=id)
@@ -326,14 +338,14 @@ def createBranch(request,id):
 def replaceView(request,id,bid):
 	f=File.objects.get(id=id)
 	m=File.objects.get(id=bid)
-	f.replace(bid)
-	return HttpResponse(f"<div class='message' id='message' style='width:90%'>You have succesfull Replace the Original File with {m.name}</div>")
+	res = f.replace(bid)
+	return HttpResponse(message(res))
 
 def mergeView(request,id,bid):
 	f=File.objects.get(id=id)
 	m=File.objects.get(id=bid)
-	f.merge(bid)
-	return HttpResponse(f"<div class='message' style='width:90%' id='message'>You have succesfull merge this branch with the Original File - {m.name}</div>")
+	res = f.merge(bid)
+	return HttpResponse(message(res))
 
 
 def profileView(request,id=None):

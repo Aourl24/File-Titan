@@ -9,7 +9,7 @@
     {%settings_value 'LOCAL' as L %}
 
     {%if L%}
-    <link rel='stylesheet' href="{%static 'css/bootstrap/bootstrap.min.css'%}">
+    <link rel='stylesheet' href="{%static 'css/bootstrap5/css/bootstrap.min.css'%}">
     <link rel='stylesheet' href="{%static 'css/fontawesome_5/css/all.min.css'%}" media="print" onload="this.media='all'">
 
     <link rel='stylesheet' href="{%static 'css/animate.min.css'%}">
@@ -37,7 +37,7 @@
 :root {
     --primary-color:#0020C2;
     --secondary-color:#151B54 ;
-    --tertiary-color:#EBF4FA  ;
+    --tertiary-color:#C0C0C0  ;
 }
     {
         1DA1F2,4b8ef1
@@ -124,7 +124,7 @@
     .pop {
         position: fixed;
         top: 40%;
-        z-index: 1000000000
+        z-index: 10000000
     }
 
     {
@@ -196,6 +196,8 @@
         style=" z-index:7000">
     
         <div class="sz-20 px-2 center font-lato bold" style="font-size: 22px;">
+            <img src="{%static 'images/logo.png'%}" class='container'
+            style='width:40px;height:30px;object-fit:cover ' />
             File-Titan
         </div>
         <div class="display-md-none sz-18 " style="text-align:right">
@@ -290,8 +292,10 @@
             </div>
             
 
-            <div class='col-md col-sm-12'>
-                <div class='holder' id='messageholder' style='position:fixed;z-index:10000000;let:45%'></div>
+            <div class='col-md col-sm-12 '>
+                <div class='holder d-flex justify-content-center w-100 bg-color-bg-white' id='messageholder' style='position:fixed;z-index:10000000;'>
+                    
+                </div>
                 {%block index%}
                 {%if request.user.is_anonymous%}
                 {%comment%}

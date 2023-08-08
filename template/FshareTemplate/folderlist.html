@@ -4,32 +4,34 @@ This page shows the folders in list
 
 
 {%if folders%}
-<div class='row' style=''>
+<div class='row m-1' style=''>
     {%for folder in folders%}
-    <div class='col-sm-12 col-md-5 my-2 mx-md-2 rounded color-bg-whie  color-bg-dark-light p-0  border ' style=''>
+    <div class='col-sm-12 col-md-5 my-2 mx-md-2 rounded  color-bg-dark-light p-0  border ' style=''>
         {%if not folder.parent%}
 <a class='color-black color-dark-white' style='' href={{folder.get_absolute_url}}>
-{%if folder.cover_photo%}
+{%if folder.cover_phoo%}
 <img class='container-fluid p-0 m-0'
-style='height:150px;width:100%;object-fit:cover;object-position:top'
+style='height:7 0px;width:100%;object-fit:cover;object-position:top'
 src="{{folder.cover_photo.url}}"
 />
 {%else%}
-<div class='container-fluid p-0 m-0 justify-content-center d-flex align-items-center' style="height:150px;width:100%;object-fit:cover;object-position:top">
-<i class='fas fa-folder sz-48'></i>
+<div class='container-fluid p-0 m-0 justify-content-center d-flex
+align-items-center color-bg-white bg-light rounded-top'
+style="height:100px;width:100%;object-fit:cover;object-position:top">
+<i class='far fa-folder sz-36 color-p'></i>
 </div>
 {%endif%}
 </a>
 {%endif%}
-        <div class='row align-items-center m-2' style=''>
-            <div class='col sz-18'>
+        <div class='row align-items-center p-2' style=''>
+            <div class='col sz-18 '>
                 <a class='color-black color-dark-white' style='' href={{folder.get_absolute_url}}>
                     
                     <div class='row'>
                         
-                        <div class='col bold'>
+                        <div class='col bold '>
                             {{folder.name}} {% if folder.privacy == 'authorize' %}
-                            <i class='fas fa-lock sz-sm color-black
+                            <i class='fas fa-lock sz-sm 
                             color-dark-white'></i>
                             {%endif%}
                         </div>
@@ -47,14 +49,16 @@ src="{{folder.cover_photo.url}}"
             </div>
             {%endcomment%}
         </div>
-        <div class='sz-12 m-2 row'>
+        <div class='sz-12 p-2 row'>
             <div class='col'>
+                {%if folder.info%}
                 {{folder.info}}
+                {%endif%}
             </div>
         </div>
         
         {%if not folder.parent%}
-        <div class='row sz-12 m-2 align-items-center'>
+        <div class='row sz-12 p-2 align-items-center'>
         {%include 'FshareTemplate/like.html'%}
         </div>
         {%endif%}

@@ -1,20 +1,31 @@
 {%extends 'base.html'%}
 {%load static%}
 {%block content%}
-
-<div class="row align-items-center w-100 justify-content-center align-items-center mb-2" style="background-image: url({%static 'images/images.jpeg'%});background-reeat:no-repeat;background-position:center; height:150px">
-    <marquee><h1 class="color-white">File-Titan</h1></marquee>
+<div class='container-fluid'>
+<div class="row align-items-center justify-content-center"
+style="background-image: url({%static 'images/planet.jpeg'%});background-reeat:no-repeat;background-position:center;position:relative;
+height:200px;width:100vw;margin-left:-50vw;left:50%">
+    <div class='col p-2 center'>
+<img src="{%static 'images/logo.png'%}" class='container p-3
+color-bg-white my-2 '
+            style='width:50px;height:50px;object-fit:contain' />
+    <h1 class="color-white">File-Titan</h1>
+    </div>
 </div>
+<br />
 
-<div class="row align-items-center w-100 font-apple" style="bacground-image: url({%static 'images/images.jpeg'%});background-reeat:no-repeat;background-position:center;">
-    <div class="col center">
-        <h3 class="color-s bod">
+<div class="font-apple" style="bacground-image: url({%static 'images/images.jpeg'%});bacground-reeat:no-repeat;bacground-position:center;">
+    <div class="col-12 p-2 my-2">
+        <h5 class="color-s bold center sz-24 sz-md-48">
             We Understand that managing your files and documents can be hassle,
-        </h3>
-        <h5>
+        </h5>
+        <hr />
+        <h5 class='center sz-md-36 sz-20'>
             and that is why we have created an intuitive and user-friendly file manager to help you stay organized and efficient
         </h5>
         <br />
+    </div>
+    <div class='col'>
         <div class="row">
             <div class="col sz-18 color-white">
                 <a class='btn btn-block  sz-18 color-white
@@ -37,26 +48,28 @@
 
 <br />
 <div class="center">
-    <img src="{%static 'images/file.png'%}" class="container-sm center" />
+    <img src="{%static 'images/hero-img.png'%}" class="container center
+    container-sm"
+    stye='max-height:300px;width:auto; height:auto;width:auto'/>
 </div>
 <br />
-<h3 class='center color-p'>Efficient File Management</h3>
+<h3 class='center color-p bold'>Efficient File Management</h3>
 <br />
-<div class="row">
+<div class="row sz-18 ">
 
-    <div class="col-md col-sm-12 shadow m-2 p-2">
-        <p class="sz-24 color-s bold">Streamlined Organization</p>
+    <div class="col-md col-sm-12 shadow p-3 my-2">
+        <div class="sz-24 color-s py-2  ">Streamlined Organization</div> 
         <div>With File-Titan, creating a logical and intuitive folder structure is a breeze. Category your files based on projects or any system that suits your workflow.No more digging through endless folders to find what you need </div>
     </div>
-    <div class="col-md col-sm-12 shadow m-2 p-2">
-        <p class="sz-24 color-s bold">Effortless Access</p>
+    <div class="col-md col-sm-12 shadow p-3 my-2">
+        <div class="sz-24 color-s p-2">Effortless Access</div>
         <div>Say goodbye to frantic searches for misplaced files.Our intuitive search and navigation features ensure that you can access your documents with a few clicks, making your workday smoother and more efficient </div>
     </div>
-    <div class="col-md col-sm-12  shadow m-2 p-2">
+    <div class="col-md col-sm-12  shadow  p-2 my-2">
         <p class="sz-24 color-s bold">Mobile Convenience</p>
         <div>Access your files on the go with our mobile-friendly platform.Whether you are in a meeting, traveling or working from home your files are always at your finger tips</div>
     </div>
-    <div class="col-md col-sm-12 shadow m-2 p-2">
+    <div class="col-md col-sm-12 shadow  p-2 my-2 ">
         <p class="sz-24 color-s bold">Security and Privacy</p>
         <div>Protect sensitive files with advanced security features.Grant access only to authorized individuals and keep your confidential information safe. </div>
     </div>
@@ -67,21 +80,22 @@
 <br />
 <div class="row">
 
-    <div class="col-md col-sm-12 shadow m-2 p-2">
+    <div class="col-md col-sm-12 shadow my-2 p-2">
         <p class="sz-24 color-s bold">Real-Time Collaboration</p>
         <div>Say goodbye to endless email exchanges and confusing file versions. With File-Titan, multiple users can edit , comment and collaborate on the same document in real time </div>
     </div>
-    <div class="col-md col-sm-12 shadow m-2 p-2">
+    <div class="col-md col-sm-12 shadow my-2 p-2">
         <p class="sz-24 color-s bold">Centralized File Access</p>
         <div>No more juggling multiple versions across various devices.File-Titan's centralized platform ensures that everyone is working on the most up-to-date version of a document</div>
     </div>
-    <div class="col-md  col-sm-12 shadow m-2 p-2">
+    <div class="col-md  col-sm-12 shadow my-2 p-2">
         <p class="sz-24 color-s bold">File Cloning</p>
         <div>Need a file for your project? Easy clone files from others directories to your own, saving time and effort while maintaining your personalized organization</div>
     </div>
-    <div class="col-md col-sm-12 shadow m-2 p-2">
+    <div class="col-md col-sm-12 shadow my -2 p-2">
         <p class="sz-24 color-s bold">Enhanced Productivity</p>
         <div>Collaborating on File-Titan means fewer bottlenecks,faster decision-making, and a smoother workflow. By working together seamlesssly, you and your team can achieve more in less time</div>
     </div>
+</div>
 </div>
     {%endblock%}

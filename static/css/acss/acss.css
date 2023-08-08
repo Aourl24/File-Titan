@@ -259,8 +259,24 @@
     font-size: 18px;
 }
 
+.sz-20 {
+    font-size: 20px;
+}
+
+.sz-22 {
+    font-size: 22px;
+}
+
 .sz-24 {
     font-size: 24px;
+}
+
+.sz-26 {
+    font-size: 26px;
+}
+
+.sz-28 {
+    font-size: 28px;
 }
 
 .sz-30 {
@@ -426,6 +442,94 @@
         width: 150px;
         height: 150px;
     }
+
+    .sz-sm {
+    font-size: 16px;
+    }
+
+.sz-sm-12 {
+    font-size: 12px;
+}
+
+.sz-sm-14 {
+    font-size: 14px;
+}
+
+.sz-sm-16 {
+    font-size: 16px;
+}
+
+.sz-sm-18 {
+    font-size: 18px;
+}
+
+.sz-sm-20 {
+    font-size: 20px;
+}
+
+.sz-sm-22 {
+    font-size: 22px;
+}
+
+.sz-sm-24 {
+    font-size: 24px;
+}
+
+.sz-sm-26 {
+    font-size: 26px;
+}
+
+.sz-sm-28 {
+    font-size: 28px;
+}
+
+.sz-sm-30 {
+    font-size: 30px;
+}
+
+.sz-sm-36 {
+    font-size: 36px;
+}
+
+.sz-sm-48 {
+    font-size: 48px;
+}
+
+.sz-sm-60 {
+    font-size: 60px;
+}
+
+.sz-sm-72 {
+    font-size: 72px;
+}
+
+.sz-sm {
+    font-size: 12px;
+}
+
+.sz-md {
+    font-size: 18px;
+}
+
+.sz-lg {
+    font-size: 24px;
+}
+
+.sz-xl {
+    font-size: 36px;
+}
+
+.sz-xs {
+    font-size: 8px;
+}
+
+.h-sm-100vw{
+    height:100vw;
+}
+
+.h-sm-100{
+    height:100%;
+}
 }
 
 @media(min-width:600px) {
@@ -436,6 +540,93 @@
     .display-md-show {
         display: block;
     }
+    .sz-md {
+    font-size: 16px;
+}
+
+.sz-md-12 {
+    font-size: 12px;
+}
+
+.sz-md-14 {
+    font-size: 14px;
+}
+
+.sz-md-16 {
+    font-size: 16px;
+}
+
+.sz-md-18 {
+    font-size: 18px;
+}
+
+.sz-md-20 {
+    font-size: 20px;
+}
+
+.sz-md-22 {
+    font-size: 22px;
+}
+
+.sz-md-24{
+    font-size: 24px;
+}
+
+.sz-md-26{
+    font-size: 26px;
+}
+
+.sz-md-28 {
+    font-size: 28px;
+}
+
+.sz-md-30 {
+    font-size: 30px;
+}
+
+.sz-md-36 {
+    font-size: 36px;
+}
+
+.sz-md-48 {
+    font-size: 48px;
+}
+
+.sz-md-60 {
+    font-size: 60px;
+}
+
+.sz-md-72 {
+    font-size: 72px;
+}
+
+.sz-sm {
+    font-size: 12px;
+}
+
+.sz-md {
+    font-size: 18px;
+}
+
+.sz-lg {
+    font-size: 24px;
+}
+
+.sz-xl {
+    font-size: 36px;
+}
+
+.sz-xs {
+    font-size: 8px;
+}
+
+.h-md-100vw{
+    height:100vw;
+}
+
+.h-md-100{
+    height:100%;
+}
 }
 
 

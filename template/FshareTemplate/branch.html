@@ -1,13 +1,13 @@
 {%extends 'base.html'%}
 
 {%block content%}
-<div class='container'>
+<div class=''>
     <div class='row color-p m-1 align-items-center' style=''>
         <div class='col-md col-sm-12 sz-18' style="">
             {{file.name}} <span class='color-s'>branches </span>
         </div>
         <div class='col sz-12 my-2'>
-        <span class="color-bg-s p-2 color-white rounded"> {{file.edited_file.count}} branches  |
+        <span class="p-2 color-t rounded"> {{file.edited_file.count}} branches  |
             <a href="{%url 'CreateBranchUrl' file.id%}" class='color-p'> <i class='fas fa-file-copy'></i> create branch </a> 
         </span>
         </div>

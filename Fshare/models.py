@@ -178,27 +178,32 @@ class File(models.Model):
 		u=b.folder
 		print('from models',self.name)
 		j=File.objects.create(name=self.name,folder=folder,file=self.file,clone=True)
-		return
+		return "File clone successful"
 		#return reverse('BranchUrl',args=[self.id])
 
 	def replace(self,x):
 		#b=File.objects.get(id=self.id)
 		m=File.objects.get(id=x)
 		word=m.openFile()
-		self.saveFile(word)
-		return
+		try:
+		    self.saveFile(word)
+		except:
+		    return "File is irreplaceable"
+		return f"You have succesfull Replace the Original File with {m.name}"
 
 	def merge(self,x):
 		#b=File.objects.get(id=self.id)
 		m=File.objects.get(id=x)
 		d=self.openFile()
 		k=m.openFile()
-		l=d.split('\n') + k.split('\n')
-		e=sorted(set(l),key=l.index)
-		v=('\n').join(e)
-
-		self.saveFile(v)
-		return
+		try:
+		    l=d.split('\n') + k.split('\n')
+		    e=sorted(set(l),key=l.index)
+		    v=('\n').join(e)
+		    self.saveFile(v)
+		except TypeError:
+		    return "File does not support merge"
+		return f"You have succesfull merge this branch with the Original File - {m.name}"
 
 
 
