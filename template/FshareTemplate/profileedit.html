@@ -7,14 +7,14 @@
 }
 </style>
 
-<div class='container'>
-<p class='pcolor'>Edit Profile Form </p>
+<div class=''>
+<h2 class='pcolor'>Edit Profile </2>
 <form method='post' enctype="multipart/form-data">
 	{%csrf_token%}
-	<p> Username <input class='form-control' name='username' value={{profile.user.username}} > </p>
+	<p> Username <br /> <input class='form-control' name='username' value={{profile.user.username}} > </p>
 <p>{{form.as_p}}</p>
 
-<p> <button class='btn btn-block btn-success color-bg-p'>Save changes</button></p>
+<p> <button class='btn btn-block w-100 color-bg-p'>Save changes</button></p>
 </form>
 </div>
 {%endblock%}

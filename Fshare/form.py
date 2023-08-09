@@ -32,5 +32,6 @@ class EditUser(forms.ModelForm):
 	class Meta:
 		model=Profile
 		fields=['bio','profile_photo']
-		widgets={'bio':forms.Textarea(attrs={'class':'form-control'})}
+		widgets={'bio':forms.Textarea(attrs={'class':'form-control'}),'profile_photo':forms.ClearableFileInput(attrs={'class':'form-control'})}
+
 
