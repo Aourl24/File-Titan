@@ -86,8 +86,8 @@ style='bordr-radius:20px;z-index:5000;right:10px;bottom:30px' onclick="$('#creat
 rounded animate__animated animate__faster  border shadow'
 style='z-index:4000;width:100%;heiht:170px;tp:20%;background-color:rgba(300,300,300,0.9
 )'>
-    <div class='moal-dialog modal-dialog-centered '>
-        <div class='modal-body ceter bg-ligt'style='top:50px;width:100%'>
+    <div class='modal-dialog-centered justify-content-center'>
+        <div class='container center' stle='top:50px;width:100%'>
             
             <div class='row my-2'>
                 <div class='col-12'>
@@ -120,8 +120,8 @@ style='z-index:4000;width:100%;heiht:170px;tp:20%;background-color:rgba(300,300,
             </div>
         
         <div id='create' class='hide pol swap borer position-fixed bg-light
-        pop-center'
-        style='z-index:101  ;left: 0px;right:0px'>
+        pop-center m-auto'
+        styl='z-index:101  ;left: 0px;right:0px'>
             <form class='p-2 ronded bg-lght boder' method='post' action="{%url 'CreateUrl' %}">
                 {%csrf_token%}
                 <p class='sz-18'>
@@ -153,7 +153,7 @@ style='z-index:4000;width:100%;heiht:170px;tp:20%;background-color:rgba(300,300,
             {%endcomment%}
             <input name='file' class='form-control' type='file' multiple />
             <br />
-        <button class='btn btn-block color-bg-s color-white'>Upload</button>
+        <p><button class='btn btn-block color-bg-s color-white'>Upload</button></p>
         <div onclick="$('#newfile').fadeOut()" class='btn btn-link btn-block text-danger'>
             close window
         </div>
