@@ -14,14 +14,14 @@ color-bg-white my-2 img-fluid'
 </div>
 <br />
 
-<div class="font-apple" style="bacground-image: url({%static 'images/images.jpeg'%});bacground-reeat:no-repeat;bacground-position:center;">
+<div class="ani" style="bacground-image: url({%static 'images/images.jpeg'%});bacground-reeat:no-repeat;bacground-position:center;">
     <div class="col-12 p-2 my-2">
-        <h5 class="color-s bol d center sz-24 sz-md-48">
-            We Understand that managing your files and documents can be hassle,
+        <h5 class="color-p bol d center sz-24 sz-md-48 animate__animated animate__slideInLeft">
+            We Understand that managing your files and documents can be hassle
         </h5>
         <hr />
-        <h5 class='center sz-md-36 sz-20'>
-            and that is why we have created an intuitive and user-friendly file manager to help you stay organized and efficient
+        <h5 class='center sz-md-36 sz-20 color-s animate__animated  animate__slideInRight'>
+            That is why we have created an intuitive and user-friendly file manager to help you stay organized and efficient
         </h5>
         <br />
     </div>
@@ -45,7 +45,7 @@ color-bg-white my-2 img-fluid'
     </div>
 
 </div>
-
+<br />
 <br />
 <div class="center">
     <img src="{%static 'images/hero-img.png'%}" class="container center
@@ -55,7 +55,7 @@ color-bg-white my-2 img-fluid'
 <br />
 <h3 class='center color-p bold'>Efficient File Management</h3>
 <br />
-<div class="row sz-18 ">
+<div id='slidein' class="row sz-18 ani">
 
     <div class="col-md col-sm-12 shadow p-3 my-2">
         <div class="sz-24 color-s py-2  ">Streamlined Organization</div> 
@@ -78,7 +78,7 @@ color-bg-white my-2 img-fluid'
 <br />
 <h3 class='center color-p bold'>Efficient Seamless Collaboration</h3>
 <br />
-<div class="row">
+<div class="row ani">
 
     <div class="col-md col-sm-12 shadow my-2 p-3">
         <p class="sz-24 color-s py-2">Real-Time Collaboration</p>
@@ -113,3 +113,21 @@ color-bg-white my-2 img-fluid'
 </div>
 </div>
     {%endblock%}
+  <script>
+$.fn.isInViewport = function() {
+    var elementTop = $(this).offset().top;
+    var elementBottom = elementTop + $(this).outerHeight();
+
+    var viewportTop = $(window).scrollTop();
+    var viewportBottom = viewportTop + $(window).height();
+
+    return elementBottom > viewportTop && elementTop < viewportBottom;
+};
+$(window).on('resize scroll', function() {
+    if ($('#slidein').isInViewport()) {
+        $('#slidein').addClass('animate__animated animate__slideInDown')
+    } else {
+        // do something else
+    }
+});
+  </script>
