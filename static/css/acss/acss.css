@@ -228,7 +228,8 @@
 }
 
 .shadow {
-    box-shadow: 1px 1px 2px silver
+    box-shaow: 1px 1px 2px silver;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .shadow-md {

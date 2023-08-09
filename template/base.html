@@ -37,7 +37,7 @@
 :root {
     --primary-color:#0020C2;
     --secondary-color:#151B54 ;
-    --tertiary-color:#C0C0C0  ;
+    --tertiary-color:black ;
 }
     {
         1DA1F2,4b8ef1
@@ -180,10 +180,27 @@
     button:hover{
         background-color:silver;
     }
+    btn:focus{
+        background-color:silver;
+        color:black;
+    }
+    a:focus{
+        color:var(--primary-color);
+    }
+    a:visited{
+        color:blue;
+    }
     
+    .shadow {
+ox-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;!important
+    }
+    .btn-link{
+        text-decoration: none;
+    }
 </style>
 
-<body class='font-apple sz-16 coor-bg-t b-light'>
+<body class='font-poppins sz-16 coor-bg-t b-light'>
     <div id="pre-loader" class="color-bg-white h-100 w-100 d-flex justify-content-center align-items-center position-fixed" style="z-index:10000">
                 <span class='dot animate__animated animate__bounce animte__delay-1s animate__infinite color-p aniate__slow' style=''> File </span>
                 <span class='dot animate__animated animate__bounce aniate__delay-2s animate__infinite color-s animate__fast'>Titan</span>  
@@ -191,16 +208,16 @@
 
 
     {%block header%}
-    <header id='' class="navbar justify-content-space-around d-flex fixd-top rouded sz-12 bg-liht
+    <header id='' class="navbar justify-content-space-around d-flex fixed-top rouded sz-12 bg-liht
         animate__animated animate__slideInDown m-0 p-2 color-bg-white color-p"
         style=" z-index:7000">
     
-        <div class="sz-20 px-2 center font-lato bold" style="font-size: 22px;">
+        <div class="sz-20 px-2 center font-lato bold" style="font-size:22px;">
             <img src="{%static 'images/logo.png'%}" class='container'
             style='width:40px;height:30px;object-fit:cover ' />
             File-Titan
         </div>
-        <div class="display-md-none sz-18 " style="text-align:right">
+        <div class="display-md-none sz-24 " style="text-align:right">
             <i class="fas fa-bars animate__animated animate__bounce bordr rounded p-1" id="tri" onclick="show()"></i>
         </div>
         </div>
@@ -216,10 +233,11 @@
                 <div id='hold' class='position-fixed m-0 color-bg-white color-bg-dark-light
                 conner border-right h-100' style='z-index:6000;'>
                 <div id="dropdown" class="dropD
-                display-sm-none animate__animated animate__slideInDown overflow-auto
+                display-sm-none animate__animated animate__slideInDown animate__fast overflow-auto
                 clor-bg-white color-bg-dark-light m-0 p-3 rounded"
                 style="overflow:auto">
-                
+                <br />
+                <br />
                     <div class="row">
                         <div class="col">
                             <form method='POST' class="" action="{%url 'SearchUrl' %}">
@@ -269,6 +287,7 @@
                         </div>
                     </div>
                     {%endif%}
+                    {%comment%}
                     <div class='row my-3'>
                         <div class='col sz-18'>
                             <a class='color-black' href="{%url 'DarkModeUrl' request.path_info %}" />
@@ -280,6 +299,7 @@
                             </a>
                         </div>
                     </div>
+                    {%endcomment%}
                     
                     {%if request.user.is_authenticated %}
                     <div class='' hx-get="{%url 'MenuUrl' %}" hx-trigger='load' hx-swap='innerHTML'></div>
@@ -305,7 +325,7 @@
                 
                 {%endif%}
                 {%endblock%}
-                <div class='contaier-fluid m-1'>
+                <div class='contaier-fluid bg-ligth m-1'>
                 {%block content%}
 
                 {%endblock content%}

@@ -23,7 +23,7 @@ src="{{file.cover_photo.url}}"
 />
 {%else%}
 <div class='container-fluid p-0 m-0 justify-content-center d-flex align-items-center' style="height:150px;width:100%;object-fit:cover;object-position:top">
-<i class='fas fa-folder sz-48'></i>
+<i class='fas fa-folder-open sz-48'></i>
 </div>
 {%endif%}
 
@@ -31,7 +31,7 @@ src="{{file.cover_photo.url}}"
             {%if file.parent%}
             <a class='normal color-s' href='{{file.parent.get_absolute_url}}'>{{file.parent.name}}</a>
             {%endif%}
-            <i class='fas fa-folder-open'></i> <b
+             <b
             style="font-size:20px">{{file.name|title }}</b>
         </div>
         <hr />
@@ -78,7 +78,7 @@ src="{{file.cover_photo.url}}"
 {%if file.owner == prof %}
 <div class='bottom-side  rounded-circle color-bg-p p-3 m-2'
 style='bordr-radius:20px;z-index:5000;right:10px;bottom:30px' onclick="$('#createbox').fadeToggle()">
-    <i class='fas fa-plus sz-24'></i>
+    <i class='fas fa-pen sz-24'></i>
 </div>
 {%endif%}
 

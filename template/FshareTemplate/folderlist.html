@@ -6,50 +6,24 @@ This page shows the folders in list
 {%if folders%}
 <div class='row m-1' style=''>
     {%for folder in folders%}
-    <div class='col-sm-12 col-md-5 my-2 mx-md-2 rounded  color-bg-dark-light p-0  border ' style=''>
-        {%if not folder.parent%}
-<a class='color-black color-dark-white' style='' href={{folder.get_absolute_url}}>
-{%if folder.cover_phoo%}
-<img class='container-fluid p-0 m-0'
-style='height:7 0px;width:100%;object-fit:cover;object-position:top'
-src="{{folder.cover_photo.url}}"
-/>
-{%else%}
-<div class='container-fluid p-0 m-0 justify-content-center d-flex
-align-items-center color-bg-white bg-light rounded-top'
-style="height:100px;width:100%;object-fit:cover;object-position:top">
-<i class='far fa-folder sz-36 color-p'></i>
-</div>
-{%endif%}
-</a>
-{%endif%}
-        <div class='row align-items-center p-2' style=''>
-            <div class='col sz-18 '>
-                <a class='color-black color-dark-white' style='' href={{folder.get_absolute_url}}>
-                    
-                    <div class='row'>
-                        
-                        <div class='col bold '>
+    <div class='col-sm-12 col-md-5 my-2 mx-md-2 rounded  color-bg-dark-light p-3 color-bg-white border show' style=''>
+    <div class='row'>
+        <div class='col-3 color-p'>
+            <i class='fas fa-folder sz-36' title='my folder'></i>
+        </div>
+        <div class='col'>
+            <div class='row'>
+                <div class='col'>
+        <a class='color-black color-dark-white bold' style='' href={{folder.get_absolute_url}}>
                             {{folder.name}} {% if folder.privacy == 'authorize' %}
                             <i class='fas fa-lock sz-sm 
                             color-dark-white'></i>
                             {%endif%}
-                        </div>
-                    </div>
-                </a>
-            </div>
-            
-            {%comment%}
-            <div class="col-2">
-                <span class='sz-24 color-black' style='display:inline-block;float:right;'>
-                    <button class='btn color-black btn-link color-dark-white'
-                    onclick="$('#{{folder.id}}menu').toggleClass('hide')">
-                    <i class='fas fa-ellipsis-v sz-14'></i></button>
-                </span>
-            </div>
-            {%endcomment%}
-        </div>
-        <div class='sz-12 p-2 row'>
+                            </a>
+                            </div>
+                            </div>
+
+        <div class='sz-12  row'>
             <div class='col'>
                 {%if folder.info%}
                 {{folder.info}}
@@ -57,32 +31,18 @@ style="height:100px;width:100%;object-fit:cover;object-position:top">
             </div>
         </div>
         
-        {%if not folder.parent%}
-        <div class='row sz-12 p-2 align-items-center'>
+        {%if  folder.paren%}
+        <div class='row sz-12  pt-3 align-items-center'>
         {%include 'FshareTemplate/like.html'%}
         </div>
         {%endif%}
+                        </div>
+                    </div>
+                    </div>
         
         <div id='{{folder.id}}menu' class="hide sz-14 color-bg-white color-white shadow boder rounded anmate__animated animate__slideInDown animate__faster" style="z-index:10000;position:absolute;margin-left:-18px;width:50%">
             <div class="row m-2" style="">
-                {%comment%}
-                <div class='col-12 sz-14 color-black py-2'>
-                    <span class="col-t">Directory Name </span>
-                    {{folder.name}} <span class='color-black'></span>
-                </div>
 
-                <div class='col-12 sz-14 color-black py-2'>
-                    <span class="col-t">Date Created </span>
-                    {{folder.date_created|date}} <span class='color-black'></span>
-                </div>
-
-                <div class='col-12 sz-14 py-2'>
-                    <span class='colo-black'>Owned by</span>
-                    <a class='color-black' href="{% url 'ProfileUrl' folder.owner.id %}">
-                        {{folder.owner|title}}
-                    </a>
-                </div>
-                {%endcomment%}
                 <hr />
                 <div class="col-12 py-2">
                     <button class='btn btn-link color-black sz-14 p-0' hx-get="{%url 'DownloadUrl' folder.id%}"
@@ -102,7 +62,6 @@ style="height:100px;width:100%;object-fit:cover;object-position:top">
                 {%endif%}
             </div>
         </div>
-    </div>
     {%endfor%}
 </div>
 {%endif%}

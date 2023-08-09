@@ -1,11 +1,11 @@
 
-    <div class='col-3 sz-12' hx-get="{%url 'LikeFolderUrl' folder.id %}" hx-swap='innerHTML'>
+    <div class='col sz-12' hx-get="{%url 'LikeFolderUrl' folder.id %}" hx-swap='innerHTML'>
         <i class='{%if prof in folder.likes.all%} fas fa-heart color-p
-        {%else%} far fa-heart color-t{%endif%}'></i>
+        {%else%} far fa-heart color-p{%endif%}'></i>
         {{folder.likes.count}}
     </div>
-    <div class='col-3 sz-12' hx-get="{%url 'DownloadUrl' folder.id%}" hx-swap='outerHTML'>
-        <i class='fas fa-download color-t'></i>
+    <div class='col sz-12' hx-get="{%url 'DownloadUrl' folder.id%}" hx-swap='outerHTML'>
+        <i class='fas fa-arrow-down color-p'></i>
         {{folder.download_count}}
     </div>
 

@@ -4,11 +4,23 @@
 {%comment%}
 This page display the folderlist and it is also the home page
 {%endcomment%}
-
+<br/>
+<br />
 {%if user.is_authenticated%}
  
 {%endif%}
-
+{%comment%}
+<div class=''>
+    <div class='row'>
+        <div class='col rounded border p-2 m-1 color-bg color-black'>
+            For you
+        </div>
+        <div class='col rounded border p-2 m-1 color-g-s color-whie'>
+            Trending
+        </div>
+    </div>
+</div>
+{%endcomment%}
 	{%include 'FshareTemplate/folderlist.html'%}
 
 {%endblock%}

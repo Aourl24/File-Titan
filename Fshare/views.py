@@ -329,7 +329,7 @@ def shellView(request,id):
 		return render(request, t+'shell.html',context)
 	else:
 		return HttpResponse('File is not Executable')
-
+@login_required
 def createBranch(request,id):
 	f=File.objects.get(id=id)
 	prof=Profile.objects.get(user=request.user)
@@ -345,7 +345,7 @@ def mergeView(request,id,bid):
 	f=File.objects.get(id=id)
 	m=File.objects.get(id=bid)
 	res = f.merge(bid)
-	return HttpResponse(message(res))
+	return HttpResponse(message(res)) 
 
 
 def profileView(request,id=None):
@@ -484,7 +484,7 @@ def likeFolder(request,folder_id):
 
 	if check:
 		folder.likes.remove(profile)
-		return HttpResponse(f"<i class='far fa-heart text-primary'></i> {folder.likes.count()}")
+		return HttpResponse(f"<i class='far fa-heart color-p'></i> {folder.likes.count()}")
 	else:
 		folder.likes.add(profile)
-		return HttpResponse(f"<i class='fas fa-heart text-danger'></i> {folder.likes.count()}")
+		return HttpResponse(f"<i class='fas fa-heart color-p'></i> {folder.likes.count()}")
