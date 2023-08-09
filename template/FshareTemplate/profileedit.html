@@ -8,11 +8,11 @@
 </style>
 
 <div class=''>
-<h2 class='pcolor'>Edit Profile </2>
+<h2 class='pcolor'>Edit Profile </h2>
 <form method='post' enctype="multipart/form-data">
 	{%csrf_token%}
-	<p> Username <br /> <input class='form-control' name='username' value={{profile.user.username}} > </p>
-<p>{{form.as_p}}</p>
+	<p> Username: <br /> <input class='form-control' name='username' value={{profile.user.username}} > </p>
+{{form.as_p}}
 
 <p> <button class='btn btn-block w-100 color-bg-p'>Save changes</button></p>
 </form>
