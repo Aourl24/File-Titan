@@ -364,14 +364,16 @@ def profileView(request,id=None):
 
 def profileEdit(request):
 	prof=Profile.objects.get(user=request.user)
+	user = User.objects.get(username=request.user)
 	editForm=EditUser(instance=prof)
 	template=t + 'editprofile.html'
 	if request.method == 'POST':
+		editForm=EditUser(request.POST,request.FILES)
 		new_name=request.POST.get('username')
-		editForm=EditUser(request.POST,request.FILES,instance=prof)
 		if editForm.is_valid():
 			a=editForm.save(commit=False)
-			a.user.username=new_name
+			user.username = new_name
+			user.save()
 			a.save()
 
 		return redirect('ProfileUrl',id=prof.id)
