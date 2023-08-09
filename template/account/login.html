@@ -1,15 +1,18 @@
 
 {%extends 'base.html'%}
 {%load static%}
-{%load account%}
 {%load socialaccount%}
 {%block header%}
 
 {%endblock%}
-{%block index%}
+{%block sidebar%}
 
 {%endblock%}
 {%block content%}
+
+{%block index%}
+
+{%endblock%}
 <style>
 body{
     background-color: white;
@@ -20,12 +23,12 @@ input{
 </style>
 
 <div class='' style=''>
-    <div class='row rounded p-2' style=''>
-        <div class='col-md-6 p-3 rounded color-bg-white'>
+    <div class='row rounded p-2 justify-content-center' style=''>
+        <div class='col-10 p-3 rounded color-bg-white'>
             <div class='row'>
                 <div class='col'>
                     <h2 style='' class='color-black'>
-                        Log In
+                        Login
                      </h2>
                 </div>
             </div>
@@ -50,7 +53,7 @@ input{
                                 </div>
                             </div>
                              <div class='row my-3' >
-                                <div class='col-md-10 col-sm'>
+                                <div class='col col-sm'>
                                     {{ field.as_widget }}
                                 </div>
                             </div>
@@ -59,15 +62,15 @@ input{
                     {% endfor %}
                     <br />
                     <div class='row my-3'>
-                        <div class='col-md-10 col-sm-12'>
+                        <div class='col col-sm-12'>
                                 <button class='btn btn-block color-bg-p color-white sz-18 w-100'>
-                                    Login
+                                    Log In
                                 </button>
                         </div>
                     </div>
 
                     <div class='row my-2'>
-                        <div class='col-md-10 center'>
+                        <div class='col center'>
                             <a class='color-p' href="{% url 'account_reset_password'%}" style=''>
                             Forget Password
                             </a>
@@ -75,25 +78,25 @@ input{
                     </div>
             </form>
         </div>
-        <div class='col p-3 rounded color-bg-white'>
+        <div class='col-10 p-3 rounded color-bg-white'>
 
             <div class="row">
                 <div class="col">
-                    <a href="{% provider_login_url 'google' %}" class='btn w-100 border p-2 sz-18 rounded btn-block color-black'>
+                    <a href="{% provider_login_url 'google' %}" class='btn border p-2 sz-18 rounded btn-block color-black w-100'>
                         <i class='fab fa-google text-danger'></i> Login with Google
                     </a>
                 <div>
             </div>
             <br/>
             <div class='row my-2 center'>
-                <div class='col-md-10'>
-                    If You Don't have an account
+                <div class='col'>
+                    If you don't  have an account
                 </div>
             </div>
             <div class='row my-2 center'>
                 <div class='col'>
-                    <a class='btn btn-block w-100 color-bg-s sz-18 color-white' href="{% url 'account_signup'%}" style='baground-color:357417'>
-                        Signup
+                    <a class='btn btn-block color-bg-s sz-18 color-white w-100' href="{% url 'account_signup'%}" style='baground-color:357417'>
+                        Sign Up
                     </a>
                 </div>
             </div>

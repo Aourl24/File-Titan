@@ -34,7 +34,7 @@ def folderListView(request):
 		prof=''
 	folders=Folder.objects.all().filter(privacy__in=['public','authorize']).filter(parent=None).select_related('owner')# | Folder.objects.filter(privacy='authorize').filter(parent=None).select_related()
 	#filter all folders that are public and authorize
-	pageFolder=Paginator(folders,5) #Group the folder into 5 so has to reduce overhead
+	pageFolder=Paginator(folders,6) #Group the folder into 6 so has to reduce overhead
 	page_no=request.GET.get('page_no')
 	page=pageFolder.get_page(page_no)
 	template=t+'home.html'
