@@ -368,13 +368,13 @@ def profileEdit(request):
 	editForm=EditUser(instance=prof)
 	template=t + 'editprofile.html'
 	if request.method == 'POST':
-		editForm=EditUser(request.POST,request.FILES)
+		editForm=EditUser(request.POST,request.FILES,instance=prof)
 		new_name=request.POST.get('username')
 		if editForm.is_valid():
-			a=editForm.save(commit=False)
+			a=editForm.save()
 			user.username = new_name
 			user.save()
-			a.save()
+
 
 		return redirect('ProfileUrl',id=prof.id)
 	template= t + 'profileedit.html'
