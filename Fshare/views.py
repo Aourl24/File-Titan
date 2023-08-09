@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse
 from .models import Folder,File, Profile
-
+from django.contrib.auth.models import User
 from .form import FolderForm,FileForm,EditUser,EditFolder
 from django.http import StreamingHttpResponse,HttpResponse,HttpResponseRedirect
 from .decorators import CheckAccess
