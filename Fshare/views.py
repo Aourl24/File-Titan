@@ -66,7 +66,7 @@ def FileFormView(request):
 		if 'folder' in request.POST:
 			fod=request.POST.get('folder')
 			for files in others:
-				name = file.name
+				name = files.name
 				if len(name) > 10000:
 					n = name.split('.')
 					name = n[:100] + '.' + n[-1]
