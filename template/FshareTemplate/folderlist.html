@@ -4,64 +4,67 @@ This page shows the folders in list
 
 
 {%if folders%}
-<div class='row m-1' style=''>
+<div class="row m-1" style="">
     {%for folder in folders%}
-    <div class='col-sm-12 col-md-5 my-2 mx-md-2 rounded  color-bg-dark-light p-3 color-bg-white border show' style=''>
-    <div class='row'>
-        <div class='col-3 color-p'>
-            <i class='fas fa-folder sz-36' title='my folder'></i>
-        </div>
-        <div class='col'>
-            <div class='row'>
-                <div class='col'>
-        <a class='color-black color-dark-white bold' style='' href={{folder.get_absolute_url}}>
+    <div class="col-sm-12 {%if folder.parent%} col-md-12 {%else%} col-md-5 {%endif%} my-2 mx-md-2 rounded color-bg-dark-light p-3 color-bg-white border show" style="">
+        <div class="row">
+            <div class="col-3 color-p">
+                <i class="fas fa-folder sz-36" title="my folder">
+                </i>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <a class="color-black color-dark-white bold" href="{{folder.get_absolute_url}}" style="">
                             {{folder.name}} {% if folder.privacy == 'authorize' %}
-                            <i class='fas fa-lock sz-sm 
-                            color-dark-white'></i>
+                            <i class="fas fa-lock sz-sm color-dark-white">
+                            </i>
                             {%endif%}
-                            </a>
-                            </div>
-                            </div>
-
-        <div class='sz-12  row'>
-            <div class='col'>
-                {%if folder.info%}
+                        </a>
+                    </div>
+                </div>
+                <div class="sz-12 row">
+                    <div class="col">
+                        {%if folder.info%}
                 {{folder.info}}
                 {%endif%}
-            </div>
-        </div>
-        
-        {%if  folder.paren%}
-        <div class='row sz-12  pt-3 align-items-center'>
-        {%include 'FshareTemplate/like.html'%}
-        </div>
-        {%endif%}
-                        </div>
                     </div>
-                    </div>
-        
-        <div id='{{folder.id}}menu' class="hide sz-14 color-bg-white color-white shadow boder rounded anmate__animated animate__slideInDown animate__faster" style="z-index:10000;position:absolute;margin-left:-18px;width:50%">
-            <div class="row m-2" style="">
-
-                <hr />
-                <div class="col-12 py-2">
-                    <button class='btn btn-link color-black sz-14 p-0' hx-get="{%url 'DownloadUrl' folder.id%}"
-                        hx-swap='outerHTML'>Download
-                        <div class='htmx-indicator' style='position:absolute;'>
-                            Please wait Generating Download link...<div class='circle rotate' style='position:absolute;border-bottom:2px solid blue;border-right:2px solid blue;border-left:2px solid white;border-top:2px solid white;height:15px;width:15px'></div>
-                        </div>
-                    </button>
                 </div>
-                {%if folder.owner == prof %}
-                <div class="col-12 py-2">
-                    <a class='color-black sz-14' href="{%url 'EditFolderUrl' folder.id request.path_info%}">Edit</a>
-                </div>
-                <div class="col-12 py-2">
-                    <a class='color-black sz-14' style='' href="{%url 'FolderDeleteUrl' folder.id%}"> Delete </a>
+                {%if  folder.paren%}
+                <div class="row sz-12 pt-3 align-items-center">
+                    {%include 'FshareTemplate/like.html'%}
                 </div>
                 {%endif%}
             </div>
         </div>
+    </div>
+    <div class="hide sz-14 color-bg-white color-white shadow boder rounded anmate__animated animate__slideInDown animate__faster" id="{{folder.id}}menu" style="z-index:10000;position:absolute;margin-left:-18px;width:50%">
+        <div class="row m-2" style="">
+            <hr/>
+            <div class="col-12 py-2">
+                <button class="btn btn-link color-black sz-14 p-0" hx-get="{%url 'DownloadUrl' folder.id%}" hx-swap="outerHTML">
+                    Download
+                    <div class="htmx-indicator" style="position:absolute;">
+                        Please wait Generating Download link...
+                        <div class="circle rotate" style="position:absolute;border-bottom:2px solid blue;border-right:2px solid blue;border-left:2px solid white;border-top:2px solid white;height:15px;width:15px">
+                        </div>
+                    </div>
+                </button>
+            </div>
+            {%if folder.owner == prof %}
+            <div class="col-12 py-2">
+                <a class="color-black sz-14" href="{%url 'EditFolderUrl' folder.id request.path_info%}">
+                    Edit
+                </a>
+            </div>
+            <div class="col-12 py-2">
+                <a class="color-black sz-14" href="{%url 'FolderDeleteUrl' folder.id%}" style="">
+                    Delete
+                </a>
+            </div>
+            {%endif%}
+        </div>
+    </div>
     {%endfor%}
 </div>
 {%endif%}
@@ -69,5 +72,6 @@ This page shows the folders in list
 
 
 {% if folders.has_next%}
-<div class='htmx-indicator spinner rounded-circle' hx-get="?page_no={{folders.next_page_number}}" hx-swap='afterend' hx-trigger='revealed' style='border:4px solid #EAF0F6;height: 1.5cm;left:50%;top:50%;width:1.5cm;position: absolute;border-top:4px solid #4b8ef1'></div>
+<div class="htmx-indicator spinner rounded-circle" hx-get="?page_no={{folders.next_page_number}}" hx-swap="afterend" hx-trigger="revealed" style="border:4px solid #EAF0F6;height: 1.5cm;left:50%;top:50%;width:1.5cm;position: absolute;border-top:4px solid #4b8ef1">
+</div>
 {%endif%}
