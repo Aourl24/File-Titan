@@ -23,6 +23,8 @@ def message (x):
 def landingView(request):
 	# The landing page
 	header=''
+	if request.user.is_authenticated:
+	    return redirect('FileViewUrl')
 	context=dict(headers=header)
 	return render(request, 'landing.html',context)
 
