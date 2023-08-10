@@ -437,7 +437,7 @@ def confirm(request):
 def editFolder(request,id=None,next=None):
 	folder=Folder.objects.get(id=id)
 	form = EditFolder(instance=folder)
-	template = t+'editFolder.html'
+	template = t+'editfolder.html'
 	context=dict(folder=folder,form=form)
 
 	if request.method == 'POST':
