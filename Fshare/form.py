@@ -20,7 +20,7 @@ class EditFolder(forms.ModelForm):
 	class Meta:
 		model=Folder
 		fields=['name','info']
-		widgets={'name':forms.TextInput(attrs={'class':'form-control'}),'info':forms.Textarea(attrs={'class':'form-control'}),'privacy':forms.Select(attrs={'class':'input'})
+		widgets={'name':forms.TextInput(attrs={'class':'form-control'}),'info':forms.Textarea(attrs={'class':'form-control'}),'privacy':forms.Select(attrs={'class':'input'})}
 
 class FolderFormAlt(forms.ModelForm):
 	class Meta:

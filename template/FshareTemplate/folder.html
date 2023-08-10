@@ -1,9 +1,13 @@
 {%extends 'base.html'%}
  
+
 {%block content%}
 <div class=''>
-    {% 'Create Folder' as title %}
-{% include 'FshareTemplate/folderform.html' %}
+    <div class='sz-24 color-p my-2'>
+        Create Folder 
+    </div>
+   
+{% include 'FshareTemplate/folderform.html' with title='create'%}
 </div>
 {%endblock%}
 <button onclick='get()'> ok </button>
