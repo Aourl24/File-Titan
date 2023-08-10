@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse
 from .models import Folder,File, Profile
-from django.contrib.auth.models import User
+
 from .form import FolderForm,FileForm,EditUser,EditFolder
 from django.http import StreamingHttpResponse,HttpResponse,HttpResponseRedirect
 from .decorators import CheckAccess
@@ -34,7 +34,7 @@ def folderListView(request):
 		prof=''
 	folders=Folder.objects.all().filter(privacy__in=['public','authorize']).filter(parent=None).select_related('owner')# | Folder.objects.filter(privacy='authorize').filter(parent=None).select_related()
 	#filter all folders that are public and authorize
-	pageFolder=Paginator(folders,6) #Group the folder into 6 so has to reduce overhead
+	pageFolder=Paginator(folders,5) #Group the folder into 5 so has to reduce overhead
 	page_no=request.GET.get('page_no')
 	page=pageFolder.get_page(page_no)
 	template=t+'home.html'
@@ -147,7 +147,7 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 				allow=False
 
 		template=t + 'filedetail.html'
-		file_ext = file.file.name.split('.')
+		file_ext = file.name.split('.')
 		extension = file_ext[-1]
 		if extension in video_file_ext or typ == 'video':
 			video_file = True
@@ -364,17 +364,15 @@ def profileView(request,id=None):
 
 def profileEdit(request):
 	prof=Profile.objects.get(user=request.user)
-	user = User.objects.get(username=request.user)
 	editForm=EditUser(instance=prof)
 	template=t + 'editprofile.html'
 	if request.method == 'POST':
-		editForm=EditUser(request.POST,request.FILES,instance=prof)
 		new_name=request.POST.get('username')
+		editForm=EditUser(request.POST,request.FILES,instance=prof)
 		if editForm.is_valid():
-			a=editForm.save()
-			user.username = new_name
-			user.save()
-
+			a=editForm.save(commit=False)
+			a.user.username=new_name
+			a.save()
 
 		return redirect('ProfileUrl',id=prof.id)
 	template= t + 'profileedit.html'
