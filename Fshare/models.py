@@ -14,7 +14,7 @@ from django.core.files import File
 from django.core.files.storage import storages
 from django.core.files.storage import FileSystemStorage
 from pathlib import Path
-
+import cloudinary
 
 # def select_storage():
 #     if settings.AWS:
@@ -108,13 +108,17 @@ class Folder(models.Model):
 		return None
 		
 	def download(self):
-		root = Path(f"{str(MEDIA_ROOT)}/file/{self.name}")
-		with zipfile.ZipFile(f"{MEDIA_ROOT}/zip/{self.name}.zip",mode="w") as archive:
-			for path in root.rglob("*"):
-		    		archive.write(path,arcname=path.relative_to(root))
-		self.download_count += 1
-		self.save()
-		return f'media/zip/{self.name}.zip'
+	    if not settings.LOCAL:
+	        result = cloudinary.utils.download_folder(f"media/file/{self.name}",public_id = f'{self.name}', target_public_id = f"{self.name}", prefixes=f"{self.name}")
+	        print(result)
+	        return result
+	    root= Path(f"{str(MEDIA_ROOT)}/file/{self.name}")
+	    with zipfile.ZipFile(f"{MEDIA_ROOT}/zip/{self.name}.zip",mode="w") as archive:
+	        for path in root.rglob("*"):
+	            archive.write(path,arcname=path.relative_to(root))
+	    self.download_count += 1
+	    self.save()
+	    return f'media/zip/{self.name}.zip'
 
 class File(models.Model):
 	folder=models.ForeignKey(Folder,related_name='file', on_delete=models.CASCADE,null=True,blank=True)
