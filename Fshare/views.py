@@ -66,7 +66,11 @@ def FileFormView(request):
 		if 'folder' in request.POST:
 			fod=request.POST.get('folder')
 			for files in others:
-				file=File.objects.create(name=files.name,file=files,folder=Folder.objects.get(id=fod))
+				name = file.name
+				if len(name) > 10000:
+					n = name.split('.')
+					name = n[:100] + '.' + n[-1]
+				file=File.objects.create(name=name,file=files,folder=Folder.objects.get(id=fod))
 			return redirect('FolderDetailViewUrl',fid=int(fod))
 			#return redirect('FileViewUrl')
 	context=dict(fileForm=Ff)
