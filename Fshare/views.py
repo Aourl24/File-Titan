@@ -51,7 +51,7 @@ def createFileView(request):
 		file_name=request.POST.get('filename')
 		d=request.POST.get('folderid')
 		folder=Folder.objects.get(id=d)
-		file_created=File.objects.create(name=str(file_name),folder=folder,file=ContentFile(' ',name=f'{file_name}'))
+		file_created=File.objects.create(name=str(file_name),folder=folder)
 	template=t + 'create.html'
 	return HttpResponseRedirect(reverse('FileDetailViewUrl',kwargs={'id':file_created.id}))
 
@@ -67,9 +67,13 @@ def FileFormView(request):
 			fod=request.POST.get('folder')
 			for files in others:
 				name = files.name
-				if len(name) > 10000:
+				print('len',len(name))
+				if len(str(name)) > 15:
 					n = name.split('.')
-					name = n[:100] + '.' + n[-1]
+					ln = n[0]
+					nn = ('').join(ln)
+					name = ln[:10] + '.' + n[-1]
+				print('name',name)
 				file=File.objects.create(name=name,file=files,folder=Folder.objects.get(id=fod))
 			return redirect('FolderDetailViewUrl',fid=int(fod))
 			#return redirect('FileViewUrl')

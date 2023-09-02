@@ -124,6 +124,7 @@ class File(models.Model):
 	folder=models.ForeignKey(Folder,related_name='file', on_delete=models.CASCADE,null=True,blank=True)
 	name=models.CharField(max_length=10000)
 	file=models.FileField(upload_to=upload_file,default='file/empty.txt')
+	content=models.TextField(null=True,blank=True)
 	edited=models.ForeignKey('self',related_name='edited_file',blank=True,null=True,on_delete=models.CASCADE)
 	edit_owner=models.ForeignKey(Profile,null=True,blank=True,related_name='my_file_edit',on_delete=models.CASCADE)
 	date_created=models.DateTimeField(auto_now_add=True)
@@ -140,27 +141,21 @@ class File(models.Model):
 		
 	def openFile(self):
 		path = f"{MEDIA_ROOT}"
-		try:
-			a = self.file.read()
-		except FileNotFoundError:
-			print(self.file.name)
-			with open(f"{path}/{self.file.name}",'r') as obj:
-				a = obj.read()
-		return a
+		# try:
+		# 	a = self.file.read()
+		# except FileNotFoundError:
+		# 	print(self.file.name)
+		# 	with open(f"{path}/{self.file.name}",'r') as obj:
+		# 		a = obj.read()
+		return self.content
 		
 	def branch(self):
 		return reverse('BranchUrl',args=[self.id])
 
 	def saveFile(self,words):
 		words=words.replace('”','"')
-		try:
-			self.file.open(mode='w')
-			self.file.write(words)
-			self.file.close()
-		except FileNotFoundError:
-			path = f"{MEDIA_ROOT}"
-			with open(f"{path}/{self.file.name}",'w',encoding='utf-8') as obj:
-				obj.write(str(words.replace('“','"')))
+		self.content = words
+		self.save()
 				
 	def saveLocally(self,words,path=None):
 		pass

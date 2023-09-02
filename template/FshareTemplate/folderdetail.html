@@ -98,7 +98,7 @@
 )">
         <div class="modal-dialog modal-dialog-centered ">
             <div class="modal-content no-border" syle="top:50px;width:100%">
-                {%comment%}
+                
                 <div class="row my-2">
                     <div class="col-12">
                         <button class="btn color-bg-s color-white" onclick="$('.swap').fadeOut();$('#create').fadeIn()">
@@ -108,7 +108,7 @@
                         </button>
                     </div>
                 </div>
-                {%endcomment%}
+                
                 <div class="row my-2">
                     <div class="col">
                         <button class="btn color-bg-p color-white" onclick="$('.swap').fadeOut();$('#newfile').fadeIn()">
@@ -132,8 +132,11 @@
     </div>
 
 
-                <div class="hide pol swap borer position-fixed bg-light pop-center" id="create" style="z-index:101  ;left: 0px;right:0px">
-                    <form action="{%url 'CreateUrl' %}" class="p-2 ronded bg-lght boder" method="post">
+    <div class="modal sz-18 swap" id="create" style="z-index:4000;width:100%;heiht:170px;tp:20%;background-color:rgba(300,300,300,0.9
+)">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content no-border" syle="top:50px;width:100%">
+                    <form action="{%url 'CreateUrl' %}" class="col-12 p-2 ronded bg-light" method="post">
                         {%csrf_token%}
                         <p class="sz-18">
                             New File
@@ -150,7 +153,9 @@
                             </input>
                         </input>
                     </form>
-                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="modal sz-18 swap" id="newfile" style="z-index:4000;width:100%;heiht:170px;tp:20%;background-color:rgba(300,300,300,0.9
