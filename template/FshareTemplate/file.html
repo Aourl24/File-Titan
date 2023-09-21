@@ -112,3 +112,15 @@
     </div>
     {%endfor%}
 </div>
+<script>
+function Download(){
+let content = 'My word'
+let blob = new Blob([content],{type:'text/plain'});
+contst url = URL.createObjectURL(blob);
+let downloadLInk = document.createElement('a');
+downloadLink.href = url
+downloadLink.download = 'word.txt';
+downloadLink.click();
+}
+
+</script>

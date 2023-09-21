@@ -1,15 +1,15 @@
 <input type='hidden' id='filepath' value='{{file.name}}'>
 
 <div class='' style="">
-    <div class='row'>
-    <div id='feedba' class='col'></div>
+    <div class='row position-fixed p-2 rounded bg-light' style="bacground-color: white;">
+    <div id='feedba' class='col center'></div>
     </div>
     {% if allow%}
         <div class='row'>
         <div class='col'>
         <form name='other' id='edo' hx-post='' onsubmit="accept()" hx-target='#feedba' hx-swap='innerHTML'>
             {%csrf_token%}
-                <textarea id='editor' name='' class='container border color-bg-white color-black' style='border:none;width:100%;height:150vw' onclick="$('#msg').fadeOut()">{{file.openFile}}
+                <textarea id='editor' name='' class='border color-bg-white color-black container-fluid' style='border:none;width:100%;heiht:150vw' onclick="$('#msg').fadeOut()">{{file.openFile}}
                 </textarea>
             <input name='wod' id='cov' type='hidden' value='{{file.openFile}}'>
             <input name='word' id='ov' type='hidden'>
