@@ -4,7 +4,7 @@ from FileShare.settings import BASE_DIR,MEDIA_ROOT
 from django.http import StreamingHttpResponse,HttpResponse,FileResponse
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save,pre_save
 from django.dispatch import receiver
 from django.core.files.base import ContentFile
 from datetime import datetime
@@ -13,6 +13,7 @@ from django.conf  import settings
 from django.core.files import File
 from django.core.files.storage import storages
 from django.core.files.storage import FileSystemStorage
+from django.core.files.base import ContentFile
 from pathlib import Path
 import cloudinary
 
@@ -123,7 +124,7 @@ class Folder(models.Model):
 class File(models.Model):
 	folder=models.ForeignKey(Folder,related_name='file', on_delete=models.CASCADE,null=True,blank=True)
 	name=models.CharField(max_length=10000)
-	file=models.FileField(upload_to=upload_file,default='file/empty.txt')
+	file=models.FileField(upload_to=upload_file,blank=True,null=True)
 	content=models.TextField(null=True,blank=True)
 	edited=models.ForeignKey('self',related_name='edited_file',blank=True,null=True,on_delete=models.CASCADE)
 	edit_owner=models.ForeignKey(Profile,null=True,blank=True,related_name='my_file_edit',on_delete=models.CASCADE)
@@ -168,8 +169,9 @@ class File(models.Model):
 		b=File.objects.get(id=self.id)
 		u=b.folder
 		word=b.openFile()
-		con=ContentFile(word, f'branch_{self.name}')
-		j=File.objects.create(name=self.name,folder=self.folder,file=con,edited=b,edit_owner=owner)
+		#con=ContentFile(word, f'branch_{self.name}')
+
+		j=File.objects.create(name=self.name,folder=self.folder,content=word,edited=b,edit_owner=owner)
 		return reverse('BranchUrl',args=[self.id])
 		
 	def Clone(self,owner,folder):
@@ -210,6 +212,19 @@ class File(models.Model):
 def ProfileCreated(sender, created, instance,**kwargs):
     if created:
         prof=Profile.objects.create(user=instance)
+
+@receiver(pre_save,sender=File)
+def FileCreated(sender,instance,**kwargs):
+	#if created:
+	if instance.content:
+		try:
+			with instance.file.open('w') as file:
+				file.write(instance.content)
+		except:
+			file_created = ContentFile(instance.content,name=f'{instance.name}')
+			instance.file = file_created
+	#instance.save()
+
         #prof.profile_photo = f"{MEDIA_ROOT}/profileimage/profile.png"
         # prof.save()
 # @reciver(post_save,sender=File)

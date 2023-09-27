@@ -197,7 +197,7 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
     }
 </style>
 
-<body class='font-poppins sz-16 coor-bg-t b-light'>
+<body class='font-poppins sz-16'>
     <div id="pre-loader" class="color-bg-white h-100 w-100 d-flex justify-content-center align-items-center position-fixed" style="z-index:10000">
                 <span class='dot animate__animated animate__bounce animte__delay-1s animate__infinite color-p aniate__slow' style=''> File </span>
                 <span class='dot animate__animated animate__bounce aniate__delay-2s animate__infinite color-s animate__fast'>Titan</span>  
@@ -205,38 +205,47 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
 
 
     {%block header%}
-    <header id='' class="navbar justify-content-space-around d-flex fixed-top rouded sz-12 bg-liht
-        animate__animated animate__slideInDown m-0 p-2 color-bg-white color-p"
+    <nav id='' class="navbar sz-12 container-fluid p-1 m-0 color-bg-white color-p bg-light align-items-center position-fixed"
         style=" z-index:7000">
     
-        <div class="sz-20 px-2 center font-lato bold" style="font-size:22px;">
-            <img src="{%static 'images/logo.png'%}" class='container'
-            style='width:40px;height:30px;object-fit:cover ' />
+        <div class="sz-18 bold navbar-brand p-0" style="fot-size:22px;">
+            <img src="{%static 'images/logo.png'%}" class='img-fluid hide'
+            style='width:25px;height:25px;object-fit:contain ' />
             File-Titan
         </div>
-        <div class="display-md-none sz-24 " style="text-align:right">
+        <div class="display-sm-none sz-12 navbar-brand p-0">
+        
+            <form method='POST' class="" action="{%url 'SearchUrl' %}">
+                {%csrf_token%}
+                <input type='search' placeholder='search files and directories' class='form-control sz-sm'
+                name='search' style="height:30px!important">
+            </form>
+
+        </div>
+        <div class='sz-14 display-sm-none navbar-brand p-0'>
+            <a class='color-black' href="{% url 'account_logout'%}">Log Out</a>
+        </div>
+        <div class="display-md-none sz-20 navbar-brand" style="text-align:right">
             <i class="fas fa-bars animate__animated animate__bounce bordr rounded p-1" id="tri" onclick="show()"></i>
         </div>
-        </div>
     
-    </header>
+    </nav>
     <br />
     <br />
     {%endblock%}
 
     <div class='container-fluid'>
-        <div class='row'>
-            
-            <div class='col-2'>
-                {%block sidebar%}
-                <div id='hold' class='position-fixed m-0 color-bg-white color-bg-dark-light
-                conner border-right h-100' style='z-index:6000;'>
+        <div class='row justify-content-evenly'>
+            {%block sidebar%}
+            <div class='col-2 color-bg-p'>
+                <div id='hold' class='position-fixed color-bg-p m-0 colr-bg-white color-bg-dark-light
+                conner border-right h-100' style='z-index:6000;overflow: ;'>
                 <div id="dropdown" class="dropD
                 display-sm-none animate__animated animate__slideInDown animate__fast overflow-auto
                 clor-bg-white color-bg-dark-light m-0 p-3 rounded"
                 style="overflow:auto">
                     <div class="row">
-                        <div class="col">
+                        <div class="col display-md-none">
                             <form method='POST' class="" action="{%url 'SearchUrl' %}">
                                 {%csrf_token%}
                                 <input type='search' placeholder='search files and directories' class='form-control'
@@ -255,25 +264,25 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                     </div>
                     {%endif%}
                     <div class="row my-3">
-                        <a class='col sz-18 color-black' href="{%url 'FileViewUrl' %} ">
+                        <a class='col sz-14 color-white' href="{%url 'FileViewUrl' %} ">
                             Explore
                         </a>
                     </div>
                     <div class="row my-3">
-                        <a class='col sz-18 color-black' href="{%url 'FolderFormUrl' %} ">
+                        <a class='col sz-14 color-white' href="{%url 'FolderFormUrl' %} ">
                             Create Directory
                         </a>
                     </div>
                     {%if request.user.is_authenticated %}
                     <div class="row my-3">
-                        <div class="col sz-18">
-                            <a class='color-black' href="{%url 'ProfileUrl' request.user.profile.id %}"> My Dashboard
+                        <div class="col sz-14">
+                            <a class='color-white' href="{%url 'ProfileUrl' request.user.profile.id %}"> My Dashboard
                             </a>
                         </div>
                     </div>
 
                     <div class='row my-3'>
-                        <div class='col sz-18'>
+                        <div class='col sz-14 display-md-none'>
                             <a class='color-black' href="{% url 'account_logout'%}">Log Out</a>
                         </div>
                     </div>
@@ -305,8 +314,9 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                     <br />
                 </div>
                 </div>
-                {%endblock%}
+                
             </div>
+            {%endblock%}
             
 
             <div class='col-md col-sm-12 '>

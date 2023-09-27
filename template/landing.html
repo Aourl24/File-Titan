@@ -1,5 +1,8 @@
 {%extends 'base.html'%}
 {%load static%}
+{%block sidebar%}
+
+{%endblock%}
 {%block content%}
 <div class='container-fluid'>
 <div class="row align-items-center justify-content-center h-auto"
@@ -26,15 +29,15 @@ color-bg-white my-2 img-fluid'
         <br />
     </div>
     <div class='col'>
-        <div class="row">
-            <div class="col sz-24 color-white">
+        <div class="row justify-content-evenly">
+            <div class="col-5 sz-24 color-white">
                 <a class='btn btn-block  sz-sm-18 sz-md-24 color-white
                     color-dark-white w-100 color-bg-s' href="{% url 'account_signup'%}"
                    style='baground-color:357417'>
                     Signup
                 </a>
             </div>
-            <div class="col sz-18 color-white">
+            <div class="col-5 sz-18 color-white">
                 <a class='btn btn-block color-bg-p w-100 sz-md-24 sz-sm-18 color-white
                     color-dark-white' href="{% url 'account_login'%}"
                    style='baground-color:357417'>
@@ -48,29 +51,28 @@ color-bg-white my-2 img-fluid'
 <br />
 <br />
 <div class="center">
-    <img src="{%static 'images/hero-img.png'%}" class="container center
-    container-sm"
+    <img src="{%static 'images/hero-img.png'%}" class="img-fluid"
     stye='max-height:300px;width:auto; height:auto;width:auto'/>
 </div>
 <br />
 <h3 class='center color-p bold'>Efficient File Management</h3>
 <br />
-<div id='slidein' class="row sz-18 ani">
+<div id='slidein' class="row sz-18 ani m-1 justify-content-evenly">
 
-    <div class="col-md col-sm-12 shadow p-3 my-2">
-        <div class="sz-24 color-s py-2  ">Streamlined Organization</div> 
-        <div>With File-Titan, creating a logical and intuitive folder structure is a breeze. Category your files based on projects or any system that suits your workflow.No more digging through endless folders to find what you need </div>
+    <div class="col-md-5 col-sm-12 p-3 btn btn-primary color-bg-p  rounded">
+        <div class="sz-24 color-s py-2  color-white">Streamlined Organization</div> 
+        <div class="color-white">With File-Titan, creating a logical and intuitive folder structure is a breeze. Category your files based on projects or any system that suits your workflow.No more digging through endless folders to find what you need </div>
     </div>
-    <div class="col-md col-sm-12 shadow p-3 my-2">
-        <div class="sz-24 color-s py-2">Effortless Access</div>
+    <div class="col-md-5 btn col-sm-12 p-3 btn-danger rounded">
+        <div class="sz-24 color-white py-2">Effortless Access</div>
         <div>Say goodbye to frantic searches for misplaced files.Our intuitive search and navigation features ensure that you can access your documents with a few clicks, making your workday smoother and more efficient </div>
     </div>
-    <div class="col-md col-sm-12  shadow  p-3 my-2">
-        <p class="sz-24 color-s py-2">Mobile Convenience</p>
-        <div>Access your files on the go with our mobile-friendly platform.Whether you are in a meeting, traveling or working from home your files are always at your finger tips</div>
+    <div class="col-md-5 col-sm-12  btn p-3 my-2 btn-success rounded">
+        <div class="sz-24 color-white py-2">Mobile Convenience</div>
+        <div class="color-white">Access your files on the go with our mobile-friendly platform.Whether you are in a meeting, traveling or working from home your files are always at your finger tips</div>
     </div>
-    <div class="col-md col-sm-12 shadow  p-3 my-2 ">
-        <p class="sz-24 color-s py-2">Security and Privacy</p>
+    <div class="col-md-5 col-sm-12   p-3 my-2 btn btn-success color-bg-s  rounded">
+        <div class="sz-24 color-white py-2">Security and Privacy</div>
         <div>Protect sensitive files with advanced security features.Grant access only to authorized individuals and keep your confidential information safe. </div>
     </div>
 </div>
@@ -78,29 +80,28 @@ color-bg-white my-2 img-fluid'
 <br />
 <h3 class='center color-p bold'>Efficient Seamless Collaboration</h3>
 <br />
-<div class="row ani">
+<div class="row ani justify-content-evenly">
 
-    <div class="col-md col-sm-12 shadow my-2 p-3">
-        <p class="sz-24 color-s py-2">Real-Time Collaboration</p>
-        <div>Say goodbye to endless email exchanges and confusing file versions. With File-Titan, multiple users can edit , comment and collaborate on the same document in real time </div>
+    <div class="col-md-5 col-sm-12 my-2 p-3 btn btn-success color-bg-p rounded">
+        <div class="sz-24 color-white py-2">Real-Time Collaboration</div>
+        <div class="color-white">Say goodbye to endless email exchanges and confusing file versions. With File-Titan, multiple users can edit , comment and collaborate on the same document in real time </div>
     </div>
-    <div class="col-md col-sm-12 shadow my-2 p-3">
-        <p class="sz-24 color-s py-2">Centralized File Access</p>
-        <div>No more juggling multiple versions across various devices.File-Titan's centralized platform ensures that everyone is working on the most up-to-date version of a document</div>
+    <div class="col-md-5 col-sm-12 my-2 p-3 btn btn-danger rounded">
+        <div class="sz-24 color-white py-2">Centralized File Access</div>
+        <div class="color-white">No more juggling multiple versions across various devices.File-Titan's centralized platform ensures that everyone is working on the most up-to-date version of a document</div>
     </div>
-    <div class="col-md  col-sm-12 shadow my-2 p-3">
-        <p class="sz-24 color-s py-2">File Cloning</p>
-        <div>Need a file for your project? Easy clone files from others directories to your own, saving time and effort while maintaining your personalized organization</div>
+    <div class="col-md-5  col-sm-12 my-2 p-3 btn btn-danger color-bg-s rounded">
+        <div class="sz-24 color-white py-2">File Cloning</div>
+        <div class="color-white">Need a file for your project? Easy clone files from others directories to your own, saving time and effort while maintaining your personalized organization</div>
     </div>
-    <div class="col-md col-sm-12 shadow my-2 p-3">
-        <p class="sz-24 color-s py-2">Enhanced Productivity</p>
-        <div>Collaborating on File-Titan means fewer bottlenecks,faster decision-making, and a smoother workflow. By working together seamlesssly, you and your team can achieve more in less time</div>
+    <div class="col-md-5 col-sm-12 my-2 p-3 btn btn-success rounded">
+        <div class="sz-24 color-white py-2">Enhanced Productivity</div>
+        <div class='color-white'>Collaborating on File-Titan means fewer bottlenecks,faster decision-making, and a smoother workflow. By working together seamlesssly, you and your team can achieve more in less time</div>
     </div>
 </div>
 <br />
 <div class="center">
-    <img src="{%static 'images/file.png'%}" class="img-fluid center
-    container-sm"
+    <img src="{%static 'images/file.png'%}" class="img-fluid"
     stye='max-height:300px;width:auto; height:auto;width:auto'/>
 </div> 
 <br />

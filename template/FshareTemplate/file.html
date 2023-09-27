@@ -1,8 +1,8 @@
 <input id='folderId' name='folderId' value='{{file.id}}' type='hidden'>
 
-<div class="row m-1">
+
     {%for f in originalFile%}
-    <div class='col-md-12 col-sm-12 py-3 colr-bg-white my-2 border rounded' style=''>
+    <div class='col-md-5 col-sm-12 py-3 colr-bg-white my-2 border rounded mx-md-2' style=''>
         <div class='row align-items-center' style=''>
             <div class='col sz-16'>
                 <a href={{f.get_absolute_url}} class='color-black'>
@@ -94,7 +94,7 @@
                 {%endif%}
 
                 <div class='col-12 color-black py-2 color-s'>
-                    <a class='color-black sz-14' style='' href='{{f.file.url}}' download> Download </a>
+                    <a class='color-black sz-14' style='' href={{f.file.url}} download> Download </a>
                 </div>
                 {%if file.owner == prof %}
                 <div class='col-12 sz-14 color-black py-2'>
@@ -111,7 +111,6 @@
         </div>
     </div>
     {%endfor%}
-</div>
 <script>
 function Download(){
 let content = 'My word'

@@ -6,7 +6,7 @@ This page shows the folders in list
 {%if folders%}
 <div class="row m-1" style="">
     {%for folder in folders%}
-    <div class="col-sm-12 {%if folder.parent%} col-md-12 {%else%} col-md-5 {%endif%} my-2 mx-md-2 rounded color-bg-dark-light p-3 color-bg-white border show" style="">
+    <div class="col-sm-12 {%if folder.parent%} col-md-10 {%else%} col-md-5 {%endif%} my-2 mx-md-2 rounded color-bg-dark-light p-3 color-bg-white border show" style="">
         <div class="row">
             <div class="col-3 color-p">
                 <i class="fas fa-folder sz-36" title="my folder">
@@ -15,7 +15,7 @@ This page shows the folders in list
             <div class="col">
                 <div class="row">
                     <div class="col">
-                        <a class="color-black color-dark-white bold" href="{{folder.get_absolute_url}}" style="">
+                        <a class="color-black color-dark-white" href="{{folder.get_absolute_url}}" style="">
                             {{folder.name}} {% if folder.privacy == 'authorize' %}
                             <i class="fas fa-lock sz-sm color-dark-white">
                             </i>

@@ -18,7 +18,7 @@ t='FshareTemplate/'
 #POST https://titleId.playfabapi.com/File/GetFiles
 
 def message (x):
-    return f"<div class='alert animate__animated animate__fadeOut animate__delay-5'>{x}</div>"
+    return f"<div class='alert animate__animated animate__fadeOut animate__delay-5s'>{x}</div>"
     
 def landingView(request):
 	# The landing page
@@ -193,7 +193,7 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 				else:
 					file.saveFile(str(b))
 					print('we are saving')
-					return HttpResponse(Saved)
+					return HttpResponse(message('File Saved'))
 			else:
 				return HttpResponse('You can not save file because you are not logged in')
 
@@ -206,7 +206,7 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 			# 		params={'HX-Target':'#feedback','HX-Swap':'innerHTML'}
 			# 		return HttpResponse(Error)
 
-			return HttpResponse(Saved)
+			return HttpResponse(message('File Saved'))
 
 	context=dict(file=file,audio_file=audio_file,code_file=code_file,video_file=video_file,unknown_file=unknown_file,img_file=img_file,fileForm=Ff,originalFile=real_file,prof=prof,form=folderform,allow=allow)
 	return render(request,template,context)

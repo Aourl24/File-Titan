@@ -1,5 +1,5 @@
-<div id='menu' style='positin:absolute;z-inde:10000;' class='rounded color-bg-wite bg-ligt'>
-    <div class="sz-18 color-p my-2">
+<div id='menu' style='' class='rounded color-bg-p bg-ligt;'>
+    <div class="sz-14 color-white bold my-2">
         My Files
     </div>
     {%if warning%}
@@ -11,8 +11,8 @@
     {%for folder in folders%}
 
     <div class='sz-16 my-2 rounded olor-bg-white' onclick="sho({{folder.name}})">
-        <a href={{folder.get_absolute_url}} class='color-black' >
-        <span class='btn sz-16 p-0'><i class='far fa-folder'></i> {{folder.name}}
+        <a href={{folder.get_absolute_url}} class='color-white' >
+        <span class='btn sz-12 p-0 color-white'><i class='far fa-folder'></i> {{folder.name}}
         </span>
         </a>
     </div>

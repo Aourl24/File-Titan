@@ -160,7 +160,6 @@ if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = True
     #STATIC_ROOT=str(BASE_DIR.joinpath('static'))
     #STATICFILES_DIRS=''
-    ALLOWED_HOSTS = ['filetitan.pythonanywhere.com']
 
 
 # AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
@@ -173,6 +172,5 @@ if not DEBUG:
 
 if LOCAL:
     from .dev import *
-
 else:
     from .prod import *

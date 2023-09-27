@@ -47,7 +47,7 @@
 	
 	{%else%}
     
-    <div class='sz-18 my-2'>Directories</div>
+    <div class='sz-18 my-2 bold'>Directories</div>
 
     {%include 'FshareTemplate/folderlist.html' with folders=profile.folder.all %}
     
@@ -56,9 +56,10 @@
     {%if not branches %}
     
     {%else%}
-	<div class='sz-18 my-2'>Branches</div>
-	
+	<div class='sz-18 my-2 bold'>Branches</div>
+	<div class="row">
     {%include 'FshareTemplate/file.html' with originalFile=branches %}
+    </div>
     {%endif%}
     
 </div>    
