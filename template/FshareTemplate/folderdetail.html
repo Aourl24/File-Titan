@@ -18,12 +18,12 @@
         {%if file.cover_phoo%}
         <img class="container-fluid p-0 my-2" src="{{file.cover_photo.url}}" style="height:150px;width:100%;object-fit:cover;object-position:top"/>
         {%else%}
-        <div class="container-fluid p-0 m-0 justify-content-center d-flex align-items-center" style="height:150px;width:100%;object-fit:cover;object-position:top">
+        <div class="container-fluid p-0 m-0 justify-content-center d-flex align-items-center" style="height:100px;width:100%;object-fit:cover;object-position:top">
             <i class="fas fa-folder-open sz-48">
             </i>
         </div>
         {%endif%}
-        <div class="col-md col-sm-12 center">
+        <div class="col-md-12 col-sm-12 center my-2">
             {%if file.parent%}
             <a class="normal color-s" href="{{file.parent.get_absolute_url}}">
                 {{file.parent.name}}
@@ -33,21 +33,20 @@
                 {{file.name|title }}
             </b>
         </div>
-        <hr/>
-        <div class="col-md col-sm-12 my-sm-3 center">
-            <button class="btn btn-link sz-sm p-0 color-s" hx-get="{%url 'DownloadUrl' file.id%}" hx-swap="outerHTML" style="">
+        <hr />
+        <div class="col-md col-sm-12 center sz-12">
+            <div class="btn btn-link sz-sm p-0 color-s" hx-get="{%url 'DownloadUrl' file.id%}" hx-swap="outerHTML" style="">
                 <i class="fas fa-download">
                 </i>
                 Download this Folder
-                <div class="htmx-indicator" style="position:absolute;">
+                <div class="htmx-indicator hide" style="position:absolute;">
                     wait...
                     <div class="circle rotate" style="position:absolute;border-bottom:2px solid blue;border-right:2px solid blue;border-left:2px solid white;border-top:2px solid white;height:15px;width:15px">
                     </div>
                 </div>
-            </button>
+            </div>
         </div>
-        <div class="col-md col center">
-            <div class="passive desize curve padd sbcoor color-black">
+        <div class="col-md col-sm-12 center passive sz-12">
                 <span class="color-s">
                     {{originalFile.count}}
                 </span>
@@ -57,7 +56,7 @@
                 </span>
                 folders
                 <span class="desize black" style="">
-                    <span class="passive desize">
+                    <span class="passive">
                         | owner
                     </span>
                     <a href="{{file.owner.get_absolute_url}}">
@@ -66,18 +65,20 @@
                         </span>
                     </a>
                 </span>
-            </div>
         </div>
         {%if file.owner == prof %}
         <div class="col-md col-12 center ">
-            <a class="sz-sm btn text-danger color-white p-1" href="{%url 'EditFolderUrl' file.id request.path_info%}">
+            <a class="sz-sm text-danger color-white sz-12" href="{%url 'EditFolderUrl' file.id request.path_info%}">
                 edit
             </a>
         </div>
+        <a class="col-md col-12 text-danger center" href="{%url 'FolderDeleteUrl' file.id%}">
+            delete
+        </a>
         {%endif%}
     </div>
     {%if not folder.parent%}
-    <div class="row sz-12 m-2 center">
+    <div class="row sz-12 my-3 center">
         {%include 'FshareTemplate/like.html' with folder=file%}
     </div>
     {%endif%}
@@ -85,7 +86,7 @@
     {%include 'FshareTemplate/folderlist.html' with folders=file.child_folder.all %}
 
 
-<div class="row justify-content-around m-2">
+<div class="row justify-content-around m-2" id="holder">
 {%include 'FshareTemplate/file.html'%}
 </div>
 {%if file.owner == prof %}
@@ -136,22 +137,24 @@
 )">
         <div class="modal-dialog modal-dialog-centered ">
             <div class="modal-content no-border" syle="top:50px;width:100%">
-                    <form action="{%url 'CreateUrl' %}" class="col-12 p-2 ronded bg-light" method="post">
+                    <form action="{%url 'CreateUrl' %}" class="alert p-2 ronded bg-light" method="post">
                         {%csrf_token%}
-                        <p class="sz-18">
+                        <div class="row sz-24 m-2 color-p">
                             New File
-                        </p>
-                        <input class="input" name="folderid" style="" type="hidden" value="{{file.id}}">
-                            <input class="form-control" name="filename" placeholder="name" required="" style="">
-                                <br/>
-                                <button class="form-control btn color-bg-s btn-block color-white">
+                        </div>
+
+                        <div class="row m-2">
+                        <input class="input" name="folderid" style="" type="hidden" value="{{file.id}}" />
+                            <input class="form-control" name="filename" placeholder="name" required="" style="" />
+                        </div>
+                        <div class="row m-2">
+                                <button class="form-control btn color-bg-s w-100 btn-block color-white">
                                     Create
                                 </button>
-                                <p class="btn btn-link btn-block text-danger" onclick="$('#create').fadeOut()">
+                        </div>
+                                <div class="btn btn-link btn-block text-danger row m-2 w-100" onclick="$('#create').fadeOut()">
                                     close window
-                                </p>
-                            </input>
-                        </input>
+                                </div>
                     </form>
             </div>
         </div>
@@ -162,11 +165,11 @@
 )">
         <div class="modal-dialog modal-dialog-centered ">
             <div class="modal-content no-border" syle="top:50px;width:100%">
-                    <form action="{%url 'FileFormUrl' %}" class="col-12 p-2 ronded bg-light" enctype="multipart/form-data" id="newfile" method="POST" style="">
-                        <p class="sz-18">
+                    <form action="{%url 'FileFormUrl' %}" class="alert p-2 ronded bg-light" enctype="multipart/form-data" id="newfile" method="POST" style="">
+                        <div class="row m-2 sz-24 color-p">
                             Upload Files
-                        </p>
-                        <input class="input" name="folder" type="hidden" value="{{file.id}}">
+                        </div>
+                        <input class="input" name="folder" type="hidden" value="{{file.id}}" />
                             {%csrf_token%}
            {%comment%}
 
@@ -174,15 +177,15 @@
             {{f.as_widget}}
             {%endfor%}
             {%endcomment%}
+            <div class="row m-2">
                             <input class="form-control" multiple="" name="file" type="file"/>
-                            <br/>
-                            <p><button class="btn btn-block color-bg-s color-white w-100">
+            </div>
+                            <div class="row m-2"><button class="btn btn-block color-bg-s color-white w-100">
                                 Upload
-                            </button></p>
-                            <div class="btn btn-link btn-block text-danger" onclick="$('#newfile').fadeOut()">
+                            </button></div>
+                            <div class="row m-2 btn btn-link btn-block text-danger w-100" onclick="$('#newfile').fadeOut()">
                                 close window
                             </div>
-                        </input>
                     </form>
             </div>
         </div>

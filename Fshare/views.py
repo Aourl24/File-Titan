@@ -17,6 +17,11 @@ Saved="<div class='' id='msg' style=''> Saved </div>"
 t='FshareTemplate/'
 #POST https://titleId.playfabapi.com/File/GetFiles
 
+def checkSize(x):
+	if int(x.size) > 10485760:
+		return False
+	return True
+
 def message (x):
     return f"<div class='alert animate__animated animate__fadeOut animate__delay-5s'>{x}</div>"
     
@@ -56,8 +61,10 @@ def createFileView(request):
 	return HttpResponseRedirect(reverse('FileDetailViewUrl',kwargs={'id':file_created.id}))
 
 
+
 @login_required(login_url='login')
 def FileFormView(request):
+	prof = Profile.objects.get(user=request.user)
 	Ff=FileForm()
 	template=t+'index.html'
 	if request.method == 'POST':
@@ -67,7 +74,8 @@ def FileFormView(request):
 			fod=request.POST.get('folder')
 			for files in others:
 				name = files.name
-				print('len',len(name))
+				#check_size = checkSize(files)
+
 				if len(str(name)) > 15:
 					n = name.split('.')
 					ln = n[0]
@@ -75,6 +83,12 @@ def FileFormView(request):
 					name = ln[:10] + '.' + n[-1]
 				print('name',name)
 				file=File.objects.create(name=name,file=files,folder=Folder.objects.get(id=fod))
+				is_size=prof.check_size()
+				if is_size:	
+					prof.size += files.size
+					prof.save()
+				else:
+					return redirect(reverse('ErrorView',kwargs={'word':'You have reach your memory limit'}))
 			return redirect('FolderDetailViewUrl',fid=int(fod))
 			#return redirect('FileViewUrl')
 	context=dict(fileForm=Ff)
@@ -252,7 +266,7 @@ def DeleteView(request,id=None,fid=None):
 		if 'folderId' in request.GET:
 			file=Folder.objects.get(id=request.GET.get('folderId'))
 			real_file=file.file.filter(edited=None)
-		context=dict(originalFile=real_file,prof=prof)
+		context=dict(originalFile=real_file,prof=prof,file=file)
 		return render(request,t+'file.html',context)
 
 	if fid:
@@ -498,3 +512,8 @@ def likeFolder(request,folder_id):
 	else:
 		folder.likes.add(profile)
 		return HttpResponse(f"<i class='fas fa-heart color-p'></i> {folder.likes.count()}")
+
+def errorView(request,word=None):
+	template = t+"error.html"
+	context = dict(error=word)
+	return render(request,template,context)

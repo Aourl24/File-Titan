@@ -31,8 +31,14 @@
 	</div>
 	{%endif%}
 
+	<div class="sz-18 my-2 bold"> Memory Usage </div>
+	<div class="container">
+	<div class="w-100 color-bg-t " style="height:15px;background-color:#d2d2d2"></div>
+	<div class="color-bg-p" style="margin-top:-15px;height:15px;width:{{profile.size_in_percent}}%"></div>
+	<div class="sz-12">{{profile.size_in_percent}}% used</div>
+	</div>
 
-
+	<br />
 	{% if not profile.folder.all %}
 	<br/>
 	<div class='row center'>

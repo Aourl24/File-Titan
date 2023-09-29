@@ -60,12 +60,24 @@ class Profile(models.Model):
     location=models.CharField(max_length=100, blank=True, null=True)
     profile_photo=models.ImageField(upload_to='profileimage', default='profileimage/profile.png', null=True, blank=True)
     mode=models.CharField(max_length=100, default='white')
-    
+    size=models.IntegerField(default=0)
+    max_size=models.IntegerField(default=26214400)
+
     def __str__(self):
         return self.user.username
         
     def get_absolute_url(self):
         return reverse('ProfileUrl', args=[self.id])
+
+    def check_size(self):
+    	if self.size > self.max_size:
+    		print(self.size)
+    		return False
+    	return True
+
+    def size_in_percent(self):
+    	percent = (self.size/self.max_size) * 100
+    	return int(percent)
 
 class Folder(models.Model):
 	owner=models.ForeignKey(Profile, related_name='folder', null=True, blank=True, on_delete=models.CASCADE)
@@ -93,6 +105,7 @@ class Folder(models.Model):
 		return reverse('FolderDetailViewUrl',args=[self.id])
 
 	def Delete(self):
+		files_in_folder = self.file.all()
 		Folder.objects.get(id=self.id).delete();
 		return reverse('FileViewUrl')
 
@@ -136,7 +149,16 @@ class File(models.Model):
 		return self.name
 
 	def Delete(self):
-		File.objects.get(id=self.id).delete()
+		size_of_file = self.file.file.size
+		file=File.objects.get(id=self.id)
+		try:
+			file.file.delete()
+		except:
+			pass
+		file.delete()
+		prof = self.folder.owner
+		prof.size -= size_of_file
+		prof.save()
 		return
 		#return reverse('FileViewUrl')
 		

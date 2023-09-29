@@ -10,12 +10,14 @@
  <div >
     {%for folder in folders%}
 
-    <div class='sz-16 my-2 rounded olor-bg-white' onclick="sho({{folder.name}})">
-        <a href={{folder.get_absolute_url}} class='color-white' >
-        <span class='btn sz-12 p-0 color-white'><i class='far fa-folder'></i> {{folder.name}}
-        </span>
-        </a>
-    </div>
+<a href={{folder.get_absolute_url}} class='color-white sz-14 row my-2' >
+        
+        <div class="col-1">
+        <i class='far fa-folder'></i>
+        </div>
+        <div class="col"> {{folder.name}} </div>
+        
+    </a>
 
     <div class='mx-1 color-black ml-3 hide' id="{{folder.name}}">
         {%for file in folder.file.all%}
