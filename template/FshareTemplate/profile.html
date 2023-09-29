@@ -8,9 +8,9 @@
 	<div class='row align-items-center p-2'>
 		<div class='col-12 sz-24'>
 			<img class='rounded-circle' src='{{profile.profile_photo.url}}' style='height:50px;width:50px;object-fit:cover'
-			 > 
+			 >
 			 <br />{{profile.user.username|title}}
-		</div> 
+		</div>
 		{% if profile.user == request.user %}
 			<div class='col'>
 				<a href="{%url 'ProfileEditUrl' %}" style='font-size:13px' > <i class='fas fa-pen'> </i> edit profile </a>
@@ -31,8 +31,8 @@
 	</div>
 	{%endif%}
 
-	
-	
+
+
 	{% if not profile.folder.all %}
 	<br/>
 	<div class='row center'>
@@ -44,24 +44,24 @@
 	    <a class='btn  btn-block color-bg-p color-white sz-18' href="{%url 'FolderFormUrl' %}" style='color:white'>Click to create</a>
 	</div>
 	</div>
-	
+
 	{%else%}
-    
+
     <div class='sz-18 my-2 bold'>Directories</div>
 
     {%include 'FshareTemplate/folderlist.html' with folders=profile.folder.all %}
-    
+
     {%endif%}
-    
+
     {%if not branches %}
-    
+
     {%else%}
 	<div class='sz-18 my-2 bold'>Branches</div>
-	<div class="row">
+	<div class="row m-2">
     {%include 'FshareTemplate/file.html' with originalFile=branches %}
     </div>
     {%endif%}
-    
-</div>    
+
+</div>
 {%endblock%}
 

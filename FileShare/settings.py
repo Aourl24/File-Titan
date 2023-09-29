@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import environ
 import os
- 
+
 env = environ.Env()
 environ.Env.read_env()
 
@@ -29,7 +29,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG =True
-LOCAL = False
+LOCAL = True
 ALLOWED_HOSTS = ['*']
 #ALLOWED_HOSTS = ['filetitan.pythonanywhere.com']
 
@@ -149,7 +149,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
- 
+
 if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000 # One year in seconds
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True

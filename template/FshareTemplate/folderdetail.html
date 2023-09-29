@@ -85,7 +85,7 @@
     {%include 'FshareTemplate/folderlist.html' with folders=file.child_folder.all %}
 
 
-<div class="row justify-content-around">
+<div class="row justify-content-around m-2">
 {%include 'FshareTemplate/file.html'%}
 </div>
 {%if file.owner == prof %}
@@ -98,7 +98,7 @@
 )">
         <div class="modal-dialog modal-dialog-centered ">
             <div class="modal-content no-border" syle="top:50px;width:100%">
-                
+
                 <div class="row my-2">
                     <div class="col-12">
                         <button class="btn color-bg-s color-white" onclick="$('.swap').fadeOut();$('#create').fadeIn()">
@@ -108,7 +108,7 @@
                         </button>
                     </div>
                 </div>
-                
+
                 <div class="row my-2">
                     <div class="col">
                         <button class="btn color-bg-p color-white" onclick="$('.swap').fadeOut();$('#newfile').fadeIn()">
@@ -169,7 +169,7 @@
                         <input class="input" name="folder" type="hidden" value="{{file.id}}">
                             {%csrf_token%}
            {%comment%}
-            
+
             {%for f in fileForm%}
             {{f.as_widget}}
             {%endfor%}
@@ -192,16 +192,16 @@
         <div class="modal-dialog modal-dialog-centered ">
             <div class="modal-content no-border" style="overflow:auto">
                 <br />
-                
+
                     {% include 'FshareTemplate/folderform.html' with title='create' %}
                     <p class="btn btn-link btn-block text-danger" onclick="$('#newfolder').fadeOut()">
                         close window
                     </p>
-                
+
             </div>
         </div>
     </div>
-        
+
     <script type="text/javascript">
         $(document).ready(function() {
 $('#fle').attr({

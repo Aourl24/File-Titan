@@ -187,7 +187,7 @@
     a:focus{
         color:var(--primary-color);
     }
-    
+
     .shadow {
 ox-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;!important
@@ -200,21 +200,21 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
 <body class='font-poppins sz-16'>
     <div id="pre-loader" class="color-bg-white h-100 w-100 d-flex justify-content-center align-items-center position-fixed" style="z-index:10000">
                 <span class='dot animate__animated animate__bounce animte__delay-1s animate__infinite color-p aniate__slow' style=''> File </span>
-                <span class='dot animate__animated animate__bounce aniate__delay-2s animate__infinite color-s animate__fast'>Titan</span>  
+                <span class='dot animate__animated animate__bounce aniate__delay-2s animate__infinite color-s animate__fast'>Titan</span>
     </div>
 
 
     {%block header%}
-    <nav id='' class="navbar sz-12 container-fluid p-1 m-0 color-bg-white color-p bg-light align-items-center position-fixed"
-        style=" z-index:7000">
-    
+    <nav id='' class="navbar sz-12 container-fluid p-1 color-bg-white color-p bg-light align-items-center position-fixed"
+        style=" z-index:7000;margin-top:-7px">
+
         <div class="sz-18 bold navbar-brand p-0" style="fot-size:22px;">
             <img src="{%static 'images/logo.png'%}" class='img-fluid hide'
             style='width:25px;height:25px;object-fit:contain ' />
             File-Titan
         </div>
         <div class="display-sm-none sz-12 navbar-brand p-0">
-        
+
             <form method='POST' class="" action="{%url 'SearchUrl' %}">
                 {%csrf_token%}
                 <input type='search' placeholder='search files and directories' class='form-control sz-sm'
@@ -228,7 +228,7 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
         <div class="display-md-none sz-20 navbar-brand" style="text-align:right">
             <i class="fas fa-bars animate__animated animate__bounce bordr rounded p-1" id="tri" onclick="show()"></i>
         </div>
-    
+
     </nav>
     <br />
     <br />
@@ -253,7 +253,7 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                             </form>
                         </div>
                     </div>
-                    
+
                     {%if request.user.is_authenticated %}
                     <div class='row'>
                         <div class='col align-items-center color-p'>
@@ -306,22 +306,22 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                         </div>
                     </div>
                     {%endcomment%}
-                    
+
                     {%if request.user.is_authenticated %}
                     <div class='' hx-get="{%url 'MenuUrl' %}" hx-trigger='load' hx-swap='innerHTML'></div>
-                    
+
                     {%endif%}
                     <br />
                 </div>
                 </div>
-                
+
             </div>
             {%endblock%}
-            
+
 
             <div class='col-md col-sm-12 '>
                 <div class='holder d-flex justify-content-center w-100 bg-color-bg-white' id='messageholder' style='position:fixed;z-index:10000000;'>
-                    
+
                 </div>
                 {%block index%}
                 {%if request.user.is_anonymous%}
@@ -329,7 +329,7 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                 {%include 'index.html'%}
                 {%endcomment%}
                 {%else%}
-                
+
                 {%endif%}
                 {%endblock%}
                 <div class='bg-ligth'>
