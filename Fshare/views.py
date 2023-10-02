@@ -22,6 +22,18 @@ def checkSize(x):
 		return False
 	return True
 
+def is_text_file(file):
+    try:
+        file_content = file.read().decode('utf-8')
+        # If reading and decoding succeed, it's a text file
+        return file_content
+    except UnicodeDecodeError:
+        # If decoding fails, it's not a text file
+        return False
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return False
+        
 def message (x):
     return f"<div class='alert animate__animated animate__fadeOut animate__delay-5s'>{x}</div>"
     
@@ -81,8 +93,12 @@ def FileFormView(request):
 					ln = n[0]
 					nn = ('').join(ln)
 					name = ln[:10] + '.' + n[-1]
-				print('name',name)
-				file=File.objects.create(name=name,file=files,folder=Folder.objects.get(id=fod))
+				
+				read_file = is_text_file(files)
+				if read_file:
+				  file=File.objects.create(name=name,file=files,content=read_file,folder=Folder.objects.get(id=fod))
+				else:  
+				  file=File.objects.create(name=name,file=files,folder=Folder.objects.get(id=fod))
 				is_size=prof.check_size()
 				if is_size:	
 					prof.size += files.size
@@ -411,7 +427,7 @@ def importFile(request):
 		print(b)
 		if b is None:
 			raise ImportError
-
+    
 		c=request.POST.get('filename')
 		file=File.objects.get(id=c)
 		file.file=b
