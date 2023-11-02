@@ -2,7 +2,8 @@
 
 
     {%for f in originalFile%}
-    <div  class='col-md-5 col-sm-12 py-3 colr-bg-white my-2 border rounded mx-md-2' style=''>
+    <div  class='col-md-4 col-sm p-2 my-2' style=''>
+        <div class="p-3 colr-bg-white border rounded">
         <div class='row align-items-center' style=''>
             <div class='col sz-16'>
                 <a href={{f.get_absolute_url}} class='color-black'>
@@ -110,6 +111,7 @@
             </div>
         </div>
     </div>
+</div>
     {%endfor%}
 
 <script>
