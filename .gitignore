@@ -1,3 +1,4 @@
 .env
 media/*
 db.sqlite3
+Fshare/__pycache__
