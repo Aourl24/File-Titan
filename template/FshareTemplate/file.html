@@ -41,15 +41,14 @@
         bg-lght rounded"
         style="z-index:10000;position:absolute;margin-left:-18px;width:50%;">
             <div class="row m-2" style="">
-                {%comment%}
-                <div class='col-12 sz-18 color-black py-2'>
+                
+                <div class='col-12 sz-18 color-black py-2 hide'>
                     <b style=''>{{f.name}}</b> <span class='color-black'></span>
                 </div>
-                <div class='col-12 sz-18 color-black py-2'>
-                    <span class="col-t">Date Created </span><br />
+                <div class='col-12 sz-14 color-black py-2'>
+                    <span class="color-grey">created </span><br />
                     <b>{{f.date_created}}</b> <span class='color-black'></span>
                 </div>
-                {%endcomment%}
 
 
 
@@ -95,7 +94,7 @@
                 {%endif%}
 
                 <div class='col-12 color-black py-2 color-s'>
-                    <a class='color-black sz-14' style='' href={{f.file.url}} download> Download </a>
+                    <a class='color-black sz-14' style='' href={%if f.file%}{{f.file.url}}{%endif%} download> Download </a>
                 </div>
                 {%if file.owner == prof %}
                 <div class='col-12 sz-14 color-black py-2'>

@@ -55,8 +55,9 @@
 
     <div class='sz-18 my-2 bold'>Directories</div>
 
+<div class="row m-2">
     {%include 'FshareTemplate/folderlist.html' with folders=profile.folder.all %}
-
+</div>
     {%endif%}
 
     {%if not branches %}
@@ -68,6 +69,11 @@
     </div>
     {%endif%}
 
+
+<div class='sz-18 my-2 bold'>Liked Directories</div>
+<div class="row m-2">
+{%include 'FshareTemplate/folderlist.html' with folders=profile.folder_like.all %}
+</div>
 </div>
 {%endblock%}
 

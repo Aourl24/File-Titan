@@ -166,7 +166,7 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 	audio_file=False
 	unknown_file = False
 	img_file = False
-	code_file_ext = ['py','js','txt','html','json','pdf',]
+	code_file_ext = ['py','js','txt','html','json','pdf','']
 	audio_file_ext = ['mp3','wav']
 	video_file_ext = ['mp4','ogv']
 	image_file_ext = ['jpeg','jpg','png','svg']
@@ -189,6 +189,7 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 		template=t + 'filedetail.html'
 		file_ext = file.name.split('.')
 		extension = file_ext[-1]
+		
 		if extension in video_file_ext or typ == 'video':
 			video_file = True
 		elif extension in audio_file_ext or typ == 'audio':
@@ -197,6 +198,8 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 			code_file = True
 		elif extension in image_file_ext or typ == 'image':
 		    img_file = True
+		elif file.content:
+			code_file = True
 		else:
 			unknown_file = True
 

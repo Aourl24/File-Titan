@@ -4,10 +4,10 @@ This page shows the folders in list
 
 
 {%if folders%}
-<div class="row m-1" style="">
     {%for folder in folders%}
-    <div class="col-sm-12 {%if folder.parent%} col-md-10 {%else%} col-md-5 {%endif%} my-2 mx-md-2 rounded color-bg-dark-light p-3 color-bg-white border show" style="">
-        <div class="row">
+    <div class="col-sm {%if folder.parent%} col-md-4 {%else%} col-md-4 {%endif%} my-2 p-2" style="">
+        <div class="rounded color-bg-dark-light p-3 color-bg-white border show">
+        <div class="row align-items-center">
             <div class="col-3 color-p">
                 <i class="fas fa-folder sz-36" title="my folder">
                 </i>
@@ -23,7 +23,7 @@ This page shows the folders in list
                         </a>
                     </div>
                 </div>
-                <div class="sz-12 row">
+                <div class="sz-12 row hide">
                     <div class="col">
                         {%if folder.info%}
                 {{folder.info}}
@@ -36,11 +36,26 @@ This page shows the folders in list
                 </div>
                 {%endif%}
             </div>
+            <div class="col-2">
+                <span class='sz-18 color-black' style='display:inline-block;float:right;'>
+                    <button class='btn color-black btn-link'
+                    onclick="$('#{{folder.id}}menufolder').toggleClass('hide')"> <i
+                    class='fas fa-ellipsis-v sz-14 p-2 color-black border rounded
+                    '></i></button>
+                </span>
+            </div>
         </div>
     </div>
     <div class="hide sz-14 color-bg-white color-white shadow boder rounded anmate__animated animate__slideInDown animate__faster" id="{{folder.id}}menufolder" style="z-index:10000;position:absolute;margin-left:-18px;width:50%">
         <div class="row m-2" style="">
             <hr/>
+            <div class='col-12 sz-18 color-black py-2 hide'>
+                    <b style=''>{{folder.name}}</b> <span class='color-black'></span>
+                </div>
+                <div class='col-12 sz-14 color-black py-2'>
+                    <span class="color-grey">created </span><br />
+                    <b>{{folder.date_created}}</b> <span class='color-black'></span>
+                </div>
             <div class="col-12 py-2">
                 <button class="btn btn-link color-black sz-14 p-0" hx-get="{%url 'DownloadUrl' folder.id%}" hx-swap="outerHTML">
                     Download
@@ -65,8 +80,8 @@ This page shows the folders in list
             {%endif%}
         </div>
     </div>
-    {%endfor%}
 </div>
+    {%endfor%}
 {%endif%}
 
 
