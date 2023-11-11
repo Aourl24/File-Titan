@@ -129,8 +129,8 @@ MEDIA_ROOT=str(BASE_DIR.joinpath('media'))
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'ProfileLandingUrl'
-LOGOUT_REDIRECT_URL='FileViewUrl'
+#LOGIN_REDIRECT_URL = 'ProfileLandingUrl'
+#LOGOUT_REDIRECT_URL='ProfileUrl'
 #AUTH_USER_MODEL = 'core.User'
 AUTHENTICATION_BACKENDS=['django.contrib.auth.backends.ModelBackend', 'allauth.account.auth_backends.AuthenticationBackend']
 SITE_ID = 3

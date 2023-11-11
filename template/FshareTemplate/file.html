@@ -9,7 +9,7 @@
                 <a href={{f.get_absolute_url}} class='color-black'>
                     <div class='row' style=''>
                         <div class='col-2 sz-18 color-p'>
-                            <i class='far fa-file sz-24'></i>
+                            {%include 'FshareTemplate/thumbnail.html'%}
                         </div>
                         <div class='col'>
                             {%if f.name|length > 20 %}
@@ -61,7 +61,7 @@
 
                 {%if f.edited_file.count != 0 %}
                 <div class='col-12 sz-14 color-black py-2'>
-                    <a href={{f.branch}} class='color-s'> {{f.edited_file.count}} branch </a>
+                    <a href={{f.branch}} class='color-p'> view {{f.edited_file.count}} branch </a>
                 </div>
                 {%endif%}
                 {%if not f.edited %}

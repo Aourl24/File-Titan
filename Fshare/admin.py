@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Folder, File, Profile
+from .models import Folder, File, Profile,Notify
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 
@@ -26,4 +26,4 @@ class FolderModel(admin.ModelAdmin):
 admin.site.register(Site,SiteModel)
 admin.site.register(User,UserModel )
 admin.site.register(Folder,FolderModel)
-admin.site.register([File, Profile])
+admin.site.register([File, Profile,Notify])

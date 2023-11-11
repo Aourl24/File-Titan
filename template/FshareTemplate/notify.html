@@ -1,0 +1,14 @@
+{%extends 'base.html'%}
+
+{%block content%}
+{%for notification in notifications%}
+<div class='row my-2 border-bottom'>
+  <div class='col-12'>
+    {{notification.body}}
+  </div>
+  <div class='col-12 color-grey sz-14'>
+    {{notification.time|timesince}} ago
+  </div>
+</div>
+{%endfor%}
+{%endblock%}

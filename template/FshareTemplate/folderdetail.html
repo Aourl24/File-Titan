@@ -33,7 +33,7 @@
                 {{file.name|title }}
             </b>
         </div>
-        <hr />
+        
         <div class="col-md col-sm-12 center sz-12">
             <div class="btn btn-link sz-sm p-0 color-s" hx-get="{%url 'DownloadUrl' file.id%}" hx-swap="outerHTML" style="">
                 <i class="fas fa-download">
@@ -83,6 +83,21 @@
     </div>
     {%endif%}
     <hr/>
+    
+   <div class='row align-items-center justify-content-center my-2'>
+     <div class='col sz-12 color-p' style='text-algn:right'>sort files by </div>
+     <div class='col'>
+    
+    <select hx-get="{%url 'SortUrl' file.id True %}" hx-target='#holder' hx-swap='innerHTML' name='filter' class='form-conrol sz-12 btn btn-default no-boder'>
+      
+     <option value='name'>Name</option>
+      <option value='date_created'>Date Created</option>
+      <option value='file'>Size</option>
+    </select>
+    
+    </div>
+    </div>
+    <hr />
 <div class="row m-2" id="holder">
     {%include 'FshareTemplate/folderlist.html' with folders=file.child_folder.all %}
 

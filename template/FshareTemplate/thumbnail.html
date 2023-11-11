@@ -1,0 +1,13 @@
+{%if f.file_type in code%}
+<i class='fas fa-code'></i>
+{%elif f.file_type == 'txt' %}
+<i class='far fa-file'></i>
+{%elif f.file_type in image%}
+<i class='fas fa-img'></i>
+{%elif f.file_type in audio%}
+<i class='fas fa-music'></i>
+{%elif f.file_type in video%}
+<i class='fas fa-video'></i>
+{%else%}
+<i class='far fa-file'></i>
+{%endif%}

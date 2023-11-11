@@ -4,131 +4,126 @@
 
 {%endblock%}
 {%block content%}
-<div class='container'>
-<div class="row align-items-center justify-content-center h-auto"
-style="background-image: url({%static 'images/planet.jpeg'%});backgrund-repeat:no-repeat;background-position:center;position:relative;
-height:200px;width:100vw;margin-left:-50vw;left:50%;object-fit:cover">
-    <div class='col p-2 center '>
-<img src="{%static 'images/logo.png'%}" class='p-3
-color-bg-white my-2 img-fluid'
-            style='width:50px;height:50px;object-fit:contain' />
-    <h1 class="color-white">File-Titan</h1>
-    </div>
-</div>
-<br />
-
-<div class="ani" style="bacground-image: url({%static 'images/images.jpeg'%});bacground-reeat:no-repeat;bacground-position:center;">
-    <div class="col-12 p-2 my-2">
-        <h5 class="color-p bol d center sz-24 sz-md-36 aimate__animated animate__slideInLeft">
-            We Understand that managing your files and documents can be hassle
-        </h5>
-        <hr />
-        <h5 class='center sz-md-30 sz-20 color-s aniate__animated  animate__slideInRight'>
-            That is why we have created an intuitive and user-friendly file manager to help you stay organized and efficient
-        </h5>
-        <br />
-    </div>
-    <div class='col'>
-        <div class="row justify-content-evenly">
-            <div class="col-5 sz-24 color-white">
-                <a class='btn btn-block  sz-sm-18 sz-md-24 color-white
-                    color-dark-white w-100 color-bg-s' href="{% url 'account_signup'%}"
-                   style='baground-color:357417'>
-                    Signup
-                </a>
-            </div>
-            <div class="col-5 sz-18 color-white">
-                <a class='btn btn-block color-bg-p w-100 sz-md-24 sz-sm-18 color-white
-                    color-dark-white' href="{% url 'account_login'%}"
-                   style='baground-color:357417'>
-                    Log In
-                </a>
-            </div>
-        </div>
-    </div>
-
-</div>
-<br />
-<br />
-<div class="center">
-    <img src="{%static 'images/hero-img.png'%}" class="img-fluid"
-    stye='max-height:300px;width:auto; height:auto;width:auto'/>
-</div>
-<br />
-<h3 class='center color-p bold sz-30'>Efficient File Management</h3>
-<br />
-<div id='slidein' class="row sz-18 ani justify-content-evenly">
-
-    <div class="col-md-5 col-sm-12 p-3 btn btn-primary color-bg-p  rounded my-2">
-        <div class="sz-24 color-s py-2  color-white">Streamlined Organization</div> 
-        <div class="color-white sz-16">With File-Titan, creating a logical and intuitive folder structure is a breeze. Category your files based on projects or any system that suits your workflow.No more digging through endless folders to find what you need </div>
-    </div>
-    <div class="col-md-5 btn col-sm-12 p-3 btn-danger rounded my-2">
-        <div class="sz-24 color-white py-2">Effortless Access</div>
-        <div class="sz-16">Say goodbye to frantic searches for misplaced files.Our intuitive search and navigation features ensure that you can access your documents with a few clicks, making your workday smoother and more efficient </div>
-    </div>
-    <div class="col-md-5 col-sm-12  btn p-3 my-2 btn-success rounded">
-        <div class="sz-24 color-white py-2">Mobile Convenience</div>
-        <div class="color-white sz-16">Access your files on the go with our mobile-friendly platform.Whether you are in a meeting, traveling or working from home your files are always at your finger tips</div>
-    </div>
-    <div class="col-md-5 col-sm-12   p-3 my-2 btn btn-success color-bg-s  rounded">
-        <div class="sz-24 color-white py-2">Security and Privacy</div>
-        <div class="sz-16">Protect sensitive files with advanced security features.Grant access only to authorized individuals and keep your confidential information safe. </div>
-    </div>
-</div>
-
-<br />
-<h3 class='center color-p bold sz-30'>Efficient Seamless Collaboration</h3>
-<br />
-<div class="row ani justify-content-evenly">
-
-    <div class="col-md-5 col-sm-12 my-2 p-3 btn btn-success color-bg-p rounded">
-        <div class="sz-24 color-white py-2">Real-Time Collaboration</div>
-        <div class="color-white sz-16">Say goodbye to endless email exchanges and confusing file versions. With File-Titan, multiple users can edit , comment and collaborate on the same document in real time </div>
-    </div>
-    <div class="col-md-5 col-sm-12 my-2 p-3 btn btn-danger rounded">
-        <div class="sz-24 color-white py-2">Centralized File Access</div>
-        <div class="color-white sz-16">No more juggling multiple versions across various devices.File-Titan's centralized platform ensures that everyone is working on the most up-to-date version of a document</div>
-    </div>
-    <div class="col-md-5  col-sm-12 my-2 p-3 btn btn-danger color-bg-s rounded">
-        <div class="sz-24 color-white py-2">File Cloning</div>
-        <div class="color-white sz-16">Need a file for your project? Easy clone files from others directories to your own, saving time and effort while maintaining your personalized organization</div>
-    </div>
-    <div class="col-md-5 col-sm-12 my-2 p-3 btn btn-success rounded">
-        <div class="sz-24 color-white py-2">Enhanced Productivity</div>
-        <div class='color-white sz-16'>Collaborating on File-Titan means fewer bottlenecks,faster decision-making, and a smoother workflow. By working together seamlesssly, you and your team can achieve more in less time</div>
-    </div>
-</div>
-<br />
-<div class="center">
-    <img src="{%static 'images/file.png'%}" class="img-fluid"
-    stye='max-height:300px;width:auto; height:auto;width:auto'/>
-</div> 
-<br />
-<h1 class='center'><p class='sz-60 color-s' >Sign Up</p> to enjoy seamless Features </h1>
-<a href="{% url 'account_signup'%}" class='btn color-bg-p rounded w-100 color-white sz-18 sz-md-24 '>Get Started </a>
-<br />
-<br />
-<div class='footer center color-bg-white color-black p-2' style='position:relative;width:100vw;margin-left:-50vw;left:50%;margin-bottom:-10% '>
-    @File-Titan 2023
-</div>
-</div>
-    {%endblock%}
-  <script>
-$.fn.isInViewport = function() {
-    var elementTop = $(this).offset().top;
-    var elementBottom = elementTop + $(this).outerHeight();
-
-    var viewportTop = $(window).scrollTop();
-    var viewportBottom = viewportTop + $(window).height();
-
-    return elementBottom > viewportTop && elementTop < viewportBottom;
-};
-$(window).on('resize scroll', function() {
-    if ($('#sidein').isInViewport()) {
-        $('#sldein').addClass('animate__animated animate__slideInDown')
-    } else {
-        // do something else
+  <style>
+    body {
+      backround-color: #f0f7ff; /* Light blue background color */
+      color: #333; /* Dark text color */
     }
-});
-  </script>
+
+    .navbar {
+      backround-color: #3498db; /* Blue navbar background color */
+      color: #fff; /* White text color for navbar */
+    }
+
+    .jumbotron {
+      backround-color: #2980b9; /* Darker blue hero section background color */
+      color: #fff; /* White text color for hero section */
+    }
+
+    #features {
+      backgound-color: #ecf0f1; /* Light blue background color for features section */
+      padding: 50px 0;
+    }
+
+    #contact {
+      backround-color: #ecf0f1; /* Light blue background color for contact section */
+      padding: 50px 0;
+    }
+
+    footer {
+      backgound-color: #3498db; /* Blue background color for footer */
+      color: #fff; /* White text color for footer */
+      padding: 20px 0;
+    }
+    .center-body{
+      background:url("{%static 'images/images.jpeg'%}");
+      background-repeat: no-repeat;
+  background-size: cover; /* or 'contain' based on your preference */
+  background-position: center center; /* optional, centers the background */
+}
+   
+  </style>
+
+
+<div class='p-1' >
+  <br />
+  <br />
+  <!-- Hero Section -->
+  <header class="jumbotrn coor-bg-p mt-2">
+    <div class="container text-center">
+      <h1 class="display-4 sz-36 color-white shadow">File-Titan</h1>
+      <p class="lead color-white">Manage Your Files Easily with File-Titan</p>
+      <a class="btn btn-light btn-lg color-bg-p color-white" href="#features" role="button">Get Started</a>
+    </div>
+  </header>
+
+  <!-- Features Section -->
+  <section id="features" class="">
+    <div class="row card bg-light rounded">
+      <div class="col-lg-4">
+        <h2 class='sz-24'>File Creation</h2>
+        <p>Create new files easily with File-Titan.</p>
+      </div>
+      <div class="col-lg-4">
+        <h2 class='sz-18'>File Upload</h2>
+        <p>Effortlessly upload and manage your files.</p>
+      </div>
+      <div class="col-lg-4">
+        <h2 class='sz-18'>File Copy</h2>
+        <p>Copy files with ease for efficient organization.</p>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-lg-4">
+        <h2>Folder Organization</h2>
+        <p>Create folders to keep your files orderly.</p>
+      </div>
+      <div class="col-lg-4">
+        <h2>Search and Filter</h2>
+        <p>Quickly find and filter your files.</p>
+      </div>
+      <div class="col-lg-4">
+        <h2>Media Player</h2>
+        <p>Enjoy a built-in player for videos and audio files.</p>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-lg-4">
+        <h2>Text File Editing</h2>
+        <p>Edit text files directly within File-Titan.</p>
+      </div>
+      <div class="col-lg-4">
+        <h2>File Collaboration</h2>
+        <p>Collaborate on files with ease.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="container">
+    <h2>Contact LouLou</h2>
+    <p>Have questions or feedback? Reach out to LouLou!</p>
+    <form>
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Enter your name">
+      </div>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter your email">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center">
+    <p>&copy; 2023 File-Titan | Created by LouLou</p>
+  </footer>
+</div>
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6Vr"></script>
+
+{%endblock%}

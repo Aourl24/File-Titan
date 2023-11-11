@@ -30,8 +30,8 @@
 		 <div class=' col'>{{profile.bio}}</div>
 	</div>
 	{%endif%}
-
-	<div class="sz-18 my-2 bold"> Memory Usage </div>
+<br />
+	<div class="sz-18 my-2 color-p"> Memory Usage </div>
 	<div class="container">
 	<div class="w-100 color-bg-t " style="height:15px;background-color:#d2d2d2"></div>
 	<div class="color-bg-p" style="margin-top:-15px;height:15px;width:{{profile.size_in_percent}}%"></div>
@@ -53,7 +53,7 @@
 
 	{%else%}
 
-    <div class='sz-18 my-2 bold'>Directories</div>
+    <div class='sz-18 my-2 color-p'>Directories</div>
 
 <div class="row m-2">
     {%include 'FshareTemplate/folderlist.html' with folders=profile.folder.all %}
@@ -63,14 +63,14 @@
     {%if not branches %}
 
     {%else%}
-	<div class='sz-18 my-2 bold'>Branches</div>
+	<div class='sz-18 my-2 color-p'>Branches</div>
 	<div class="row m-2">
     {%include 'FshareTemplate/file.html' with originalFile=branches %}
     </div>
     {%endif%}
 
 
-<div class='sz-18 my-2 bold'>Liked Directories</div>
+<div class='sz-18 my-2 color-p'>Liked Directories</div>
 <div class="row m-2">
 {%include 'FshareTemplate/folderlist.html' with folders=profile.folder_like.all %}
 </div>

@@ -24,6 +24,7 @@
     {%if 'dark' in request.session.keys %}
     <link rel='stylesheet' href="{%static 'css/acss/acss_dark.css'%}">
     {%endif%}
+    <link rel='stylesheet' href="{%static 'css/Landing.css' %}" />
     <script src="{%static 'js/ace.min.js'%}"></script>
     <script src="{%static 'js/react.production.min.js'%}"></script>
     <script src="{%static 'js/react-dom.production.min.js'%}"></script>
@@ -235,6 +236,14 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
         <div class='sz-14 display-sm-none navbar-brand p-0'>
             <a class='color-black' href="{% url 'account_logout'%}">Log Out</a>
         </div>
+        <div class='navbar-brand '>
+          <a href="{%url 'NotifyUrl'%}"><i class='fas fa-bell'></i>
+
+        {% if request.user.profile.unread_notification.all %}
+        <span class='sz-8 color-bg-p p-1 color-white rounded-circle' style='display:inline-block;font-size:8px'>{{request.user.profile.unread_notification.count}}</span>
+        {%endif%}
+        </a>
+        </div>
         <div class="display-md-none sz-20 navbar-brand" style="text-align:right">
             <i class="fas fa-bars animate__animated animate__bounce bordr rounded p-1" id="tri" onclick="show()"></i>
         </div>
@@ -244,10 +253,10 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
     {%endblock%}
 
     <div class='container-fluid'>
-        <div class='row justify-content-evenly'>
+        <div class='row justify-content-evenly center-body'>
             {%block sidebar%}
             <div class='col-2 colo-bg-p'>
-                <div id='hold' class='position-fixed color-bg-p m-0 colr-bg-white color-bg-dark-light
+                <div id='hold' class='position-fixed color-bg-p bg-light m-0 colr-bg-white color-bg-dark-light
                 conner border-right h-100' style='z-index:6000;overflow: ;'>
                 <div id="dropdown" class="dropD
                 display-sm-none animate__animated animate__slideInDown animate__fast overflow-auto
@@ -264,7 +273,7 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                     </div>
 
                     {%if request.user.is_authenticated %}
-                    <div class='row boder-bottom py-2 color-white align-items-center'>
+                    <div class='row boder-bottom py-2 color-black align-items-center'>
                         <div class='col-2'>
                             <img class='rounded-circle img-flud' style="object-fit:cover;width:auto;height:25px"
                             src="{{request.user.profile.profile_photo.url}}"
@@ -276,7 +285,7 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                     </div>
                     <hr class="color-white" style="border-color:white" />
                     {%endif%}
-                    <div class="row my-3">
+                    <div class="row my-3 hide">
                         <div class="col-2 color-white"><i class="fas fa-home"></i></div>
                         <div class="col">
                         <a class='col sz-14 color-white' href="{%url 'FileViewUrl' %} ">
@@ -285,18 +294,18 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                     </div>
                     </div>
                     <div class="row my-3">
-                        <div class="col-2 color-white"><i class="fas fa-plus"></i></div>
+                        <div class="col-2 color-black"><i class="fas fa-plus"></i></div>
                         <div class="col">
-                        <a class='col sz-14 color-white' href="{%url 'FolderFormUrl' %} ">
+                        <a class='col sz-14 color-black' href="{%url 'FolderFormUrl' %} ">
                             Create Directory
                         </a>
                     </div>
                     </div>
                     {%if request.user.is_authenticated %}
                     <div class="row my-3">
-                        <div class="col-2 color-white"><i class="fas fa-user"></i></div>
+                        <div class="col-2 color-black"><i class="fas fa-user"></i></div>
                         <div class="col sz-14">
-                            <a class='color-white' href="{%url 'ProfileUrl' request.user.profile.id %}"> My Dashboard
+                            <a class='color-black' href="{%url 'ProfileUrl' request.user.profile.id %}"> My Dashboard
                             </a>
                         </div>
                     </div>
@@ -360,7 +369,7 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
             </div>
         </div>
     </div>
-
+<
 
         </body>
         <script>

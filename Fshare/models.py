@@ -78,6 +78,9 @@ class Profile(models.Model):
     def size_in_percent(self):
     	percent = (self.size/self.max_size) * 100
     	return int(percent)
+    	
+    def unread_notification(self):
+      return Notify.objects.filter(profile=self,read=False)
 
 class Folder(models.Model):
 	owner=models.ForeignKey(Profile, related_name='folder', null=True, blank=True, on_delete=models.CASCADE)
@@ -104,6 +107,9 @@ class Folder(models.Model):
 	def get_absolute_url(self):
 		return reverse('FolderDetailViewUrl',args=[self.id])
 
+ # def main_files(self):
+   # return File.objects.filter(folder=self).exclude(edited)
+	
 	def Delete(self):
 		files_in_folder = self.file.all()
 		Folder.objects.get(id=self.id).delete();
@@ -144,6 +150,7 @@ class File(models.Model):
 	date_created=models.DateTimeField(auto_now_add=True)
 	last_updated=models.DateTimeField(auto_now=True)
 	clone=models.BooleanField(default=False)
+	file_type = models.CharField(max_length=100000,default='txt')
     
 	def __str__(self):
 		return self.name
@@ -194,13 +201,15 @@ class File(models.Model):
 		#con=ContentFile(word, f'branch_{self.name}')
 
 		j=File.objects.create(name=self.name,folder=self.folder,content=word,edited=b,edit_owner=owner)
+		Notify.objects.create(profile=self.folder.owner,sender=owner,body='Someone create a branch for your file')
 		return reverse('BranchUrl',args=[self.id])
 		
 	def Clone(self,owner,folder):
 		b=File.objects.get(id=self.id)
 		u=b.folder
 		print('from models',self.name)
-		j=File.objects.create(name=self.name,folder=folder,file=self.file,clone=True)
+		j=File.objects.create(name=self.name,folder=folder,file=self.file,content=self.content,clone=True)
+		Notify.objects.create(profile=self.folder.owner,sender=folder.owner, body='someone clone one of your files in your folder')
 		return "File clone successful"
 		#return reverse('BranchUrl',args=[self.id])
 
@@ -228,8 +237,21 @@ class File(models.Model):
 		    return "File does not support merge"
 		return f"You have succesfull merge this branch with the Original File - {m.name}"
 
+class Notify(models.Model):
+  profile = models.ForeignKey(Profile,related_name='profile_notify',on_delete=models.CASCADE)
+  sender = models.ForeignKey(Profile,related_name='sender_notify',on_delete=models.CASCADE)
+  body = models.CharField(max_length=100000)
+  #body = models.TextField()
+  time = models.DateTimeField(auto_now_add=True)
+  read = models.BooleanField(default=False)
 
-
+  def __str__(self):
+    return self.profile.user.username + ' Notification' 
+  
+  def unread(self):
+    return ['apple' ]
+    #return self.objects.filter(read=False)
+  
 @receiver(post_save, sender=User)
 def ProfileCreated(sender, created, instance,**kwargs):
     if created:
@@ -238,6 +260,7 @@ def ProfileCreated(sender, created, instance,**kwargs):
 @receiver(pre_save,sender=File)
 def FileCreated(sender,instance,**kwargs):
 	#if created:
+	
 	if instance.content:
 		try:
 			with instance.file.open('w') as file:
@@ -245,11 +268,23 @@ def FileCreated(sender,instance,**kwargs):
 		except:
 			file_created = ContentFile(instance.content,name=f'{instance.name}')
 			instance.file = file_created
-	#instance.save()
 
-        #prof.profile_photo = f"{MEDIA_ROOT}/profileimage/profile.png"
-        # prof.save()
-# @reciver(post_save,sender=File)
-# def OwnerFile(sender,created,instance,**kwargs):
-# 	if created:
-# 		instance.owner = instance.folder.owner
+@receiver(post_save,sender=File)
+def FileType(sender,created,instance,**kwargs):
+  if created:
+    try:
+      file_ext = instance.file.name.split('.')
+      extension = file_ext[-1]
+    except AttributeError:
+      extension = 'txt'
+    instance.file_type = extension
+    instance.save()
+# @receiver(post_save,sender=File)
+# def ClonesFile(sender,created,instance,**kwargs):
+#   if instance.edited:
+#     print('signal working')
+#     clones = instance.edited.all()
+#     print(clones)
+#     for clone in clones:
+#       clone.content = instance.content
+#       clone.save()

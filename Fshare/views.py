@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse
-from .models import Folder,File, Profile
+from .models import Folder,File, Profile, Notify
 
 from .form import FolderForm,FileForm,EditUser,EditFolder
 from django.http import StreamingHttpResponse,HttpResponse,HttpResponseRedirect
@@ -16,6 +16,10 @@ Error="<div class='message' id='message'>Unable to Perform Action, Check your Pa
 Saved="<div class='' id='msg' style=''> Saved </div>"
 t='FshareTemplate/'
 #POST https://titleId.playfabapi.com/File/GetFiles
+code_file_ext = ['py','js','html','json','pdf','']
+audio_file_ext = ['mp3','wav']
+video_file_ext = ['mp4','ogv']
+image_file_ext = ['jpeg','jpg','png','svg']
 
 def checkSize(x):
 	if int(x.size) > 10485760:
@@ -41,7 +45,7 @@ def landingView(request):
 	# The landing page
 	header=''
 	if request.user.is_authenticated:
-	    return redirect('FileViewUrl')
+	    return redirect('ProfileLandingUrl')
 	context=dict(headers=header)
 	return render(request, 'landing.html',context)
 
@@ -166,10 +170,7 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 	audio_file=False
 	unknown_file = False
 	img_file = False
-	code_file_ext = ['py','js','txt','html','json','pdf','']
-	audio_file_ext = ['mp3','wav']
-	video_file_ext = ['mp4','ogv']
-	image_file_ext = ['jpeg','jpg','png','svg']
+	
 	folderform=FolderForm()
 	if request.user.is_authenticated:
 		prof=Profile.objects.get(user=request.user)
@@ -188,7 +189,8 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 
 		template=t + 'filedetail.html'
 		file_ext = file.name.split('.')
-		extension = file_ext[-1]
+		#extension = file_ext[-1]
+		extension = file.file_type
 		
 		if extension in video_file_ext or typ == 'video':
 			video_file = True
@@ -245,12 +247,19 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 	return render(request,template,context)
 
 @CheckAccess
-def folderDetailView(request,fid):
+def folderDetailView(request,fid,sort=None):
 	if fid:
 		file=Folder.objects.get(id=fid)
-		child_files = file.file.all()
+		value = request.GET.get('filter','name')
+		child_files = file.file.filter(edited__isnull=True)
+		print(value)
 		form=FileForm()
 		template=t + 'folderdetail.html'
+		child_files = child_files.order_by('-'+value)
+		if sort:
+		  template = t + 'file.html'
+		  
+		  
 		Ff=FileForm()
 		folderform=FolderForm()
 
@@ -267,7 +276,7 @@ def folderDetailView(request,fid):
 				file.local_path=path
 				file.save()
 
-	context = dict(file=file,originalFile=child_files,prof=prof,fileForm=form,form=folderform)
+	context = dict(file=file,originalFile=child_files,prof=prof,fileForm=form,form=folderform,code=code_file_ext,audio=audio_file_ext,image=image_file_ext,video=video_file_ext)
 	return render(request,template,context)
 
 def DeleteView(request,id=None,fid=None):
@@ -372,6 +381,7 @@ def shellView(request,id):
 		return render(request, t+'shell.html',context)
 	else:
 		return HttpResponse('File is not Executable')
+
 @login_required
 def createBranch(request,id):
 	f=File.objects.get(id=id)
@@ -530,9 +540,28 @@ def likeFolder(request,folder_id):
 		return HttpResponse(f"<i class='far fa-heart color-p'></i> {folder.likes.count()}")
 	else:
 		folder.likes.add(profile)
+		checkUser = lambda user: 'You' if user == profile else user
+		Notify.objects.create(profile=folder.owner,sender=profile,body=f'{checkUser(folder.owner)} likes your directory')
 		return HttpResponse(f"<i class='fas fa-heart color-p'></i> {folder.likes.count()}")
 
 def errorView(request,word=None):
 	template = t+"error.html"
 	context = dict(error=word)
 	return render(request,template,context)
+	
+def notifyView(request):
+  notifications = Notify.objects.filter(profile=Profile.objects.get(user=request.user))
+  for notification in notifications:
+    notification.read= True
+    notification.save()
+    
+  template = t + "notify.html"
+  context = dict(notifications=notifications)
+  return render(request,template,context)
+  
+def sortView(request,id):
+  value = request.GET.get('filter')
+  fod = Folder.objects.get(id=id)
+  files = fod.file.all().order_by(value)
+  context = dict(originalFile=files)
+  return render(request,template,context)
