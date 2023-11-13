@@ -20,14 +20,20 @@ body{
 input{
     height: 1.1cm;
 }
+.center-body{
+      background:url("{%static 'images/titan.jpg'%}");
+      background-repeat: no-repeat;
+  background-size: cover; /* or 'contain' based on your preference */
+  background-position:right; /* optional, centers the background */
+}
 </style>
 
 <div class='' style=''>
     <div class='row rounded p-2 justify-content-center' style=''>
-        <div class='col-md-10 col-sm-12 p-3 rounded color-bg-white'>
+        <div class='col-md-10 col-sm-12 p-3 rounded clor-bg-white color-white'>
             <div class='row'>
                 <div class='col'>
-                    <h2 style='' class='color-black'>
+                    <h2 style='' class='color-p sz-30'>
                         Sign Up
                      </h2>
                 </div>
@@ -48,7 +54,7 @@ input{
 
                              {{field.errors}}
                             <div class='row my-3'>
-                                <div class='col sz-14 bold color-s'>
+                                <div class='col sz-14 bold color-white'>
                                     {{field.label}}
                                 </div>
                             </div>
@@ -78,11 +84,11 @@ input{
                     </div>
             </form>
         </div>
-        <div class='col-md-10 col-sm-12 p-3 rounded color-bg-white'>
+        <div class='col-md-10 col-sm-12 p-3 rounded color-white'>
 
             <div class="row">
                 <div class="col">
-                    <a href="{% provider_login_url 'google' %}" class='btn border p-2 sz-18 rounded btn-block color-black w-100'>
+                    <a href="{% provider_login_url 'google' %}" class='btn border p-2 sz-18 rounded btn-block color-white w-100'>
                         <i class='fab fa-google text-danger'></i> Sign Up with Google
                     </a>
                 <div>
@@ -95,7 +101,7 @@ input{
             </div>
             <div class='row my-2 center'>
                 <div class='col'>
-                    <a class='btn btn-block color-bg-s sz-18 color-white w-100' href="{% url 'account_login'%}" style='baground-color:357417'>
+                    <a class='btn btn-block btn-danger sz-18 color-white w-100' href="{% url 'account_login'%}" style='baground-color:357417'>
                         Log In
                     </a>
                 </div>

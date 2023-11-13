@@ -9,7 +9,7 @@
 		<div class='col-12 sz-24'>
 			<img class='rounded-circle' src='{{profile.profile_photo.url}}' style='height:50px;width:50px;object-fit:cover'
 			 >
-			 <br />{{profile.user.username|title}}
+			 {{profile.user.username|title}}
 		</div>
 		{% if profile.user == request.user %}
 			<div class='col'>
@@ -32,8 +32,8 @@
 	{%endif%}
 <br />
 	<div class="sz-18 my-2 color-p"> Memory Usage </div>
-	<div class="container">
-	<div class="w-100 color-bg-t " style="height:15px;background-color:#d2d2d2"></div>
+	<div class="">
+	<div class="w-100 color-bg-t " style="height:15px;background-color:#d1d1d1"></div>
 	<div class="color-bg-p" style="margin-top:-15px;height:15px;width:{{profile.size_in_percent}}%"></div>
 	<div class="sz-12">{{profile.size_in_percent}}% used</div>
 	</div>
@@ -41,14 +41,15 @@
 	<br />
 	{% if not profile.folder.all %}
 	<br/>
-	<div class='row center'>
-	<div class='col my-2'>
+	<div class='row align-items-center'>
+	<div class='col-sm-12 my-2 center col-md-6'>
 	    <p class='sz-24'> You currently have no directory </p>
-	    <div class="col-md col-sm-12 my-3" style="">
-            <img class="img-fluid" src="{%static 'images/file.png'%}" alt="file image" style='object-fit:contain'/>
-        </div>
-	    <a class='btn  btn-block color-bg-p color-white sz-18' href="{%url 'FolderFormUrl' %}" style='color:white'>Click to create</a>
+		<a class='btn  btn-block color-bg-p color-white sz-18' href="{%url 'FolderFormUrl' %}" style='color:white'>Click to create</a>
 	</div>
+	    <div class="col-sm-12 my-3 center col-md-6 order-first" style="">
+            <img class="img-fluid center" src="{%static 'images/file.png'%}" alt="file image" style='objet-fit:contain'/>
+        </div>
+	    
 	</div>
 
 	{%else%}
@@ -69,11 +70,12 @@
     </div>
     {%endif%}
 
-
+{%if profile.folder_like.all%}
 <div class='sz-18 my-2 color-p'>Liked Directories</div>
 <div class="row m-2">
 {%include 'FshareTemplate/folderlist.html' with folders=profile.folder_like.all %}
 </div>
+{%endif%}
 </div>
 {%endblock%}
 

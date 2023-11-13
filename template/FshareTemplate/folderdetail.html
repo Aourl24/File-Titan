@@ -34,6 +34,15 @@
             </b>
         </div>
         
+</div>
+        {%if file.info%}
+            <div class="row center color-grey">
+                <div class="col sz-14">
+                    {{file.info}}
+                </div>
+            </div>
+        {%endif%}
+<div class="row">
         <div class="col-md col-sm-12 center sz-12">
             <div class="btn btn-link sz-sm p-0 color-s" hx-get="{%url 'DownloadUrl' file.id%}" hx-swap="outerHTML" style="">
                 <i class="fas fa-download">
@@ -66,17 +75,21 @@
                     </a>
                 </span>
         </div>
+    </div>
+
         {%if file.owner == prof %}
-        <div class="col-md col-12 center ">
+       <div class="row">
+        <div class="col-md col center ">
             <a class="sz-sm text-danger color-white sz-12" href="{%url 'EditFolderUrl' file.id request.path_info%}">
                 edit
             </a>
         </div>
-        <a class="col-md col-12 text-danger center" href="{%url 'FolderDeleteUrl' file.id%}">
+        <a class="col-md col sz-sm text-danger center" href="{%url 'FolderDeleteUrl' file.id%}">
             delete
         </a>
-        {%endif%}
     </div>
+        {%endif%}
+    
     {%if not folder.parent%}
     <div class="row sz-12 my-3 center">
         {%include 'FshareTemplate/like.html' with folder=file%}

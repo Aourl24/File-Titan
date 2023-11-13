@@ -2,40 +2,46 @@
 {%load settings_tag%}
 <!--DOCTYPE html>-->
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name='viewport' content='width=device-width initial-scale=1'>
-    <meta name="theme-color" content="" />
-    {%settings_value 'LOCAL' as L %}
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width initial-scale=1" name="viewport"/>
+        <meta content="" name="theme-color"/>
+        {%settings_value 'LOCAL' as L %}
 
     {%if L%}
-    <link rel='stylesheet' href="{%static 'css/bootstrap5/css/bootstrap.min.css'%}">
-    <link rel='stylesheet' href="{%static 'css/fontawesome_5/css/all.min.css'%}" media="print" onload="this.media='all'">
-
-    <link rel='stylesheet' href="{%static 'css/animate.min.css'%}">
-    <!-- <link rel='stylesheet' href="{%static 'css/default.min.css'%}" media="print" onload="this.media='all'"> -->
-    <link rel='stylesheet' href="{%static 'css/acss/acss_animation.css'%}" media="print" onload="this.media='all'">
-    {%else%}
+        <link href="{%static 'css/bootstrap5/css/bootstrap.min.css'%}" rel="stylesheet"/>
+        <link href="{%static 'css/fontawesome_5/css/all.min.css'%}" media="print" onload="this.media='all'" rel="stylesheet"/>
+        <link href="{%static 'css/animate.min.css'%}" rel="stylesheet"/>
+        <!-- <link rel='stylesheet' href="{%static 'css/default.min.css'%}" media="print" onload="this.media='all'"> -->
+        <link href="{%static 'css/acss/acss_animation.css'%}" media="print" onload="this.media='all'" rel="stylesheet"/>
+        {%else%}
     {%include 'cdn.html'%}
     {%endif%}
-
-    <link rel='stylesheet' href="{%static 'css/acss/acss_basic.css'%}">
-    <link rel='stylesheet' href="{%static 'css/acss/acss.css'%}">
-    {%if 'dark' in request.session.keys %}
-    <link rel='stylesheet' href="{%static 'css/acss/acss_dark.css'%}">
-    {%endif%}
-    <link rel='stylesheet' href="{%static 'css/Landing.css' %}" />
-    <script src="{%static 'js/ace.min.js'%}"></script>
-    <script src="{%static 'js/react.production.min.js'%}"></script>
-    <script src="{%static 'js/react-dom.production.min.js'%}"></script>
-    <script src="{%static 'js/babel.min.js'%}"></script>
-    <script async src="{%static 'js/htmx.min.js'%}"></script>
-    <script src="{%static 'js/jquery.min.js'%}"></script>
-    <!--<script type='text/javascript'>hljs.highlightAll()</script> -->
-    <title> File-Titan </title>
-</head>
-<style>
-:root {
+        <link href="{%static 'css/acss/acss_basic.css'%}" rel="stylesheet"/>
+        <link href="{%static 'css/acss/acss.css'%}" rel="stylesheet"/>
+        {%if 'dark' in request.session.keys %}
+        <link href="{%static 'css/acss/acss_dark.css'%}" rel="stylesheet"/>
+        {%endif%}
+        <link href="{%static 'css/Landing.css' %}" rel="stylesheet"/>
+        <script src="{%static 'js/ace.min.js'%}">
+        </script>
+        <script src="{%static 'js/react.production.min.js'%}">
+        </script>
+        <script src="{%static 'js/react-dom.production.min.js'%}">
+        </script>
+        <script src="{%static 'js/babel.min.js'%}">
+        </script>
+        <script async="" src="{%static 'js/htmx.min.js'%}">
+        </script>
+        <script src="{%static 'js/jquery.min.js'%}">
+        </script>
+        <!--<script type='text/javascript'>hljs.highlightAll()</script> -->
+        <title>
+            File-Titan
+        </title>
+    </head>
+    <style>
+        :root {
     --primary-color:#0020C2;
     --secondary-color:black ;
     --tertiary-color:black ;
@@ -96,7 +102,7 @@
     body {
         backgrond-color: black;
         color: black !important;
-        padding: 3px
+        padding: 0px
     }
 
     .wow {
@@ -206,153 +212,143 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
         background:grey;
         width:3px;
     }
-</style>
-
-<body class='font-poppins sz-16'>
-    <div id="pre-loader" class="color-bg-white h-100 w-100 d-flex justify-content-center align-items-center position-fixed" style="z-index:10000">
-                <span class='dot animate__animated animate__bounce animte__delay-1s animate__infinite color-p aniate__slow' style=''> File </span>
-                <span class='dot animate__animated animate__bounce aniate__delay-2s animate__infinite color-s animate__fast'>Titan</span>
-    </div>
-
-
-    {%block header%}
-    <nav id='' class="navbar sz-12 container-fluid color-bg-white color-p bg-light align-items-center psition-fixed"
-        style=" z-index:7000;margin-top:-7px">
-
-        <div class="sz-18 bold navbar-brand px-1" style="fot-size:22px;">
-            <img src="{%static 'images/logo.png'%}" class='img-fluid hide'
-            style='width:25px;height:25px;object-fit:contain ' />
-            File-Titan
+    </style>
+    <body class="font-poppins sz-16 center-body">
+        <div class="color-bg-white h-100 w-100 d-flex justify-content-center align-items-center position-fixed" id="pre-loader" style="z-index:10000">
+            <span class="dot animate__animated animate__bounce animte__delay-1s animate__infinite color-p aniate__slow" style="">
+                File
+            </span>
+            <span class="dot animate__animated animate__bounce aniate__delay-2s animate__infinite color-s animate__fast">
+                Titan
+            </span>
         </div>
-        <div class="display-sm-none hide sz-12 navbar-brand p-0">
-
-            <form method='POST' class="" action="{%url 'SearchUrl' %}">
-                {%csrf_token%}
-                <input type='search' placeholder='search files and directories' class='form-control sz-sm'
-                name='search' style="height:30px!important">
-            </form>
-
-        </div>
-        <div class='sz-14 display-sm-none navbar-brand p-0'>
-            <a class='color-black' href="{% url 'account_logout'%}">Log Out</a>
-        </div>
-        <div class='navbar-brand '>
-          <a href="{%url 'NotifyUrl'%}"><i class='fas fa-bell'></i>
-
-        {% if request.user.profile.unread_notification.all %}
-        <span class='sz-8 color-bg-p p-1 color-white rounded-circle' style='display:inline-block;font-size:8px'>{{request.user.profile.unread_notification.count}}</span>
-        {%endif%}
-        </a>
-        </div>
-        <div class="display-md-none sz-20 navbar-brand" style="text-align:right">
-            <i class="fas fa-bars animate__animated animate__bounce bordr rounded p-1" id="tri" onclick="show()"></i>
-        </div>
-
-    </nav>
-    <br class="hide" style="line-height:40px" />
-    {%endblock%}
-
-    <div class='container-fluid'>
-        <div class='row justify-content-evenly center-body'>
-            {%block sidebar%}
-            <div class='col-2 colo-bg-p'>
-                <div id='hold' class='position-fixed color-bg-p bg-light m-0 colr-bg-white color-bg-dark-light
-                conner border-right h-100' style='z-index:6000;overflow: ;'>
-                <div id="dropdown" class="dropD
-                display-sm-none animate__animated animate__slideInDown animate__fast overflow-auto
-                clor-bg-white color-bg-dark-light m-0 p-3 rounded"
-                style="overflow:auto">
-                    <div class="row">
-                        <div class="col">
-                            <form method='POST' class="" action="{%url 'SearchUrl' %}">
-                                {%csrf_token%}
-                                <input type='search' placeholder='search files and directories' class='form-control'
-                                name='search' style='width:100%'>
-                            </form>
-                        </div>
-                    </div>
-
-                    {%if request.user.is_authenticated %}
-                    <div class='row boder-bottom py-2 color-black align-items-center'>
-                        <div class='col-2'>
-                            <img class='rounded-circle img-flud' style="object-fit:cover;width:auto;height:25px"
-                            src="{{request.user.profile.profile_photo.url}}"
-                            widh='30px' heigt='30px' /> 
-                        </div>
-                        <div class="col">
-                            {{request.user.username|title|truncatechars:'13'}}
-                        </div>
-                    </div>
-                    <hr class="color-white" style="border-color:white" />
-                    {%endif%}
-                    <div class="row my-3 hide">
-                        <div class="col-2 color-white"><i class="fas fa-home"></i></div>
-                        <div class="col">
-                        <a class='col sz-14 color-white' href="{%url 'FileViewUrl' %} ">
-                            Explore
-                        </a>
-                    </div>
-                    </div>
-                    <div class="row my-3">
-                        <div class="col-2 color-black"><i class="fas fa-plus"></i></div>
-                        <div class="col">
-                        <a class='col sz-14 color-black' href="{%url 'FolderFormUrl' %} ">
-                            Create Directory
-                        </a>
-                    </div>
-                    </div>
-                    {%if request.user.is_authenticated %}
-                    <div class="row my-3">
-                        <div class="col-2 color-black"><i class="fas fa-user"></i></div>
-                        <div class="col sz-14">
-                            <a class='color-black' href="{%url 'ProfileUrl' request.user.profile.id %}"> My Dashboard
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class='row my-3'>
-                        <div class='col sz-14 display-md-none'>
-                            <a class='color-black' href="{% url 'account_logout'%}">Log Out</a>
-                        </div>
-                    </div>
-                    {%else%}
-                    <div class="row my-2">
-                        <div class="col">
-                            <a class='whie color-black btn color-bg-s color-white' style="" href="{%url 'account_login' %}"> Log in </a>
-                        </div>
-                    </div>
-                    {%endif%}
-                    {%comment%}
-                    <div class='row my-3'>
-                        <div class='col sz-18'>
-                            <a class='color-black' href="{%url 'DarkModeUrl' request.path_info %}" />
-                            {%if 'dark' in request.session.keys %}
-                            Light mode
-                            {%else%}
-                            Dark mode
-                            {%endif%}
-                            </a>
-                        </div>
-                    </div>
-                    {%endcomment%}
-                    <hr class="color-white" style="border-color:white" />
-                    {%if request.user.is_authenticated %}
-                    <div class='' hx-get="{%url 'MenuUrl' %}" hx-trigger='load' hx-swap='innerHTML'></div>
-
-                    {%endif%}
-                    <br />
-                </div>
-                </div>
-
+        {%block header%}
+        <nav class="navbar sz-12 container-fluid color-p align-items-center psition-fixed" id="" style=" z-index:7000;margin-top:-7px">
+            <div class="sz-18 bold navbar-brand col px-1" style="fot-size:22px;">
+                <img class="img-fluid hide" src="{%static 'images/logo.png'%}" style="width:25px;height:25px;object-fit:contain "/>
+                File-Titan
             </div>
-            {%endblock%}
+            <div class="display-sm-none hide sz-12 navbar-brand col-2 p-0">
+                <form action="{%url 'SearchUrl' %}" class="" method="POST">
+                    {%csrf_token%}
+                    <input class="form-control sz-sm" name="search" placeholder="search files and directories" style="height:30px!important" type="search"/>
+                </form>
+            </div>
+            {%if request.user.is_authenticated%}
+            <div class="navbar-brand col-1">
+                <a href="{%url 'NotifyUrl'%}">
+                    <i class="fas fa-bell">
+                    </i>
+                    {% if request.user.profile.unread_notification.all %}
+                    <span class="sz-8 color-bg-p p-1 color-white rounded-circle" style="display:inline-block;font-size:8px">
+                        {{request.user.profile.unread_notification.count}}
+                    </span>
+                    {%endif%}
+                </a>
+            </div>
 
-
-            <div class='col-md col-sm-12 '>
-                <div class='holder d-flex justify-content-center w-100 bg-color-bg-white' id='messageholder' style='position:fixed;z-index:10000000;'>
-
+            <div class="sz-14 display-sm-none navbar-brand  p-0">
+                <a class="color-black" href="{% url 'account_logout'%}">
+                    Log Out
+                </a>
+            </div>
+            {%endif%}
+            <div class="display-md-none sz-20 navbar-brand" style="text-align:right">
+                <i class="fas fa-bars animate__animated animate__bounce bordr rounded p-1" id="tri" onclick="show()">
+                </i>
+            </div>
+        </nav>
+        <br class="hide" style="line-height:40px"/>
+        {%endblock%}
+        <div class="container-fluid">
+            <div class="row justify-content-evenly">
+                {%block sidebar%}
+                <div class="col-2 colo-bg-p">
+                    <div class="position-fixed border-right m-0 colr-bg-white color-bg-dark-light conner border-right h-100" id="hold" style="z-index:6000;overfw: auto;">
+                        <div class="dropD display-sm-none animate__animated animate__slideInDown animate__fast overflow-auto clor-bg-white color-bg-dark-light m-0 p-3 rounded" id="dropdown" style="overflow:auto;border-right:2px solid silver;">
+                            <div class="row">
+                                <div class="col">
+                                    <form action="{%url 'SearchUrl' %}" class="" method="POST">
+                                        {%csrf_token%}
+                                        <input class="form-control" name="search" placeholder="search files and directories" style="width:100%" type="search"/>
+                                    </form>
+                                </div>
+                            </div>
+                            {%if request.user.is_authenticated %}
+                            <div class="row boder-bottom py-2 color-black align-items-center">
+                                <div class="col-2">
+                                    <img class="rounded-circle img-flud" heigt="30px" src="{{request.user.profile.profile_photo.url}}" style="object-fit:cover;width:auto;height:25px" widh="30px"/>
+                                </div>
+                                <div class="col">
+                                    {{request.user.username|title|truncatechars:'13'}}
+                                </div>
+                            </div>
+                            <hr class="color-white" style="border-color:white"/>
+                            {%endif%}
+                            <div class="row my-3 hide">
+                                <div class="col-2 color-white">
+                                    <i class="fas fa-home">
+                                    </i>
+                                </div>
+                                <div class="col">
+                                    <a class="col sz-14 color-white" href="{%url 'FileViewUrl' %} ">
+                                        Explore
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="col-2 color-black">
+                                    <i class="fas fa-plus">
+                                    </i>
+                                </div>
+                                <div class="col">
+                                    <a class="col sz-14 color-black" href="{%url 'FolderFormUrl' %} ">
+                                        Create Directory
+                                    </a>
+                                </div>
+                            </div>
+                            {%if request.user.is_authenticated %}
+                            <div class="row my-3">
+                                <div class="col-2 color-black">
+                                    <i class="fas fa-user">
+                                    </i>
+                                </div>
+                                <div class="col sz-14">
+                                    <a class="color-black" href="{%url 'ProfileUrl' request.user.profile.id %}">
+                                        My Dashboard
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="col sz-14 display-md-none">
+                                    <a class="color-black" href="{% url 'account_logout'%}">
+                                        Log Out
+                                    </a>
+                                </div>
+                            </div>
+                            {%else%}
+                            <div class="row my-2">
+                                <div class="col">
+                                    <a class="whie color-black btn color-bg-s color-white" href="{%url 'account_login' %}" style="">
+                                        Log in
+                                    </a>
+                                </div>
+                            </div>
+                            {%endif%}
+                            <hr class="color-white" style="border-color:white"/>
+                            {%if request.user.is_authenticated %}
+                            <div class="" hx-get="{%url 'MenuUrl' %}" hx-swap="innerHTML" hx-trigger="load">
+                            </div>
+                            {%endif%}
+                            <br/>
+                            {%endblock%}
+                    </div>
                 </div>
-                {%block index%}
+                </div>
+                            <div class="col-md col-sm-12 ">
+                                <div class="holder d-flex justify-content-center w-100 bg-color-bg-white" id="messageholder" style="position:fixed;z-index:10000000;">
+                                </div>
+                                {%block index%}
                 {%if request.user.is_anonymous%}
                 {%comment%}
                 {%include 'index.html'%}
@@ -361,17 +357,14 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
 
                 {%endif%}
                 {%endblock%}
-                <div class='bg-ligth'>
-                {%block content%}
+                                <div class="bg-ligth">
+                                    {%block content%}
 
                 {%endblock content%}
-                </div>
-            </div>
-        </div>
-    </div>
-<
-
-        </body>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
         <script>
             $(window).on('load', function() {
                 $('#pre-loader').addClass('hideI')})
@@ -399,6 +392,6 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
 
             //$('#signal').click(chek)
             function confirm(x) {}
-
         </script>
-    </html>
+    </body>
+</html>

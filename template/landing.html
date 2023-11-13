@@ -1,13 +1,16 @@
 {%extends 'base.html'%}
 {%load static%}
+{%block header%}
+{%endblock%}
 {%block sidebar%}
 
 {%endblock%}
 {%block content%}
-  <style>
+<style>
     body {
       backround-color: #f0f7ff; /* Light blue background color */
       color: #333; /* Dark text color */
+    
     }
 
     .navbar {
@@ -36,94 +39,136 @@
       padding: 20px 0;
     }
     .center-body{
-      background:url("{%static 'images/images.jpeg'%}");
+      background:url("{%static 'images/titan.jpg'%}");
       background-repeat: no-repeat;
   background-size: cover; /* or 'contain' based on your preference */
-  background-position: center center; /* optional, centers the background */
+  background-position:right; /* optional, centers the background */
 }
-   
-  </style>
-
-
-<div class='p-1' >
-  <br />
-  <br />
-  <!-- Hero Section -->
-  <header class="jumbotrn coor-bg-p mt-2">
-    <div class="container text-center">
-      <h1 class="display-4 sz-36 color-white shadow">File-Titan</h1>
-      <p class="lead color-white">Manage Your Files Easily with File-Titan</p>
-      <a class="btn btn-light btn-lg color-bg-p color-white" href="#features" role="button">Get Started</a>
-    </div>
-  </header>
-
-  <!-- Features Section -->
-  <section id="features" class="">
-    <div class="row card bg-light rounded">
-      <div class="col-lg-4">
-        <h2 class='sz-24'>File Creation</h2>
-        <p>Create new files easily with File-Titan.</p>
-      </div>
-      <div class="col-lg-4">
-        <h2 class='sz-18'>File Upload</h2>
-        <p>Effortlessly upload and manage your files.</p>
-      </div>
-      <div class="col-lg-4">
-        <h2 class='sz-18'>File Copy</h2>
-        <p>Copy files with ease for efficient organization.</p>
-      </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col-lg-4">
-        <h2>Folder Organization</h2>
-        <p>Create folders to keep your files orderly.</p>
-      </div>
-      <div class="col-lg-4">
-        <h2>Search and Filter</h2>
-        <p>Quickly find and filter your files.</p>
-      </div>
-      <div class="col-lg-4">
-        <h2>Media Player</h2>
-        <p>Enjoy a built-in player for videos and audio files.</p>
-      </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col-lg-4">
-        <h2>Text File Editing</h2>
-        <p>Edit text files directly within File-Titan.</p>
-      </div>
-      <div class="col-lg-4">
-        <h2>File Collaboration</h2>
-        <p>Collaborate on files with ease.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="container">
-    <h2>Contact LouLou</h2>
-    <p>Have questions or feedback? Reach out to LouLou!</p>
-    <form>
-      <div class="form-group">
-        <label for="name">Your Name</label>
-        <input type="text" class="form-control" id="name" placeholder="Enter your name">
-      </div>
-      <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter your email">
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </section>
-
-  <!-- Footer -->
-  <footer class="text-center">
-    <p>&copy; 2023 File-Titan | Created by LouLou</p>
-  </footer>
+</style>
+<div class="p-1">
+    <br/>
+    <br/>
+    <!-- Hero Section -->
+    <header class="jumbotrn coor-bg-p mt-2">
+        <div class="container text-center">
+            <h1 class="display-4 sz-36 sz-md-48 color-white my-2 animate__animated animate__bounce">
+                File-Titan
+            </h1>
+            <p class="lead color-white sz-24 sz-md-30 color-bg-black animate__animated animate__slideInUp">
+                Manage Your Files Easily with File-Titan
+            </p>
+            <p>
+                <a class="btn btn-light btn-lg color-bg-p color-white sz-md-18 no-border animate__animated animate__fadeIn col-md-6 col-sm-12" href="{% url 'account_signup'%}"  role="button">
+                    Get Started
+                </a>
+            </p>
+        </div>
+    </header>
+    <br/>
+    <hr class="color-bg-white"/>
+    <!-- Features Section -->
+    <section class="container p-2 p-md-2 color-white rounded shdow " id="features">
+        <div class="row">
+            <div class="col-lg-4 my-3 color-bg-red p-2 center" style="">
+                <h2 class="sz-18 bold color-p">
+                    <i class="fas fa-circle sz-14 hide">
+                    </i>
+                    File Creation
+                </h2>
+                <p class="sz-md-16 color-white">
+                    Create new files easily with File-Titan.
+                </p>
+            </div>
+            <div class="col-lg-4 my-3 color-bg-orange center p-2">
+                <h2 class="sz-18 bold color-p">
+                    <i class="fas fa-circle sz-14 hide">
+                    </i>
+                    File Upload
+                </h2>
+                <p class="sz-md-16 color-white">
+                    Effortlessly upload and manage your files.
+                </p>
+            </div>
+            <div class="col-lg-4 my-3 center">
+                <h2 class="sz-18 bold color-p">
+                    <i class="fas fa-circle sz-14 hide">
+                    </i>
+                    File Copy
+                </h2>
+                <p class="sz-md-16 color-white">
+                    Download files with ease for efficient organization.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 my-3 center">
+                <h2 class="sz-18 bold color-p">
+                    <i class="fas fa-circle sz-14 hide">
+                    </i>
+                    Folder Organization
+                </h2>
+                <p class="sz-md-16 color-white">
+                    Create folders to keep your files orderly.
+                </p>
+            </div>
+            <div class="col-lg-4 my-3 center">
+                <h2 class="sz-18 bold color-p">
+                    <i class="fas fa-circle sz-14 hide">
+                    </i>
+                    Search and Filter
+                </h2>
+                <p class="sz-md-16 color-white">
+                    Quickly find and filter your files.
+                </p>
+            </div>
+            <div class="col-lg-4 my-3 center">
+                <h2 class="sz-18 bold color-p">
+                    <i class="fas fa-circle sz-14 hide">
+                    </i>
+                    Media Player
+                </h2>
+                <p class="sz-md-16 color-white">
+                    Enjoy a built-in player for videos and audio files.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 my-3 center">
+                <h2 class="sz-18 bold color-p">
+                    <i class="fas fa-circle sz-14 hide">
+                    </i>
+                    Text File Editing
+                </h2>
+                <p class="sz-md-16 color-white">
+                    Edit text files directly within File-Titan.
+                </p>
+            </div>
+            <div class="col-lg-4 my-3 center">
+                <h2 class="sz-18 bold color-p">
+                    <i class="fas fa-circle sz-14 hide">
+                    </i>
+                    File Collaboration
+                </h2>
+                <p class="sz-md-16 color-white">
+                    Collaborate on files with ease.
+                </p>
+            </div>
+        </div>
+    </section>
+        <br/>
+        <br/>
+        <!-- Footer -->
+        <footer class="text-center color-white">
+            <p class="color-white">
+                © 2023 File-Titan | Created by LouLou
+            </p>
+        </footer>
 </div>
-  <!-- Bootstrap JS and dependencies -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6Vr"></script>
-
+<!-- Bootstrap JS and dependencies -->
+<script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" src="https://code.jquery.com/jquery-3.3.1.slim.min.js">
+</script>
+<script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+</script>
+<script integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6Vr" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
+</script>
 {%endblock%}
