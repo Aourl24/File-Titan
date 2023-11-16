@@ -101,17 +101,22 @@
 <script>
     //ace.config.set('basePath',"{%static 'js'%}")
     //ace.config.set('themePath',"{%static 'js'%}")
-    ace.config.set('modePath', "{%static 'js'%}")
-    editor_read = ace.edit('editor_read')
-    editor_read.setTheme('ace/theme/monokai');
-    editor_read.session.setMode('ace/mode/python')
-    editor_read.setReadOnly(true)
+    // ace.config.set('modePath', "{%static 'js'%}")
+    // editor_read = ace.edit('editor')
+    // editor_read.setTheme('ace/theme/monokai');
+    // editor_read.session.setMode('ace/mode/python')
+    //editor_read.setReadOnly(true)
     //editor=document.getElementById('editor')
     function accept() {
-        //var editor = ace.edit('editor');
-        //code = editor.getValue();
-        code = $('#editor').val();
+        var editor = ace.edit('editor');
+        code = editor.getValue();
+        //code = $('#editor').val();
         $('#ov').val(code)
+    }
+
+    function submitForm(){
+        var form =$('#editorForm')
+        form.submit()
     }
 
     function preview() {
@@ -134,7 +139,10 @@
     $('#ssave').click(check)
 </script>
 
-<script type='text/babel' src="{%static 'js/react.js'%}"></script>
+<script type="text/babel">
 
+const root = document.getElementById('my-react');
+ReactDOM.render(<App />,root)
+</script>
 
 {%endblock%}

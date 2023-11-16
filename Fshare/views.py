@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse
 from .models import Folder,File, Profile, Notify
-
+from django.views.decorators.http import require_POST
 from .form import FolderForm,FileForm,EditUser,EditFolder
-from django.http import StreamingHttpResponse,HttpResponse,HttpResponseRedirect
+from django.http import StreamingHttpResponse,HttpResponse,HttpResponseRedirect,JsonResponse
 from .decorators import CheckAccess
 from django.core.files.base import ContentFile
 from django.core.exceptions import ObjectDoesNotExist
@@ -11,6 +11,7 @@ import subprocess
 from FileShare.settings import BASE_DIR
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+import json
 
 Error="<div class='message' id='message'>Unable to Perform Action, Check your Path </div>"
 Saved="<div class='' id='msg' style=''> Saved </div>"
@@ -205,33 +206,6 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 		else:
 			unknown_file = True
 
-		if request.method== 'POST':
-
-			b=request.POST.get('word')
-
-			if request.user.is_authenticated:
-				prof=Profile.objects.get(user=request.user)
-				if file.folder.owner != prof:
-					folder=Folder.objects.get(id=file.folder.id)
-					edit_word=ContentFile(b,name=f'{request.user}_branch_{file.name}')
-
-					try:
-						edit_file=File.objects.get(name=f'{file.name}',edit_owner=prof)
-						edit_file.saveFile(str(b))
-
-					except ObjectDoesNotExist:
-						edit_file=File.objects.create(file=edit_word, edited=file, edit_owner=prof ,folder=file.folder,name=f'{file.name}' )
-					edit_file.saveFile(str(b))
-
-					return HttpResponse("<div class='message' id='message'>Branch Saved </div>")
-
-				else:
-					file.saveFile(str(b))
-					print('we are saving')
-					return HttpResponse(message('File Saved'))
-			else:
-				return HttpResponse('You can not save file because you are not logged in')
-
 			# if 'path' in request.POST:
 			# 	b=request.POST.get('word')
 			# 	c=request.POST.get('path')
@@ -241,10 +215,42 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 			# 		params={'HX-Target':'#feedback','HX-Swap':'innerHTML'}
 			# 		return HttpResponse(Error)
 
-			return HttpResponse(message('File Saved'))
+			#return HttpResponse(message('File Saved'))
 
 	context=dict(file=file,audio_file=audio_file,code_file=code_file,video_file=video_file,unknown_file=unknown_file,img_file=img_file,fileForm=Ff,originalFile=real_file,prof=prof,form=folderform,allow=allow)
 	return render(request,template,context)
+
+
+@require_POST
+def saveFile(request,id):
+	file = File.objects.get(id=id)
+	
+	json_data=request.body.decode('utf-8')
+	data = json.loads(json_data)
+	b = data.get('data')
+	print(b)
+	if request.user.is_authenticated:
+		prof=Profile.objects.get(user=request.user)
+		if file.folder.owner != prof:
+			folder=Folder.objects.get(id=file.folder.id)
+			edit_word=ContentFile(b,name=f'{request.user}_branch_{file.name}')
+
+			try:
+				edit_file=File.objects.get(name=f'{file.name}',edit_owner=prof)
+				edit_file.saveFile(str(b))
+
+			except ObjectDoesNotExist:
+				edit_file=File.objects.create(file=edit_word, edited=file, edit_owner=prof ,folder=file.folder,name=f'{file.name}' )
+			edit_file.saveFile(str(b))
+
+			return JsonResponse(dict(content="Branch Saved"))
+
+		else:
+			file.saveFile(str(b))
+			print('we are saving')
+			return JsonResponse(dict(content="File Saved"))
+	else:
+		return JsonResponse(dict(content='You can not save file because you are not logged in'))
 
 @CheckAccess
 def folderDetailView(request,fid,sort=None):
@@ -565,3 +571,10 @@ def sortView(request,id):
   files = fod.file.all().order_by(value)
   context = dict(originalFile=files)
   return render(request,template,context)
+
+
+def fileContent(request,id):
+	file= File.objects.get(id=id)
+	content = file.openFile()
+	return JsonResponse(dict(content=content))
+

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'Fshare',
     'allauth',
     'allauth.account',
@@ -129,14 +130,14 @@ MEDIA_ROOT=str(BASE_DIR.joinpath('media'))
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#LOGIN_REDIRECT_URL = 'ProfileLandingUrl'
+LOGIN_REDIRECT_URL = 'LandingUrl'
 #LOGOUT_REDIRECT_URL='ProfileUrl'
 #AUTH_USER_MODEL = 'core.User'
 AUTHENTICATION_BACKENDS=['django.contrib.auth.backends.ModelBackend', 'allauth.account.auth_backends.AuthenticationBackend']
 SITE_ID = 3
 ACCOUNT_EMAIL_REQUIRED=False
 ACCOUNT_EMAIL_VERIFICATION='none'
-ACCOUNT_SIGNUP_REDIRECT_URL='ProfileLandingUrl'
+ACCOUNT_SIGNUP_REDIRECT_URL='LandingUrl'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google':{

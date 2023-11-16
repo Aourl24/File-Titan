@@ -1,7 +1,8 @@
 from django.urls import path,include
 from .views import folderListView,FileFormView,FileDetailView,FolderFormView,DeleteView,CloneView,\
 giveAcessView,createFileView,branchView,shellView,createBranch, replaceView , mergeView,profileView,profileEdit,landingView, notifyView,  \
-cloneFolder,importFile,searchFile,menuView,deleteBranch,downloadView,editFolder, folderDetailView, darkView,likeFolder, errorView,sortView
+cloneFolder,importFile,searchFile,menuView,deleteBranch,downloadView,editFolder, folderDetailView, darkView,likeFolder, \
+errorView,sortView, fileContent, saveFile
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -43,7 +44,9 @@ urlpatterns=[
 	path('error/<str:word>',errorView,name='ErrorView'),
 	path('notifications ',notifyView,name='NotifyUrl'),
 	#path('orderdate<str:option>',folderDetailView,name='FileOrderByDate'),
-	path('orderby<int:fid>/<str:sort>',folderDetailView,name='SortUrl')
+	path('orderby<int:fid>/<str:sort>',folderDetailView,name='SortUrl'),
+	path('filecontent/<int:id>',fileContent),
+	path('savefile/<int:id>',saveFile)
 ]
 
 if settings.DEBUG:
