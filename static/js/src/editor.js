@@ -1,6 +1,7 @@
 function App(props){
-    let [content,setContent] = React.useState('how are you')
+    let [content,setContent] = React.useState('')
     let [status, setStatus] = React.useState('')
+    let [fullscreen, setFullscreen] = React.useState(false)
     var Id = document.getElementById('fileId').value
     //console.log(Id)
 
@@ -23,6 +24,17 @@ function App(props){
 
     }
 
+    let fullscreenEditor= () => {
+            <div id="editor" style={{height:"100%",width:'80%'}}>
+        </div>        
+    }
+
+    let smallScreenEditor = () => <div id="editor" style={{height:"100%",width:'80%'}}>  </div>
+    
+    let importFile = ()=>{
+        $('#import').fadeIn()
+    }
+
     React.useEffect(()=>{
     //ace.config.set('modePath', "{%static 'js'%}")
     let editor_read = ace.edit('editor')
@@ -39,27 +51,28 @@ function App(props){
     // Perform any actions you need when the value changes
   }
   })
-    },[fetchContent,content])
+    },[fetchContent,content,fullscreen])
 
 React.useEffect(()=>{
     let timer = setTimeout(()=>setStatus(''),5000)
     return ()=> clearTimeout(timer)
 },[status])
+
     return (
         <div>
         {status}
-        <div class="row" style={{backgroundColor:'#d1d1d1'}}>
+        <div class={fullscreen ? "row fixed-bottom justify-content-evenly":"row justify-content-evenly"} style={{backgroundColor:'#d1d1d1',left:'0',zIndex:'110000',color:'black'}}>
             <div class="col">
-                <button class="btn" onClick={()=>saveFile()}>save</button>
+                <button class="btn color-" onClick={()=>saveFile()}>save</button>
             </div>
             <div class="col">
-                <button class="btn">import</button>
+                <button class="btn color-" onClick={()=>importFile()}>import</button>
+            </div>
+            <div class="col">
+                <button class="btn color-" onClick={()=>setFullscreen(fullscreen ? false:true)}>fullscreen</button>
             </div>
         </div>
-        <div id="editor" style={{height:"100%",width:'80%'}}>
-        
-        
-        </div>
+        <div id="editor" class="color-bg-white" style={{zIndex:'100000',position:'fixed',height:'100%',width:'100%',top: fullscreen ?'0':'inherit',left:fullscreen ?'0':'inherit'}}>  </div>
         </div>
         )
 }

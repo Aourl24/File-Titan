@@ -1,6 +1,14 @@
+{%load static%}
 <div class=''>
-  <div class="center" style="object-fit:contain;">
-   <img class='h-100 img-fluid' src={{file.file.url}} style="object-fit:contain;width:400px" />
-   <p><a href={{file.file.url}} download>Download image</a> </p>
+  <input type="hidden" id="fileId" value='{{file.id}}' />
+  <div class="center" style="">
+    <div id="my-react" class=""><div class="spinner-border"></div></div>
+   
+   <p </p>
    </div>
 </div>
+
+<script type='text/babel' src="{%static 'js/src/media.js'%}"></scaript>
+{%comment%}
+<img class='h-100 img-fluid' src={{file.file.url}} style="object-fit:contain;width:400px" />
+{%endcomment%}

@@ -2,7 +2,7 @@ from django.urls import path,include
 from .views import folderListView,FileFormView,FileDetailView,FolderFormView,DeleteView,CloneView,\
 giveAcessView,createFileView,branchView,shellView,createBranch, replaceView , mergeView,profileView,profileEdit,landingView, notifyView,  \
 cloneFolder,importFile,searchFile,menuView,deleteBranch,downloadView,editFolder, folderDetailView, darkView,likeFolder, \
-errorView,sortView, fileContent, saveFile
+errorView,sortView, fileContent, saveFile , imageContent ,aboutPage, howToPage
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -31,7 +31,7 @@ urlpatterns=[
 	path('merge<int:id>with<int:bid>',mergeView,name='MergeUrl'),
 	path('profile<int:id>',profileView,name='ProfileUrl'),
 	path('prof',profileEdit,name='ProfileEditUrl'),
-	path('import',importFile,name='ImportFileUrl'),
+	path('import<int:id>',importFile,name='ImportFileUrl'),
 	path('search',searchFile,name='SearchUrl'),
 	path('menu',menuView,name='MenuUrl'),
 	path('profile',profileView,name='ProfileLandingUrl'),
@@ -46,7 +46,10 @@ urlpatterns=[
 	#path('orderdate<str:option>',folderDetailView,name='FileOrderByDate'),
 	path('orderby<int:fid>/<str:sort>',folderDetailView,name='SortUrl'),
 	path('filecontent/<int:id>',fileContent),
-	path('savefile/<int:id>',saveFile)
+	path('savefile/<int:id>',saveFile),
+	path('getImage/<int:id>',imageContent),
+	path('about',aboutPage,name="AboutUrl"),
+	path('howtopage',howToPage,name="HowToUrl")
 ]
 
 if settings.DEBUG:

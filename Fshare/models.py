@@ -269,6 +269,7 @@ def FileCreated(sender,instance,**kwargs):
 			file_created = ContentFile(instance.content,name=f'{instance.name}')
 			instance.file = file_created
 
+
 @receiver(post_save,sender=File)
 def FileType(sender,created,instance,**kwargs):
   if created:

@@ -3,11 +3,11 @@
 {%elif f.file_type == 'txt' %}
 <i class='far fa-file'></i>
 {%elif f.file_type in image%}
-<i class='fas fa-image'></i>
+<img src={{f.file.url}} class="rounded" alt="" style="height:45px;width:45px;object-fit:cover" />
 {%elif f.file_type in audio%}
 <i class='fas fa-music'></i>
 {%elif f.file_type in video%}
 <i class='fas fa-video'></i>
 {%else%}
-<i class='far fa-file'></i>
+<i class='far fa-file rounded'></i>
 {%endif%}

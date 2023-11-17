@@ -7,7 +7,7 @@
         <div class='row align-items-center' style=''>
             <div class='col sz-16'>
                 <a href={{f.get_absolute_url}} class='color-black'>
-                    <div class='row' style=''>
+                    <div class='row align-items-center' style=''>
                         <div class='col-2 sz-18 color-p'>
                             {%include 'FshareTemplate/thumbnail.html'%}
                         </div>
@@ -51,7 +51,7 @@
                 </div>
                 <div class='col-12 sz-14 color-black py-2'>
                     <span class="color-grey">size </span><br />
-                    {{f.file.size}} bytes <span class='color-black'></span>
+                    {%if f.file%}{{f.file.size}} bytes{%endif%} <span class='color-black'></span>
                 </div>
 
 

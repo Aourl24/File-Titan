@@ -438,21 +438,24 @@ def profileEdit(request):
 	context=dict(form=editForm,profile=prof)
 	return render(request,template,context)
 
-def importFile(request):
-	c=''
-	if request.method == 'POST':
-		#d=request.POST['importfile']
-		b=request.FILES.get('importfile')
-		print(b)
-		if b is None:
-			raise ImportError
-    
-		c=request.POST.get('filename')
-		file=File.objects.get(id=c)
-		file.file=b
-		file.save()
+@require_POST
+def importFile(request,id):
+			#d=request.POST['importfile']
+	b=request.FILES.get('importfile')
+	print(b)
+	if b is None:
+		raise ImportError
+	file=File.objects.get(id=id)
+	file.file=b
 
-		return redirect('FileDetailViewUrl',id=c)
+	#ff = ContentFile(b,name=f'{file.name}')
+	#file.content='my file'
+	with b.open() as f:
+		file.content = f.read()
+
+	file.save()
+
+	return redirect('FileDetailViewUrl',id=id)
 
 def searchFile(request):
 	if request.method == 'POST':
@@ -578,3 +581,17 @@ def fileContent(request,id):
 	content = file.openFile()
 	return JsonResponse(dict(content=content))
 
+
+def imageContent(request,id):
+	file = File.objects.get(id=id)
+	image = file.file.url
+	print(image)
+	return JsonResponse(dict(image=image))
+
+def aboutPage(request):
+	template = t + 'about.html'
+	return render(request,template)
+
+def howToPage(request):
+	template = t + 'documentation.html'
+	return render(request,template)

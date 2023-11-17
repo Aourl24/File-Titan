@@ -13,9 +13,9 @@
  <input name='word' id='csrf' value={{csrf_token}} type='hidden'>
 
 
-<div id="my-react" class="position-fixed container-fluid p-0 h-100"><div class="spinner-border"></div></div>
+<div id="my-react" class=""><div class="spinner-border"></div></div>
     
-     <div class="modal sz-18 " id="import" style="z-index:4000;width:100%;heiht:170px;tp:20%;background-color:rgba(300,300,300,0.9
+     <div class="modal sz-18 " id="import" style="z-index:1000000;width:100%;heiht:170px;tp:20%;background-color:rgba(300,300,300,0.9
 )">
         <div class="modal-dialog modal-dialog-centered ">
             <div class="modal-content no-border" syle="top:50px;width:100%">
@@ -27,7 +27,7 @@
                     </div>
                 </div>
    
-                <form method='post' action="{%url 'ImportFileUrl' %}" enctype="multipart/form-data">
+                <form method='post' action="{%url 'ImportFileUrl' file.id %}" enctype="multipart/form-data">
                     {%csrf_token%}
                     
                     <input type='hidden' class='' name='filename' value='{{file.id}}'>
@@ -44,6 +44,7 @@
                     </div>
                     </div>
                 </form>
+
             </div>
             </div>
         </div> 
