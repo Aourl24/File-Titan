@@ -75,7 +75,7 @@ React.useEffect(()=>{
     return (
         <div>
         {status}
-        <div class={fullscreen ? "row fixed-bottom justify-content-evenly":"row justify-content-evenly"} style={{backgroundColor:'#d1d1d1',left:'0',zIndex:'110000',color:'black'}}>
+        <div class={fullscreen ? "row fixed-bottom justify-content-evenly color-bg-t":"row justify-content-evenly color-bg-t"} style={{backgroundlColor:'#d1d1d1',left:'0',zIndex:'110000',color:'black'}}>
             <div class="col center ">
                 <button class="btn color sz-14" onClick={()=>folder ? saveFile(): setSTF(true)}><i class='fas fa-save'></i> <span class= 'display-sm-none'>save</span></button>
             </div>

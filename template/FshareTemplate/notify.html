@@ -2,11 +2,11 @@
 
 {%block content%}
 {%for notification in notifications%}
-<div class='row my-2 border-bottom'>
+<div class='row my-2 border-bottom p-2'>
   <div class='col-12'>
     {{notification.body}}
   </div>
-  <div class='col-12 color-grey sz-14'>
+  <div class='col-12 color-grey sz-12'>
     {{notification.time|timesince}} ago
   </div>
 </div>

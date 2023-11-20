@@ -9,11 +9,12 @@
         {%settings_value 'LOCAL' as L %}
 
     {%if L%}
-        <link href="{%static 'css/bootstrap5/css/bootstrap.min.css'%}" rel="stylesheet"/>
-        <link href="{%static 'css/fontawesome_5/css/all.min.css'%}" media="print" onload="this.media='all'" rel="stylesheet"/>
+        
         <link href="{%static 'css/animate.min.css'%}" rel="stylesheet"/>
         <!-- <link rel='stylesheet' href="{%static 'css/default.min.css'%}" media="print" onload="this.media='all'"> -->
         <link href="{%static 'css/acss/acss_animation.css'%}" media="print" onload="this.media='all'" rel="stylesheet"/>
+        <link href="{%static 'css/bootstrap5/css/bootstrap.min.css'%}" rel="stylesheet"/>
+        <link href="{%static 'css/fontawesome_5/css/all.min.css'%}" media="print" onload="this.media='all'" rel="stylesheet"/>
         {%else%}
     {%include 'cdn.html'%}
     {%endif%}
@@ -22,7 +23,7 @@
         {%if 'dark' in request.session.keys %}
         <link href="{%static 'css/acss/acss_dark.css'%}" rel="stylesheet"/>
         {%endif%}
-        <link href="{%static 'css/Landing.css' %}" rel="stylesheet"/>
+        <link href="{%static 'css/Landin.css' %}" rel="stylesheet"/>
         <script src="{%static 'js/react.production.min.js'%}">
         </script>
         <script src="{%static 'js/react-dom.production.min.js'%}">
@@ -51,8 +52,8 @@
     <style>
         :root {
     --primary-color:#0020C2;
-    --secondary-color:black ;
-    --tertiary-color:black ;
+    --secondary-color:red;
+    --tertiary-color:#f39c12 ;
 }
     {
         1DA1F2,4b8ef1
@@ -184,6 +185,7 @@
     }
     a{
         text-decoration: none;
+        color:inherit!important;
     }
     a:hover {
         color: var(--primary-color);
@@ -198,6 +200,9 @@
     }
     a:focus{
         color:var(--primary-color);
+    }
+    input{
+      height:1.2cm;
     }
 
     .shadow {
@@ -224,7 +229,7 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
         width:2px;
     }
     </style>
-    <body class="font-poppins sz-16 center-body bg-light">
+    <body class="font-poppins sz-16 center-body bg-lig t">
         <div class="color-bg-white h-100 w-100 d-flex justify-content-center align-items-center position-fixed" id="pre-loader" style="z-index:10000">
             <span class="dot animate__animated animate__bounce animte__delay-1s animate__infinite color-p aniate__slow" style="">
                 File
@@ -234,25 +239,23 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
             </span>
         </div>
         {%block header%}
-        <nav class="navbar justify-content-center color-bg-p sz-12 container-fluid color-p align-items-center psition-fixed p-2" id="" style=" z-index:7000;margin-top:-7px">
-            <div class="sz-18 bold navbar-brand color-white col px-1" style="fot-size:22px;">
+        <nav class="navbar justify-content-center col r-bg-p sz-12 container-fluid color-p align-items-center bg-ligt psition-fixed p-2 border-bottom mb-2" id="" style=" z-index:7000;margin-top:-7px">
+            <div class="sz-18 bold navbar-brand color-p col px-1" style="fot-size:22px;">
                 <img class="img-fluid hide" src="{%static 'images/logo.png'%}" style="width:25px;height:25px;object-fit:contain "/>
                 File-Titan
             </div>
-            <div class="display-sm-none hide sz-12 navbar-brand col-2 p-0">
                 <form action="{%url 'SearchUrl' %}" class="" method="POST">
                     {%csrf_token%}
-                    <input class="form-control sz-sm" name="search" placeholder="search files and directories" style="height:30px!important" type="search"/>
-                </form>
+              </form>
             </div>
             {%if request.user.is_authenticated%}
-            <div class="navbar-brand col-1 color-white">
+            <div class="navbar-brand col-1 color-p">
                 <a href="{%url 'NotifyUrl'%}">
                     <i class="fas fa-bell">
                     </i>
                     {% if request.user.profile.unread_notification.all %}
-                    <span class="sz-8 color-bg-t p-1 color-white rounded-circle" style="display:inline-block;font-size:8px;margin-left:-8px">
-                        {{request.user.profile.unread_notification.count}}
+                    <span class="sz-8 color-bg-t p-1 color-white rounded-circle center" style="display:inline-block;font-size:8px;margin-left:-8px;margin-bottom:-20px;height:12px;width:12px;position:absolute">
+                        {{requst.user.profile.unread_notification.count}}
                     </span>
                     {%endif%}
                 </a>
@@ -271,7 +274,7 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                 </a>
             </div>
             {%endif%}
-            <div class="display-md-none sz-20 navbar-brand color-white" style="text-align:right">
+            <div class="display-md-none sz-20 navbar-brand color-p" style="text-align:right">
                 <i class="fas fa-bars animate__animated animate__bounce bordr rounded p-1" id="tri" onclick="show()">
                 </i>
             </div>
@@ -305,7 +308,7 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                             {%endif%}
                             <div class="row my-3 hide">
                                 <div class="col-2 color-white">
-                                    <i class="fas fa-home">
+                                    <i class="fas fa-home color-t">
                                     </i>
                                 </div>
                                 <div class="col">
@@ -316,7 +319,7 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                             </div>
                             <div class="row my-3">
                                 <div class="col-2 color-black">
-                                    <i class="fas fa-plus">
+                                    <i class="fas fa-plus color-t">
                                     </i>
                                 </div>
                                 <div class="col">
@@ -328,7 +331,7 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                             {%if request.user.is_authenticated %}
                             <div class="row my-3">
                                 <div class="col-2 color-black">
-                                    <i class="fas fa-user">
+                                    <i class="fas fa-user color-t">
                                     </i>
                                 </div>
                                 <div class="col sz-14">
@@ -338,20 +341,20 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                                 </div>
                             </div>
                           <div class='row display-md-none my-3'>
-                            <div class='col-2'><i class='fas fa-info'></i></div>
+                            <div class='col-2'><i class='fas fa-info color-t'></i></div>
                             <div class=" col">
                 <a href="{%url 'AboutUrl'%}" class="no-decoration sz-14">About</a>
             </div>
             </div>
             <div class='row display-md-none my-3'>
-              <div class='col-2'><i class='fas fa-book'></i></div>
+              <div class='col-2'><i class='fas fa-book color-t'></i></div>
             <div class="col display-md-none">
                 <a href="{%url 'HowToUrl'%}" class="no-decoration sz-14">Tutorial</a>
             </div>
             </div>
 
                             <div class="row my-3">
-                                <div class='col-2'><i class='fas fa-door-open'></i></div>
+                                <div class='col-2'><i class='fas fa-door-open color-t'></i></div>
                                 <div class="col sz-14 display-md-none">
                                     <a class="color-black" href="{% url 'account_logout'%}">
                                         Log Out
@@ -397,6 +400,7 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                             </div>
                         </div>
                     </div>
+                    <div class='center bg-light sz-12 p-2 w-100' style='position:absolute;' >This website is developed by Awwal(loulou)</div>
         <script>
             $(window).on('load', function() {
                 $('#pre-loader').addClass('hideI')})

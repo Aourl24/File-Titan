@@ -200,22 +200,22 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 # 				allow=False
 
 		
-		file_ext = file.name.split('.')
-		#extension = file_ext[-1]
-		extension = file.file_type
-		
-		if extension in video_file_ext or typ == 'video':
-			video_file = True
-		elif extension in audio_file_ext or typ == 'audio':
-			audio_file = True
-		elif extension in code_file_ext or typ == 'code':
-			code_file = True
-		elif extension in image_file_ext or typ == 'image':
-		    img_file = True
-		elif file.content:
-			code_file = True
-		else:
-			unknown_file = True
+	file_ext = file.name.split('.')
+	#extension = file_ext[-1]
+	extension = file.file_type
+	
+	if extension in video_file_ext or typ == 'video':
+		video_file = True
+	elif extension in audio_file_ext or typ == 'audio':
+		audio_file = True
+	elif extension in code_file_ext or typ == 'code':
+		code_file = True
+	elif extension in image_file_ext or typ == 'image':
+	    img_file = True
+	elif file.content:
+		code_file = True
+	else:
+		unknown_file = True
 
 	context=dict(file=file,audio_file=audio_file,code_file=code_file,video_file=video_file,unknown_file=unknown_file,img_file=img_file,fileForm=Ff,originalFile=real_file,prof=prof,form=folderform,allow=allow)
 	return render(request,template,context)
@@ -418,7 +418,7 @@ def profileView(request,id=None):
 	except ObjectDoesNotExist:
 		branch_file=[{'error':'There is no branch files'}]
 	file={'id':2}
-	activity = Activity.objects.filter(profile=profile)
+	activity = Activity.objects.filter(profile=profile).order_by('-datetime')
 	context=dict(profile=profile,branches=branch_file,file=file,activity=activity)
 	return render(request,template,context)
 

@@ -33,9 +33,26 @@
 		 <div class=' col'>{{profile.bio}}</div>
 	</div>
 	{%endif%}
-<br />
-	<div class="sz-20 my-2 color-p"> Memory Usage </div>
-	<div class="">
+	<br />
+	<div class='row sz-12 my-3 py-3 hide'>
+	  <div class='col center'> <i class='fas fa-music sz-30 color-p'></i><br/>music</div>
+	  	  <div class='col center'> <i class='fas fa-video sz-30 color-t'></i><br/>video</div>
+	  	  	  <div class='col center '> <i class='fas fa-image sz-30 color-p'></i><br/>images</div>
+	  	  	  	  <div class='col center'> <i class='fas fa-file sz-30 color-t'></i><br/>files</div>
+	</div>
+	
+	<div style='backround-color:purple' class='borlder center color-bg-t p-2 rounded w-100 shdow color-white'>
+	 <a href="{%url 'OpenEditorUrl' %}" >Open Editor </a>
+	</div>
+		<div style='bakround-color:purple;color:red' class='borer center p-2 roundd w-100 shdow clor-white'>
+	  Upgrade to Premium
+	</div>
+	<br />
+	<div class="sz-20 my-2 color-p r"> Memory Usage </div>
+<canvas class='center color-black w-100 g-light'  id="pieChart" width="300" height="300"></canvas>
+  	<div class="sz-14 center">{{profile.size_in_percent}}% used</div>
+
+	<div class="hide">
 	<div class="w-100 color-bg-t rounded" style="height:25px;background-color:#c1c1c1"></div>
 	<div class="color-bg-p rounded center color-white  sz-12 align-items-center" style="margin-top:-25px;height:25px;width:{{profile.size_in_percent}}%;max-width:100%; background-color:red">
 <div style='margin-top:5px' class='position-absolute center row w-100' style='max-width:100%'>
@@ -45,14 +62,8 @@
 	<div class="sz-12 hide">{{profile.size_in_percent}}% used</div>
 	</div>
 
-	<br />
-	<div style='backround-color:purple' class='border center p-2 rounded w-100 shdow clor-white'>
-	 <a href="{%url 'OpenEditorUrl' %}" >Open Editor </a>
-	</div>
-		<div style='bakround-color:purple;color:red' class='borer center p-2 roundd w-100 shdow clor-white'>
-	  Upgrade to Premium
-	</div>
-	<hr class='color-bg-grey' />
+
+	<br class='color-bg-grey' />
 	{% if not profile.folder.all %}
 	<br/>
 	<div class='row align-items-center'>
@@ -70,11 +81,13 @@
 <br />
 <div class='row align-items-center'>
     <div class='col sz-20 color-p'>Directories</div>
+    {%if profile.folder.all > 3 %}
     <div class='col sz-12' style='text-align:right'><a href='' class='rounded p-2 border color-bg-silver' style='background-color:#e1e1e1'>view all </a></div>
+    {%endif%}
 </div>
 
-<div class="row m-md-2 p-2">
-    {%include 'FshareTemplate/folderlist.html' with folders=profile.folder.all %}
+<div class="row m-md-2  m-2">
+    {%include 'FshareTemplate/folderlist.html' with folders=profile.folder.all|slice:':3' %}
 </div>
 
     {%endif%}
@@ -82,6 +95,7 @@
     {%if not branches %}
 
     {%else%}
+ <br />
 	<div class='sz-18 my-2 color-p'>Branches</div>
 	<div class="row m-md-2 p-2 ">
     {%include 'FshareTemplate/file.html' with originalFile=branches %}
@@ -89,27 +103,36 @@
     {%endif%}
 
 {%if profile.folder_like.all%}
+<br />
 <div class='row align-items-center'>
     <div class='col sz-20 color-p'>Favourites</div>
+        {%if profile.folder_like.all > 3 %}
     <div class='col sz-12' style='text-align:right'><a href='' class='rounded p-2 border color-bg-silver' style='background-color:#e1e1e1'>view all </a></div>
+    {%endif%}
 </div>
 
-<div class="row p-2">
-{%include 'FshareTemplate/folderlist.html' with folders=profile.folder_like.all %}
+<div class="row m-2">
+{%include 'FshareTemplate/folderlist.html' with folders=profile.folder_like.all|slice:':3' %}
 </div>
 {%endif%}
-
+<br /> 
 <div class='row align-items-center'>
-    <div class='col sz-20 color-p'>Activities</div>
+    <div class='col sz-20 color-p'>Recent Activities</div>
+        {%if activity > 7 %}
     <div class='col sz-12' style='text-align:right'><a href='' class='rounded p-2 border color-bg-silver' style='background-color:#e1e1e1'>view all </a></div>
+    {%endif%}
 </div>
 
-<div class='border rounded p-2 my-2'>
+<div class='border rounded m-2 p-2'>
   {%if activity%}
-{%for activity in activity%}
-<div class='row m-2'>
-  <i>{{activity.body}}</i>
-  <br />
+{%for activity in activity|slice:'7'%}
+<div class='row border-bottom p-2'>
+<div class=' col-12'>
+  {{activity.body}}
+</div>
+  <div class='col-12 color-grey sz-12'>
+    {{activity.datetime|timesince}} ago
+  </div>
 </div>
 {%endfor%}
 {%else%}
@@ -118,5 +141,44 @@
 </div>
 
 </div>
+<script>
+var used = {{profile.size_in_percent}}
+var unused = 100
+var to360 = used/unused * 360
+var un360 = 360 - to360
+  document.addEventListener('DOMContentLoaded', function () {
+  drawPieChart();
+});
+
+function drawPieChart() {
+  var canvas = document.getElementById('pieChart');
+  var context = canvas.getContext('2d');
+ 
+  var data = [to360,un360]; // Example data values
+  var total = data.reduce(function (acc, value) {
+    return acc + value;
+  }, 0);
+
+  var normalizedData = data.map(function (value) {
+    return (value / total) * 100;
+  });
+
+  var colors = ['red', '#F5F5F5']; // Example colors
+  var startAngle = 0;
+
+  for (var i = 0; i < normalizedData.length; i++) {
+    var sliceAngle = (2 * Math.PI * normalizedData[i]) / 100;
+
+    context.beginPath();
+    context.arc(canvas.width / 2, canvas.height / 2, canvas.width / 3, startAngle, startAngle + sliceAngle);
+    context.fillStyle = colors[i];
+    context.fill();
+
+    startAngle += sliceAngle;
+  }
+}
+
+drawPieChart() 
+</script>
 {%endblock%}
 

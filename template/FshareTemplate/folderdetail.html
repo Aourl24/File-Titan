@@ -44,7 +44,7 @@
         {%endif%}
 <div class="row">
         <div class="col-md col-sm-12 center sz-12">
-            <div class="btn btn-link sz-sm p-0 color-s" hx-get="{%url 'DownloadUrl' file.id%}" hx-swap="outerHTML" style="">
+            <div class="btn btn-link sz-sm p-0 color-black" hx-get="{%url 'DownloadUrl' file.id%}" hx-swap="outerHTML" style="">
                 <i class="fas fa-download">
                 </i>
                 Download this Folder
@@ -56,11 +56,11 @@
             </div>
         </div>
         <div class="col-md col-sm-12 center passive sz-12">
-                <span class="color-s">
+                <span class="color-black">
                     {{originalFile.count}}
                 </span>
                 files |
-                <span class="color-s">
+                <span class="color-black">
                     {{file.child_folder.count}}
                 </span>
                 folders
@@ -69,7 +69,7 @@
                         | owner
                     </span>
                     <a href="{{file.owner.get_absolute_url}}">
-                        <span class="bold color-s">
+                        <span class="bold color-black">
                             {{file.owner.user.username|title|truncatechars:'5'}}
                         </span>
                     </a>
@@ -132,7 +132,7 @@
 
                 <div class="row my-2">
                     <div class="col-12">
-                        <button class="btn color-bg-s color-white" onclick="$('.swap').fadeOut();$('#create').fadeIn()">
+                        <button class="btn color-bg-p color-white" onclick="$('.swap').fadeOut();$('#create').fadeIn()">
                             <div class="sz-16">
                                 Create New File
                             </div>
@@ -142,7 +142,7 @@
 
                 <div class="row my-2">
                     <div class="col">
-                        <button class="btn color-bg-p color-white" onclick="$('.swap').fadeOut();$('#newfile').fadeIn()">
+                        <button class="btn color-bg-t color-white" onclick="$('.swap').fadeOut();$('#newfile').fadeIn()">
                             <div class="sz-16">
                                 Upload Files
                             </div>
@@ -151,7 +151,7 @@
                 </div>
                 <div class="row my-2">
                     <div class="col">
-                        <button class="btn btn-success" onclick="$('.swap').fadeOut();$('#newfolder').fadeIn()">
+                        <button class="btn color-bg-p color-white" onclick="$('.swap').fadeOut();$('#newfolder').fadeIn()">
                             <div class="sz-16">
                                 Create New Folder
                             </div>
@@ -178,7 +178,7 @@
                             <input class="form-control sz-18" name="filename" placeholder="name" required="" style="" />
                         </div>
                         <div class="row m-2">
-                                <button class="form-control btn color-bg-p w-100 btn-block color-white sz-16">
+                                <button class="form-control btn color-bg-t w-100 btn-block color-white sz-16">
                                     Create
                                 </button>
                         </div>
@@ -210,7 +210,7 @@
             <div class="row m-2">
                             <input class="form-control sz-18" multiple="" name="file" type="file"/>
             </div>
-                            <div class="row m-2"><button class="btn btn-block color-bg-s color-white w-100 sz-16">
+                            <div class="row m-2"><button class="btn btn-block color-bg-t color-white w-100 sz-16">
                                 Upload
                             </button></div>
                             <div class="row m-2 btn btn-link btn-block text-danger w-100 sz-16" onclick="$('#newfile').fadeOut()">

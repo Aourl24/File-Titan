@@ -266,6 +266,7 @@ class Notify(models.Model):
 def ProfileCreated(sender, created, instance,**kwargs):
     if created:
         prof=Profile.objects.create(user=instance)
+        folder = Folder.objects.create(owner=prof,name='Sample Folder')
 
 @receiver(pre_save,sender=File)
 def FileCreated(sender,instance,**kwargs):

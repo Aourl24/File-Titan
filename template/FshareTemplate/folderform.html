@@ -34,15 +34,15 @@
     <form method='POST' class='black' enctype="multipart/form-data" {%if title == 'create'%} action="{%url 'FolderFormUrl' %}" {%endif%}>
         {%csrf_token%}
         <input name='folderid' type='hidden' value='{{file.id}}'>
-        <div class='color-s'>
+        <div class='color-black'>
             {%for f in form%}
-            <div class='my-2 color-s'>
+            <div class='my-2 color-black'>
                 {{f.label}}
             </div>
             <p>{{f.as_widget}} </p>
             {%endfor%}
         </div>
-        <div class='m-2 color-s'>
+        <div class='m-2 color-black'>
             Privacy
         </div>
         <input type='hidden' id='privacy' name='privacy' />
@@ -83,7 +83,7 @@
         </div>
         <br />
         <div class='center my-3'>
-            <button class='btn btn-block color-bg-p rounded color-white w-100' style='color:white'>{{title}}</button>
+            <button class='btn btn-block color-bg-t rounded color-white w-100' style='color:white'>{{title}}</button>
         </div>
     </form>
 

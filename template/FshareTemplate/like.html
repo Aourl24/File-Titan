@@ -1,6 +1,6 @@
 
     <div class='col sz-12' hx-get="{%url 'LikeFolderUrl' folder.id %}" hx-swap='innerHTML'>
-        <i class='{%if prof in folder.likes.all%} fas fa-heart color-p
+        <i class='{%if prof in folder.likes.all%} fas fa-heart color-t
         {%else%} far fa-heart color-p{%endif%}'></i>
         {{folder.likes.count}}
     </div>

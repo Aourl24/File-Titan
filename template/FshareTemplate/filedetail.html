@@ -65,7 +65,7 @@
 
 <div class=''>
     <div class='row my-2 sticky-top' style='z-index:1000'>
-        <div class="col color-s sz-24" id='filename'>
+        <div class="col color-black sz-24" id='filename'>
             {%if file.name|length > 20 %}
 					{{file.name|slice:':20'}}...
 					{%else%}
@@ -73,16 +73,6 @@
 					{%endif%}
             {%if file.edited %} <span class='color-grey sz-14'>branch</span> {%endif%}
         </div>
-        {%comment%}
-        <div class='col'>
-            <a href=''>Refresh </a>
-        </div>
-        <div class='col'>
-            <button class='normal pcolor' hx-get="{%url 'MenuUrl' %}" hx-target='#feedback'>
-                shortcuts
-            </button>
-        </div>
-        {%endcomment%}
     </div>
 
     <div id='feedback' class='' style='z-index:10000000000000'></div>
