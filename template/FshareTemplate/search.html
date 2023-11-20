@@ -1,35 +1,62 @@
 {%extends 'base.html' %}
 {%block content%}
 <div id='box' class=''>
-	<br />
+
 	<h4 class='sz-18 color-p'>Search Results </h4>
+		<br />
+	{%if result_users%}
+	<div class='row m-2 bold'>
+	  Profiles found
+	</div>
+	{%for profile in result_users%}
+		<a href="{%url 'ProfileUrl' profile.id %}" class='row no-decoration align-items-center p-2'>
+		<div class='col-2 sz-14'>
+			<img class='rounded-circle' src='{{profile.profile_photo.url}}' style='height:30px;width:30px;object-fit:cover'
+			 >
+			
+		</div>
+
+			<div class='col sz-14'>
+ {{profile.user.username|title}}
+			</div>
+
+	</a>
+	{%endfor%}
+	
+	{%endif%}
+	<br />
 	<div class=''>
 		
-		<div class='row m-1'>
-			<br style="line-height:5px">
-			{% if not result_folders%}
-				
-			{%endif%}
+		<div class=''>
+			{% if result_folders%}
+				<div class='row m-2 bold'>
+	  Folders found
+	</div>
+	<div class='row p-2'>
 	            {%include 'FshareTemplate/folderlist.html' with folders=result_folders %}
-			
+	            </div>
+						{%endif%}
 		</div>
 	</div>
 
 
 	<div class=''>
 		
-		<div class='row m-2'>
-			<br style="line-height:10px">
-			{% if not result_files%}
-				<div class='warning row m-2'> </div>
-			{%endif%}
-			<div class='container-fluid p-0'>
+		<div class=''>
+			<br style="">
+			{% if result_files%}
+				<div class='row m-2 bold'>
+
+	  Files found
+
+	</div>
+			<div class='row p-2'>
              {%include 'FshareTemplate/file.html' with originalFile=result_files %}
             </div>
-			
+				{%endif%}
 		</div>
 	</div>
-	{%if not result_files and result_folder%}
+	{%if result_files and result_folders and result_users is None %}
 		<h3>No Result Found </h3>
 	{%endif%}
 </div>

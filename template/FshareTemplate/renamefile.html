@@ -1,0 +1,20 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<div>
+  <div class='row sz-24 color-p m-2'>
+    Rename File
+  </div>
+  <div class='ro m-2'>
+    currently <b> {{file.name}} </b>
+  </div>
+  <form method='POST'>
+    {%csrf_token%}
+    <input name='newName' class='form-control'  placeholder ='new file name' />
+    <div class='row m-2 center'>
+      <button class='btn btn-block color-bg-p color-white' style='background-color'>Update</button>
+    </div>
+  </form>
+  
+</div>
+{%endblock%}

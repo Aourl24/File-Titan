@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse
-from .models import Folder,File, Profile, Notify
+from .models import Folder,File, Profile, Notify,Activity
 from django.views.decorators.http import require_POST
 from .form import FolderForm,FileForm,EditUser,EditFolder
 from django.http import StreamingHttpResponse,HttpResponse,HttpResponseRedirect,JsonResponse
@@ -17,7 +17,7 @@ Error="<div class='message' id='message'>Unable to Perform Action, Check your Pa
 Saved="<div class='' id='msg' style=''> Saved </div>"
 t='FshareTemplate/'
 #POST https://titleId.playfabapi.com/File/GetFiles
-code_file_ext = ['py','js','html','json','pdf','']
+code_file_ext = ['py','js','html','json','pdf','txt']
 audio_file_ext = ['mp3','wav']
 video_file_ext = ['mp4','ogv']
 image_file_ext = ['jpeg','jpg','png','svg']
@@ -26,6 +26,9 @@ def checkSize(x):
 	if int(x.size) > 10485760:
 		return False
 	return True
+
+def getUser(request):
+  return Profile.objects.get(user=request.user)
 
 def is_text_file(file):
     try:
@@ -74,6 +77,9 @@ def createFileView(request):
 		d=request.POST.get('folderid')
 		folder=Folder.objects.get(id=d)
 		file_created=File.objects.create(name=str(file_name),folder=folder)
+		file_created.save()
+	
+	Activity.objects.create(profile=getUser(request),body=f'{file_name} was created')
 	template=t + 'create.html'
 	return HttpResponseRedirect(reverse('FileDetailViewUrl',kwargs={'id':file_created.id}))
 
@@ -99,17 +105,21 @@ def FileFormView(request):
 					nn = ('').join(ln)
 					name = ln[:10] + '.' + n[-1]
 				
-				read_file = is_text_file(files)
-				if read_file:
-				  file=File.objects.create(name=name,file=files,content=read_file,folder=Folder.objects.get(id=fod))
-				else:  
-				  file=File.objects.create(name=name,file=files,folder=Folder.objects.get(id=fod))
 				is_size=prof.check_size()
 				if is_size:	
 					prof.size += files.size
 					prof.save()
 				else:
 					return redirect(reverse('ErrorView',kwargs={'word':'You have reach your memory limit'}))
+					
+				read_file = is_text_file(files)
+				if read_file:
+				  file=File.objects.create(name=name,file=files,content=read_file,folder=Folder.objects.get(id=fod))
+				else:  
+				  file=File.objects.create(name=name,file=files,folder=Folder.objects.get(id=fod))
+			plural =lambda : 'files' if len(list(others)) > 1 else 'file' 
+			Activity.objects.create(profile=getUser(request),body=f'You upload {len(list(others))} {plural()} ')
+				
 			return redirect('FolderDetailViewUrl',fid=int(fod))
 			#return redirect('FileViewUrl')
 	context=dict(fileForm=Ff)
@@ -148,13 +158,14 @@ def FolderFormView(request):
 					context['warning']='Your Password does not match, kindly check your password'
 					context['folderForm']=FolderForm(instance=fod)
 					return render(request,template,context)
-				else:
+				else: 
 					fod.password=password
 
 			fod.owner=Profile.objects.get(user=request.user)
 			if folder_id:
 				fod.parent=Folder.objects.get(id=folder_id)
 			fod.save()
+			Activity.objects.create(profile=getUser(request),body=f'You created {fod.name} folder')
 		return redirect('FolderDetailViewUrl', fid=fod.id)
 	return render(request,template,context)
 
@@ -162,8 +173,8 @@ def FolderFormView(request):
 
 def FileDetailView(request,id=None,allow=False,typ=None):
 	Ff=''
-	file=''
-	template=''
+	file=File.objects.get(id=id)
+	template= t + 'filedetail.html'
 	real_file=''
 	prof=''
 	code_file=False
@@ -175,20 +186,20 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 	folderform=FolderForm()
 	if request.user.is_authenticated:
 		prof=Profile.objects.get(user=request.user)
-	if id:
-		file=File.objects.get(id=id)
-		if file.edit_owner:
-			if file.edit_owner == prof:
-				allow=True
-			else:
-				allow=False
-		else:
-			if file.folder.owner == prof:
-				allow=True
-			else:
-				allow=False
+# 	if file.edit_owner or file.folder:
+# 		#file=File.objects.get(id=id)
+# 		if file.edit_owner:
+# 			if file.edit_owner == prof:
+# 				allow=True
+# 			else:
+# 				allow=False
+# 		else:
+# 			if file.folder.owner == prof:
+# 				allow=True
+# 			else:
+# 				allow=False
 
-		template=t + 'filedetail.html'
+		
 		file_ext = file.name.split('.')
 		#extension = file_ext[-1]
 		extension = file.file_type
@@ -205,17 +216,6 @@ def FileDetailView(request,id=None,allow=False,typ=None):
 			code_file = True
 		else:
 			unknown_file = True
-
-			# if 'path' in request.POST:
-			# 	b=request.POST.get('word')
-			# 	c=request.POST.get('path')
-			# 	try:
-			# 		file.saveLocally(str(b),c)
-			# 	except:
-			# 		params={'HX-Target':'#feedback','HX-Swap':'innerHTML'}
-			# 		return HttpResponse(Error)
-
-			#return HttpResponse(message('File Saved'))
 
 	context=dict(file=file,audio_file=audio_file,code_file=code_file,video_file=video_file,unknown_file=unknown_file,img_file=img_file,fileForm=Ff,originalFile=real_file,prof=prof,form=folderform,allow=allow)
 	return render(request,template,context)
@@ -418,7 +418,8 @@ def profileView(request,id=None):
 	except ObjectDoesNotExist:
 		branch_file=[{'error':'There is no branch files'}]
 	file={'id':2}
-	context=dict(profile=profile,branches=branch_file,file=file)
+	activity = Activity.objects.filter(profile=profile)
+	context=dict(profile=profile,branches=branch_file,file=file,activity=activity)
 	return render(request,template,context)
 
 def profileEdit(request):
@@ -462,8 +463,9 @@ def searchFile(request):
 		b=request.POST.get('search')
 		result_file=File.objects.filter(name__icontains=b)
 		result_folder=Folder.objects.filter(name__icontains=b)
+		result_user = Profile.objects.filter(user__username__icontains=b)
 		template=t +'search.html'
-		context=dict(result_files=result_file,result_folders=result_folder)
+		context=dict(result_files=result_file,result_folders=result_folder,result_users=result_user)
 		return render (request,template,context)
 
 
@@ -578,8 +580,9 @@ def sortView(request,id):
 
 def fileContent(request,id):
 	file= File.objects.get(id=id)
+	folder = lambda : True if file.folder else False
 	content = file.openFile()
-	return JsonResponse(dict(content=content))
+	return JsonResponse(dict(content=content,folder=folder()))
 
 
 def imageContent(request,id):
@@ -595,3 +598,41 @@ def aboutPage(request):
 def howToPage(request):
 	template = t + 'documentation.html'
 	return render(request,template)
+
+def renameFile(request,id):
+  file = File.objects.get(id=id)
+  if request.method == 'POST':
+    name = request.POST.get('newName')
+    file.name=name
+    file.save()
+    return redirect('FolderDetailViewUrl',fid=file.folder.id)
+  template = t + 'renamefile.html'
+  context = dict(file=file)
+  return render(request, template,context)
+
+def openEditor(request):
+  file = File.objects.create(name='unknown.txt',content=' ',file_type='txt')
+  
+  return redirect('FileDetailViewTypeUrl',id=file.id,typ='code')
+  
+def getFolders(request):
+  folder = Folder.objects.filter(owner=Profile.objects.get(user=request.user)).all()
+  folders = [dict(name=x.name,id=x.id) for x in folder]
+  return JsonResponse(dict(folders=folders))
+  
+def saveFromEditor(request):
+  json_content = request.body.decode()
+  content = json.loads(json_content)
+  print(content)
+  file = File.objects.get(id=int(content['file'] ))
+  folder = Folder.objects.get(id=int(content['folder']))
+  name = content['name']
+  data = content['data']
+  
+  file.name = name
+  file.folder = folder
+  file.content = data
+  file.save()
+  Activity.objects.create(profile=folder.owner,body=f'You create {file.name} file' )
+  return HttpResponseRedirect(reverse('FileDetailViewUrl',kwargs={'id':file.id}))
+  

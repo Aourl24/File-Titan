@@ -65,7 +65,7 @@
 
 <div class=''>
     <div class='row my-2 sticky-top' style='z-index:1000'>
-        <div class="col color-s sz-24">
+        <div class="col color-s sz-24" id='filename'>
             {%if file.name|length > 20 %}
 					{{file.name|slice:':20'}}...
 					{%else%}

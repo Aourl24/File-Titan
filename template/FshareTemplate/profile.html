@@ -6,19 +6,22 @@
 <div class=''>
 
 	<div class='row align-items-center p-2'>
-		<div class='col-12 sz-24'>
+		<div class='col-3 sz-24'>
 			<img class='rounded-circle' src='{{profile.profile_photo.url}}' style='height:50px;width:50px;object-fit:cover'
 			 >
-			 {{profile.user.username|title}}
+			
 		</div>
+
+			<div class='col sz-24'>
+ {{profile.user.username|title}}
 		{% if profile.user == request.user %}
-			<div class='col'>
+		<div class='w-100'></div>
 				<a href="{%url 'ProfileEditUrl' %}" style='font-size:13px' > <i class='fas fa-pen'> </i> edit profile </a>
-			</div>
 		{%endif%}
+			</div>
+
 	</div>
 
-	<hr />
 	{%comment%}
 	<div class='row p-2 justify-content-center'>
 		<div class='sz-12 col'><span class='passive'> Date Joined</span> {{profile.date_joined|date}} </div>
@@ -31,14 +34,25 @@
 	</div>
 	{%endif%}
 <br />
-	<div class="sz-18 my-2 color-p"> Memory Usage </div>
+	<div class="sz-20 my-2 color-p"> Memory Usage </div>
 	<div class="">
-	<div class="w-100 color-bg-t " style="height:15px;background-color:#d1d1d1"></div>
-	<div class="color-bg-p" style="margin-top:-15px;height:15px;width:{{profile.size_in_percent}}%;max-width:100%"></div>
-	<div class="sz-12">{{profile.size_in_percent}}% used</div>
+	<div class="w-100 color-bg-t rounded" style="height:25px;background-color:#c1c1c1"></div>
+	<div class="color-bg-p rounded center color-white  sz-12 align-items-center" style="margin-top:-25px;height:25px;width:{{profile.size_in_percent}}%;max-width:100%; background-color:red">
+<div style='margin-top:5px' class='position-absolute center row w-100' style='max-width:100%'>
+ <div class='col center'> {{profile.size_in_percent}}% used</div>
+  </div>
+	</div>
+	<div class="sz-12 hide">{{profile.size_in_percent}}% used</div>
 	</div>
 
 	<br />
+	<div style='backround-color:purple' class='border center p-2 rounded w-100 shdow clor-white'>
+	 <a href="{%url 'OpenEditorUrl' %}" >Open Editor </a>
+	</div>
+		<div style='bakround-color:purple;color:red' class='borer center p-2 roundd w-100 shdow clor-white'>
+	  Upgrade to Premium
+	</div>
+	<hr class='color-bg-grey' />
 	{% if not profile.folder.all %}
 	<br/>
 	<div class='row align-items-center'>
@@ -53,29 +67,56 @@
 	</div>
 
 	{%else%}
+<br />
+<div class='row align-items-center'>
+    <div class='col sz-20 color-p'>Directories</div>
+    <div class='col sz-12' style='text-align:right'><a href='' class='rounded p-2 border color-bg-silver' style='background-color:#e1e1e1'>view all </a></div>
+</div>
 
-    <div class='sz-18 my-2 color-p'>Directories</div>
-
-<div class="row m-2">
+<div class="row m-md-2 p-2">
     {%include 'FshareTemplate/folderlist.html' with folders=profile.folder.all %}
 </div>
+
     {%endif%}
 
     {%if not branches %}
 
     {%else%}
 	<div class='sz-18 my-2 color-p'>Branches</div>
-	<div class="row m-2">
+	<div class="row m-md-2 p-2 ">
     {%include 'FshareTemplate/file.html' with originalFile=branches %}
     </div>
     {%endif%}
 
 {%if profile.folder_like.all%}
-<div class='sz-18 my-2 color-p'>Liked Directories</div>
-<div class="row m-2">
+<div class='row align-items-center'>
+    <div class='col sz-20 color-p'>Favourites</div>
+    <div class='col sz-12' style='text-align:right'><a href='' class='rounded p-2 border color-bg-silver' style='background-color:#e1e1e1'>view all </a></div>
+</div>
+
+<div class="row p-2">
 {%include 'FshareTemplate/folderlist.html' with folders=profile.folder_like.all %}
 </div>
 {%endif%}
+
+<div class='row align-items-center'>
+    <div class='col sz-20 color-p'>Activities</div>
+    <div class='col sz-12' style='text-align:right'><a href='' class='rounded p-2 border color-bg-silver' style='background-color:#e1e1e1'>view all </a></div>
+</div>
+
+<div class='border rounded p-2 my-2'>
+  {%if activity%}
+{%for activity in activity%}
+<div class='row m-2'>
+  <i>{{activity.body}}</i>
+  <br />
+</div>
+{%endfor%}
+{%else%}
+<p class='center sz-18'> no previous activities</p>
+{%endif%}
+</div>
+
 </div>
 {%endblock%}
 

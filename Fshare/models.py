@@ -28,7 +28,10 @@ fs = FileSystemStorage(location=f"{BASE_DIR}/media")
 
 def upload_file(self,filename):
     root = self.folder
-    path = f'{root.name}/'
+    try:
+      path = f'{root.name}/'
+    except:
+      return f"file/{filename}"
     while root.parent:
         path = root.parent.name + '/' + path
         root = root.parent
@@ -52,7 +55,6 @@ class SubHeader(models.Model):
     def __str__(self):
         return self.title
         
-
 class Profile(models.Model):
     user=models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
     date_joined=models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -81,6 +83,14 @@ class Profile(models.Model):
     	
     def unread_notification(self):
       return Notify.objects.filter(profile=self,read=False)
+
+class Activity(models.Model):
+  profile = models.ForeignKey(Profile,related_name='activity',on_delete=models.CASCADE)
+  datetime = models.DateTimeField(auto_now_add=True)
+  body = models.TextField()
+  
+  def __str__(self):
+    return self.profile.user.username + ' activities'
 
 class Folder(models.Model):
 	owner=models.ForeignKey(Profile, related_name='folder', null=True, blank=True, on_delete=models.CASCADE)
@@ -274,12 +284,16 @@ def FileCreated(sender,instance,**kwargs):
 def FileType(sender,created,instance,**kwargs):
   if created:
     try:
-      file_ext = instance.file.name.split('.')
+      if instance.file:
+        file_ext = instance.file.name.split('.')
+      else:
+        file_ext = instance.name.split('.')
       extension = file_ext[-1]
     except AttributeError:
       extension = 'txt'
     instance.file_type = extension
     instance.save()
+    
 # @receiver(post_save,sender=File)
 # def ClonesFile(sender,created,instance,**kwargs):
 #   if instance.edited:

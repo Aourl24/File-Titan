@@ -2,7 +2,7 @@ from django.urls import path,include
 from .views import folderListView,FileFormView,FileDetailView,FolderFormView,DeleteView,CloneView,\
 giveAcessView,createFileView,branchView,shellView,createBranch, replaceView , mergeView,profileView,profileEdit,landingView, notifyView,  \
 cloneFolder,importFile,searchFile,menuView,deleteBranch,downloadView,editFolder, folderDetailView, darkView,likeFolder, \
-errorView,sortView, fileContent, saveFile , imageContent ,aboutPage, howToPage
+errorView,sortView, fileContent, saveFile , imageContent ,aboutPage, howToPage, renameFile,openEditor,getFolders,saveFromEditor
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -46,10 +46,14 @@ urlpatterns=[
 	#path('orderdate<str:option>',folderDetailView,name='FileOrderByDate'),
 	path('orderby<int:fid>/<str:sort>',folderDetailView,name='SortUrl'),
 	path('filecontent/<int:id>',fileContent),
-	path('savefile/<int:id>',saveFile),
+	path('savefile/<int:id>',saveFile,name='SaveUrl'),
 	path('getImage/<int:id>',imageContent),
 	path('about',aboutPage,name="AboutUrl"),
-	path('howtopage',howToPage,name="HowToUrl")
+	path('howtopage',howToPage,name="HowToUrl"),
+	path('rename<int:id>',renameFile,name='RenameFileUrl'),
+	path('openeditor',openEditor,name='OpenEditorUrl'),
+  path('getfolders',getFolders,name='GetFolderUrl'),
+  path('savefromeditor',saveFromEditor,name='SaveFromEditor')
 ]
 
 if settings.DEBUG:

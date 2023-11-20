@@ -69,8 +69,14 @@
                 </div>
                 {%endif%}
                 {%if not f.edited %}
+                 {%if file.owner == prof %}
                 <div class='col-12 sz-14 color-black py-2'>
-                    <a href="{%url 'CreateBranchUrl' f.id%}" class='color-black'> Create branch </a>
+                    <a href="{%url 'RenameFileUrl' f.id%}" class='color-black'> rename </a>
+                </div>               
+                {%endif%}
+                
+                <div class='col-12 sz-14 color-black py-2'>
+                    <a href="{%url 'CreateBranchUrl' f.id%}" class='color-black'> create branch </a>
                 </div>
                 {%endif%}
 
@@ -78,13 +84,13 @@
                 {%if prof == file.folder.owner %}
                 <div class='col-12  color-black py-2'>
                     <button id='signal' onclick="checkM()" class='btn btn-link p-0 sz-14 color-black' hx-get="{%url 'MergeUrl' file.id f.id %}" hx-target='#messageholder' hx-swap='innerHTML'>
-                        Merge
+                        merge
                     </button>
                 </div>
                 <div class='col-12 sz-14 color-black py-2'>
                     <button onclick="checkM()" id='signal' class='btn btn-link p-0 sz-14 color-black' hx-get="{%url 'ReplaceUrl' file.id f.id %}" hx-target='#messageholder' hx-swap='innerHTML'>
                         <div class='htmx-indicator loder rig rtate wite' style='border:4px solid #EAF0F6;height: 1.5cm;left:50%;top:50%;width:1.5cm;position:absolute;border-top:4px solid #4b8ef1'></div>
-                        Replace
+                        replace
                     </button>
                 </div>
                 {%endif%}
@@ -93,22 +99,22 @@
 
                 {%if request.user.is_authenticated%}
                 <div class='col-12 sz-14 color-black py-2'>
-                    <button id='signal' onclick="checkM()" class='btn btn-link color-black p-0 sz-14' style='' hx-get="{%url 'CloneFolderUrl' f.id%}" hx-target='#messageholder' hx-swap='innerHTML'> Clone </button>
+                    <button id='signal' onclick="checkM()" class='btn btn-link color-black p-0 sz-14' style='' hx-get="{%url 'CloneFolderUrl' f.id%}" hx-target='#messageholder' hx-swap='innerHTML'> clone </button>
                 </div>
                 {%endif%}
 
                 <div class='col-12 color-black py-2 color-s'>
-                    <a class='color-black sz-14' style='' href={%if f.file%}{{f.file.url}}{%endif%} download> Download </a>
+                    <a class='color-black sz-14' style='' {%if f.file%}href="{{f.file.url}}" {%endif%} download> download </a>
                 </div>
                 {%if file.owner == prof %}
                 <div class='col-12 sz-14 color-black py-2'>
-                    <button class='btn btn-link p-0 color-black text-danger sz-16' style='color:red' hx-get="{%url 'FileDeleteUrl' f.id%}" hx-target='#holder' hx-swap='innerHTML' hx-include='#folderId'> Delete <div class="spinner-border htmx-indicator"></div> </button>
+                    <button class='btn btn-link p-0 color-black text-danger sz-16' style='color:red' hx-get="{%url 'FileDeleteUrl' f.id%}" hx-target='#holder' hx-swap='innerHTML' hx-include='#folderId'> delete <div class="spinner-border htmx-indicator"></div> </button>
                 </div>
                 {%endif%}
 
                 {%if f.edit_owner == prof %}
                 <div class='col-12 sz-14  py-2 text-danger'>
-                    <a class='color-black' href="{%url 'DeleteBranchUrl' f.id%}">Delete branch </a>
+                    <a class='color-black' href="{%url 'DeleteBranchUrl' f.id%}">delete branch </a>
                 </div>
                 {%endif%}
             </div>
