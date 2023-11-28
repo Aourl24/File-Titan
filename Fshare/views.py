@@ -439,20 +439,23 @@ def profileEdit(request):
 	context=dict(form=editForm,profile=prof)
 	return render(request,template,context)
 
+@login_required
 @require_POST
 def importFile(request,id):
-			#d=request.POST['importfile']
+	
 	b=request.FILES.get('importfile')
 	print(b)
 	if b is None:
-		raise ImportError
+		return render(request,t+'error.html',dict(error="You can't upload empty file"))
 	file=File.objects.get(id=id)
+	if file.folder.owner != getUser(request):
+		return render(request,t+'error.html',dict(error="You need permission from the owner of the folder to import file"))
 	file.file=b
 
 	#ff = ContentFile(b,name=f'{file.name}')
 	#file.content='my file'
-	with b.open() as f:
-		file.content = f.read()
+	with b.open('rb') as f:
+		file.content = f.read().decode('utf-8')
 
 	file.save()
 

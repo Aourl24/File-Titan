@@ -3,7 +3,7 @@
 {%block user%}
 {%endblock%}
 {%block content%}
-<div class=''>
+<div class='mt-3'>
 
 	<div class='row align-items-center p-2'>
 		<div class='col-3 sz-24'>
@@ -41,15 +41,19 @@
 	  	  	  	  <div class='col center'> <i class='fas fa-file sz-30 color-t'></i><br/>files</div>
 	</div>
 	
-	<div style='backround-color:purple' class='borlder center color-bg-t p-2 rounded w-100 shdow color-white'>
+	<div class="row">
+	<div style='backround-color:purple' class='borlder center color-bg-t p-2 rounded w-100 shdow color-white col col-sm mx-2'>
 	 <a href="{%url 'OpenEditorUrl' %}" >Open Editor </a>
 	</div>
-		<div style='bakround-color:purple;color:red' class='borer center p-2 roundd w-100 shdow clor-white'>
+		<div style='background-clor:red;colo:red' class='borer center p-2 rounded w-100 shdow color-white color-bg-p col col-sm mx-2'>
 	  Upgrade to Premium
 	</div>
+</div>
 	<br />
 	<div class="sz-20 my-2 color-p r"> Memory Usage </div>
-<canvas class='center color-black w-100 g-light'  id="pieChart" width="300" height="300"></canvas>
+	<div class="d-flex justify-content-center">
+<canvas class='color-black w-100 g-light container'  id="pieChart" width="300" height="300" style="max-height:300px;max-width:300px"></canvas>
+  	</div>
   	<div class="sz-14 center">{{profile.size_in_percent}}% used</div>
 
 	<div class="hide">

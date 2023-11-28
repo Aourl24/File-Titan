@@ -202,15 +202,21 @@
         color:var(--primary-color);
     }
     input{
-      height:1.2cm;
+      height:2em;
+      font-size:16px;
     }
 
+
     .shadow {
+}
 ox-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;!important
     }
     .btn-link{
         text-decoration: none;
+    }
+    .btn{
+
     }
 
      ::-webkit-scrollbar {
@@ -229,19 +235,20 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
         width:2px;
     }
     </style>
-    <body class="font-poppins sz-16 center-body bg-lig t">
-        <div class="color-bg-white h-100 w-100 d-flex justify-content-center align-items-center position-fixed" id="pre-loader" style="z-index:10000">
-            <span class="dot animate__animated animate__bounce animte__delay-1s animate__infinite color-p aniate__slow" style="">
+    <body class="font-lato sz-16 center-body bg-lig t">
+        <div class="color-bg-white h-100 w-100 d-flex justify-content-center align-items-center position-fixed" id="pre-loader" style="z-index:10000000">
+            
+            <span class="dot animate__animated animate__fadeIn animte__delay-1s animate__infinite color-p aniate__slow" style="">
                 File
             </span>
-            <span class="dot animate__animated animate__bounce aniate__delay-2s animate__infinite color-s animate__fast">
+            <span class="dot animate__animated animate__fadeIn aniate__delay-2s animate__infinite color-t animate__fast">
                 Titan
             </span>
         </div>
         {%block header%}
-        <nav class="navbar justify-content-center col r-bg-p sz-12 container-fluid color-p align-items-center bg-ligt psition-fixed p-2 border-bottom mb-2" id="" style=" z-index:7000;margin-top:-7px">
+        <nav class="navbar justify-content-center shadow-md col r-bg-p container-fluid color-p align-items-center bg-ligt psition-fixed p-3 border-botto mb-2" id="" style=" z-index:7000;margin-top:-7px">
             <div class="sz-18 bold navbar-brand color-p col px-1" style="fot-size:22px;">
-                <img class="img-fluid hide" src="{%static 'images/logo.png'%}" style="width:25px;height:25px;object-fit:contain "/>
+                <img class="img-fluid" src="{%static 'images/logo.png'%}" style="width:25px;height:25px;object-fit:contain "/>
                 File-Titan
             </div>
                 <form action="{%url 'SearchUrl' %}" class="" method="POST">
@@ -254,21 +261,21 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                     <i class="fas fa-bell">
                     </i>
                     {% if request.user.profile.unread_notification.all %}
-                    <span class="sz-8 color-bg-t p-1 color-white rounded-circle center" style="display:inline-block;font-size:8px;margin-left:-8px;margin-bottom:-20px;height:12px;width:12px;position:absolute">
+                    <span class="sz-8 color-bg-t p-1 color-white rounded-circle center" style="display:inline-block;font-size:10px;margin-left:-8px;margin-bottom:-20px;height:12px;width:12px;position:absolute">
                         {{requst.user.profile.unread_notification.count}}
                     </span>
                     {%endif%}
                 </a>
             </div>
-            <div class="navbar-brand col-1 color-white display-sm-none">
+            <div class="navbar-brand col-1 display-sm-none">
                 <a href="{%url 'AboutUrl'%}" class="no-decoration">About</a>
             </div>
 
-            <div class="navbar-brand col-1 color-white display-sm-none ">
+            <div class="navbar-brand col-1 display-sm-none hide">
                 <a href="{%url 'HowToUrl'%}" class="no-decoration">Tutorial</a>
             </div>
 
-            <div class="sz-14 display-sm-none navbar-brand  p-0 color-white">
+            <div class="display-sm-none navbar-brand  p-0">
                 <a class="no-decoration" href="{% url 'account_logout'%}">
                     Log Out
                 </a>
@@ -285,13 +292,13 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
             <div class="row justify-content-evenly">
                 {%block sidebar%}
                 <div class="col-2 colo-bg-p">
-                    <div class="position-fixed border-right m-0 color-bg-white color-bg-dark-light conner border-right h-100" id="hold" style="z-index:600000;overfw: auto;">
-                        <div class="dropD display-sm-none animate__animated animate__slideInDown animate__fast overflow-auto clor-bg-white color-bg-dark-light m-0 p-3 rouned" id="dropdown" style="overflow:auto;brder-right:2px solid silver;">
+                    <div class="position-fixed border-right shadow-md m-0 color-bg-white color-bg-dark-light conner border-right h-100" id="hold" style="z-index:600000;overfw: auto;border-righ:2px solid #d1d1d1">
+                        <div class="dropD display-sm-none  animate__animated animate__slideInDown animate__fast overflow-auto clor-bg-white color-bg-dark-light m-0 p-3 rouned" id="dropdown" style="overflow:auto;brder-right:2px solid silver;">
                             <div class="row">
                                 <div class="col">
                                     <form action="{%url 'SearchUrl' %}" class="" method="POST">
                                         {%csrf_token%}
-                                        <input class="form-control p-2 sz-16" name="search" placeholder="search files and directories" style="width:100%;height:1.3cm" type="search"/>
+                                        <input class="form-control p-2 sz-16" name="search" placeholder="search files and directories" style="width:100%;" type="search"/>
                                     </form>
                                 </div>
                             </div>
@@ -348,14 +355,14 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
             </div>
             <div class='row display-md-none my-3'>
               <div class='col-2'><i class='fas fa-book color-t'></i></div>
-            <div class="col display-md-none">
+            <div class="col display-md-none hide">
                 <a href="{%url 'HowToUrl'%}" class="no-decoration sz-14">Tutorial</a>
             </div>
             </div>
 
-                            <div class="row my-3">
+                            <div class="row my-3 display-md-none">
                                 <div class='col-2'><i class='fas fa-door-open color-t'></i></div>
-                                <div class="col sz-14 display-md-none">
+                                <div class="col sz-14 ">
                                     <a class="color-black" href="{% url 'account_logout'%}">
                                         Log Out
                                     </a>
@@ -364,7 +371,7 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                             {%else%}
                             <div class="row my-2">
                                 <div class="col">
-                                    <a class="whie color-black btn color-bg-s color-white" href="{%url 'account_login' %}" style="">
+                                    <a class="btn color-bg-s color-white sz-14" href="{%url 'account_login' %}" style="">
                                         Log in
                                     </a>
                                 </div>
@@ -396,11 +403,12 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                                     {%block content%}
 
                 {%endblock content%}
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class='center bg-light sz-12 p-2 w-100' style='position:absolute;' >This website is developed by Awwal(loulou)</div>
+                <div class='center w-100 sz-12 p-2' style='position:absolute;z-inde:200000;' >This website is developed by Awwal(loulou)</div>    
         <script>
             $(window).on('load', function() {
                 $('#pre-loader').addClass('hideI')})
