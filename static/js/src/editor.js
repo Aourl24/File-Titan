@@ -187,6 +187,7 @@ function Settings(props){
  
  let setWordWrap = () =>{
     let word = wordWrap.current.checked;
+    console.log(word)
     let editor = ace.edit('editor');
     let verdict = word ? 'free':'off'
     editor.getSession().setOption("wrap",verdict)
@@ -210,11 +211,11 @@ function Settings(props){
             </div>
             
             <select class='form-control sz-16' ref={theme} onChange={()=>setTheme()}>
-            <option value='null'>default </option>
+            <option value='chrome'>default </option>
             <option value='monokai' >monokai</option>
-            <option value='ambiance' >ambiance</option>
-            <option value='chrome' >chrome</option>
-            <option value='cobalt' >cobalt</option>
+            <option value='clouds' >clouds</option>
+            <option value='dawn' >dawn</option>
+            <option value='twilight' >twilight</option>
             <option value='github' >github</option>
             </select>
             
@@ -262,7 +263,7 @@ function Settings(props){
             </div>
             </div>
 
-            <input class="form-control sz=16" type="checkbox" ref={wordWrap} type="radio" onChange={()=>setWordWrap()} />
+            <input class="form-contro sz=16" type="checkbox" ref={wordWrap} onChange={()=>setWordWrap()} />
 
             <div class='row my-2'>
             <div class='col center'>
