@@ -1,4 +1,6 @@
 .env
 media/*
 db.sqlite3
-Fshare/__pycache__
+Fshare/__pycache__/*
+Fileshare/__pycache__/*
+Fshare/templatetags/__pycache__/*
