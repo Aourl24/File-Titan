@@ -6,7 +6,7 @@
 <div class='mt-3'>
 
 	<div class='row align-items-center p-2'>
-		<div class='col-3 sz-24'>
+		<div class='col-3 col-md-1 sz-24'>
 			<img class='rounded-circle' src='{{profile.profile_photo.url}}' style='height:50px;width:50px;object-fit:cover'
 			 >
 			
@@ -84,14 +84,14 @@
 	{%else%}
 <br />
 <div class='row align-items-center'>
-    <div class='col sz-20 color-p'>Directories</div>
+    <div class='col sz-20 color-p'>Folders</div>
     {%if profile.folder.all > 3 %}
     <div class='col sz-12' style='text-align:right'><a href='' class='rounded p-2 border color-bg-silver' style='background-color:#e1e1e1'>view all </a></div>
     {%endif%}
 </div>
 
 <div class="row m-md-2  m-2">
-    {%include 'FshareTemplate/folderlist.html' with folders=profile.folder.all|slice:':3' %}
+    {%include 'FshareTemplate/folderlist.html' with folders=profile.folder.all %}
 </div>
 
     {%endif%}
@@ -111,25 +111,25 @@
 <div class='row align-items-center'>
     <div class='col sz-20 color-p'>Favourites</div>
         {%if profile.folder_like.all > 3 %}
-    <div class='col sz-12' style='text-align:right'><a href='' class='rounded p-2 border color-bg-silver' style='background-color:#e1e1e1'>view all </a></div>
+    <div class='col sz-12 hide' style='text-align:right'><a href='' class='rounded p-2 border color-bg-silver' style='background-color:#e1e1e1'>view all </a></div>
     {%endif%}
 </div>
 
 <div class="row m-2">
-{%include 'FshareTemplate/folderlist.html' with folders=profile.folder_like.all|slice:':3' %}
+{%include 'FshareTemplate/folderlist.html' with folders=profile.folder_like.all %}
 </div>
 {%endif%}
 <br /> 
 <div class='row align-items-center'>
     <div class='col sz-20 color-p'>Recent Activities</div>
         {%if activity > 7 %}
-    <div class='col sz-12' style='text-align:right'><a href='' class='rounded p-2 border color-bg-silver' style='background-color:#e1e1e1'>view all </a></div>
+    <div class='col sz-12 hide' style='text-align:right'><a href='' class='rounded p-2 border color-bg-silver' style='background-color:#e1e1e1'>view all </a></div>
     {%endif%}
 </div>
 
 <div class='border rounded m-2 p-2'>
   {%if activity%}
-{%for activity in activity|slice:'7'%}
+{%for activity in activity|slice:'10'%}
 <div class='row border-bottom p-2'>
 <div class=' col-12'>
   {{activity.body}}

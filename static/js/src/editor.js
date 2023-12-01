@@ -66,7 +66,7 @@ React.useEffect(()=>{
 },[status])
 
     return (
-        <div>
+        <div style={{overFlow:'hidden'}}>
         {status}
         <div class={fullscreen ? "row fixed-bottom justify-content-evenly color-bg-t":"row justify-content-evenly color-bg-t"} style={{backgroundlColor:'#d1d1d1',left:'0',zIndex:'1100000',color:'black'}}>
             <div class="col center ">
@@ -88,7 +88,11 @@ React.useEffect(()=>{
                 <span class='display-sm-none px-2'> settings</span></button>
             </div>
         </div>
-<div id="editor" classNa={fullscreen ? background :`shiftMargin ${background}`} style={{fontFamily:font,fontSize:fontsize,overFlow:'auto',zIndex:'1000000',position:fullscreen ? 'fixed':'absolute',height:'100%',width:'100%',top: fullscreen ?'0':'inherit',left:fullscreen ?'0':'inherit'}}></div>
+        <div class="row">
+        <div class="col">
+<div id="editor" class="w-100" style={{fontFamily:font,fontSize:fontsize,overFlo:'hidden',zIndex:'500000',position:fullscreen ? 'fixed':'absolute',height:'100%',top: fullscreen ?'0':'inherit',left:fullscreen ?'0':'inherit'}}></div>
+        </div>
+        </div>
         <Settings setFont={setFont} setFontSize={setFontsize} setBack={setBackground} />
         {sTF ? <SavetoFolder content={content} setSTF={setSTF} /> : null }
         </div>

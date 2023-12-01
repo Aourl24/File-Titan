@@ -18,7 +18,7 @@ body{
     background-color: white;
 }
 input{
-    height: 1.1cm;
+    heigt: 1.1cm;
 }
 .center-body{
       background:url("{%static 'images/titan.jpg'%}");
@@ -31,7 +31,7 @@ input{
 
 <div class='' style=''>
     <div class='row rounded p-2 justify-content-center' style=''>
-        <div class='col-md-6 col-sm-12 p-3 rounded color-white'>
+        <div class='col-md-4 col-sm-12 p-3 rounded color-white'>
             <div class='row'>
                 <div class='col'>
                     <h2 style='' class=' sz-30 color-p'>
@@ -55,7 +55,7 @@ input{
 
                              {{field.errors}}
                             <div class='row my-3'>
-                                <div class='col sz-14 bold color-white'>
+                                <div class='col sz-14 color-white mt-3'>
                                     {{field.label}}
                                 </div>
                             </div>
@@ -85,11 +85,11 @@ input{
             </form>
         </div>
         <div class="w-100"></div>
-        <div class='col-md-6 col-sm-12 p-3 rounded color-white'>
+        <div class='col-md-4 col-sm-12 p-3 rounded color-white'>
 
             <div class="row">
                 <div class="col">
-                    <a href="{% provider_login_url 'google' %}" class='btn border p-2 sz-18 rounded btn-block color-white w-100'>
+                    <a href="{% provider_login_url 'google' %}" class='btn color-bg-t p-2 sz-18 rounded btn-block color-white w-100'>
                         <i class='fab fa-google text-danger'></i> Login with Google
                     </a>
                 <div>
@@ -115,7 +115,7 @@ input{
 <br />
 <script>
 $(window).on('load',function(){
-    $('input').addClass('form-control')
+    $('input').addClass('form-control sz-16')
 })
 
 </script>

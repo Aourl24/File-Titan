@@ -2,13 +2,15 @@
 
 {%block content%}
 <div class='container'>
-<div class='row m-2'> This Folder require a password to gain access</div>
-<div class='row mesize m-2' style='color:red'>{{Error}}</div>
+<div class='row my-2' ><div class="col"> <span class="sz-18 color-p"> {{folder.name}} </span> require a password to gain access</div></div>
+<div class='row my-2' style='color:red'><div class="col">{{Error}}</div></div>
 <form method='post'>
 	{%csrf_token%}
-	<div class='row m-2'><input type='password' name='password'  class='form-control sz-18' placeholder="Enter Password" style="height:1.2cm;"></div> 
+	<div class='row my-2'>
+		<div class="col"><input type='password' name='password'  class='form-control sz-16' placeholder="Enter Password" style="heigh:1.2cm;"></div>
+	</div> 
 	<br />
-	<div class='row m-2'><div class='col'><button class='btn btn-block color-bg-s color-white sz-18'> ok </button></div></div>	
+	<div class='row m-2'><div class='col'><button class='btn btn-block color-bg-s color-white sz-18 w-100'> proceed </button></div></div>	
 </form>
 </div>
 {%endblock%}

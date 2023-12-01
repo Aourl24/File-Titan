@@ -188,13 +188,19 @@
         color:inherit!important;
     }
     a:hover {
-        color: var(--primary-color);
+        color:grey!important;
         padding:3px;
     }
     button:hover{
         background-color:silver;
     }
-    btn:focus{
+
+    .btn:hover{
+        background-color:grey;
+        color:white;
+    }
+
+    .btn:focus{
         background-color:silver;
         color:black;
     }
@@ -205,6 +211,13 @@
       height:2em;
       font-size:16px;
     }
+    .form-conrol:hover{
+        border-color: silver;
+    }
+
+    .form-conrol:focus{
+        border-color: var(--primary-color);
+    }
 
 
     .shadow {
@@ -213,7 +226,7 @@ ox-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;!important
     }
     .btn-link{
-        text-decoration: none;
+        text-decoration: none!important;
     }
     .btn{
 
@@ -292,7 +305,7 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
             <div class="row justify-content-evenly">
                 {%block sidebar%}
                 <div class="col-2 colo-bg-p">
-                    <div class="position-fixed border-right shadow-md m-0 color-bg-white color-bg-dark-light conner border-right h-100" id="hold" style="z-index:600000;overfw: auto;border-righ:2px solid #d1d1d1">
+                    <div class="position-fixed borde-right shadow-md m-0 color-bg-white color-bg-dark-light conner borde-right h-100" id="hold" style="z-index:600000;overfw: auto;border-righ:2px solid #d1d1d1">
                         <div class="dropD display-sm-none  animate__animated animate__slideInDown animate__fast overflow-auto clor-bg-white color-bg-dark-light m-0 p-3 rouned" id="dropdown" style="overflow:auto;brder-right:2px solid silver;">
                             <div class="row">
                                 <div class="col">
@@ -331,7 +344,7 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                                 </div>
                                 <div class="col">
                                     <a class="col sz-14 color-black" href="{%url 'FolderFormUrl' %} ">
-                                        Create Directory
+                                        Create Folder
                                     </a>
                                 </div>
                             </div>
@@ -353,9 +366,9 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 
                 <a href="{%url 'AboutUrl'%}" class="no-decoration sz-14">About</a>
             </div>
             </div>
-            <div class='row display-md-none my-3'>
+            <div class='row display-md-none my-3 hide'>
               <div class='col-2'><i class='fas fa-book color-t'></i></div>
-            <div class="col display-md-none hide">
+            <div class="col display-md-none">
                 <a href="{%url 'HowToUrl'%}" class="no-decoration sz-14">Tutorial</a>
             </div>
             </div>

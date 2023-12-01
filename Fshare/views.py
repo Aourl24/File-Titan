@@ -343,10 +343,10 @@ def EditorView(request,id=None):
 def giveAcessView(request, id=None):
 
 	Error=''
-
+	folder = Folder.objects.get(id=id)
 	if request.method == 'POST':
 		password=request.POST.get('password')
-		passw=Folder.objects.get(id=id).password
+		passw=folder.password
 		print(password,passw)
 		if passw == password:
 			request.session[f'folder{id}']='allow'
@@ -356,7 +356,7 @@ def giveAcessView(request, id=None):
 			Error="Wrong Password"
 			#return (request.path_info)
 
-	context=dict(Error=Error)
+	context=dict(Error=Error,folder=folder)
 
 	return render(request, t+'access.html',context)
 
@@ -464,8 +464,8 @@ def importFile(request,id):
 def searchFile(request):
 	if request.method == 'POST':
 		b=request.POST.get('search')
-		result_file=File.objects.filter(name__icontains=b)
-		result_folder=Folder.objects.filter(name__icontains=b)
+		result_file=File.objects.filter(name__icontains=b).filter(folder__privacy='public')
+		result_folder=Folder.objects.filter(name__icontains=b).exclude(privacy='private')
 		result_user = Profile.objects.filter(user__username__icontains=b)
 		template=t +'search.html'
 		context=dict(result_files=result_file,result_folders=result_folder,result_users=result_user)

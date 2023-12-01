@@ -2,15 +2,17 @@
 {%block content%}
 <div id='box' class=''>
 
-	<h4 class='sz-18 color-p'>Search Results </h4>
-		<br />
+	<h4 class='sz-18 color-p my-3'>Search Results </h4>
+		
 	{%if result_users%}
 	<div class='row m-2 bold'>
 	  Profiles found
 	</div>
+	<div class="row p-2">
 	{%for profile in result_users%}
+	<div class="col-md-4 col-sm">
 		<a href="{%url 'ProfileUrl' profile.id %}" class='row no-decoration align-items-center p-2'>
-		<div class='col-2 sz-14'>
+		<div class='col-2 col-md-2 sz-14'>
 			<img class='rounded-circle' src='{{profile.profile_photo.url}}' style='height:30px;width:30px;object-fit:cover'
 			 >
 			
@@ -21,7 +23,9 @@
 			</div>
 
 	</a>
+</div>
 	{%endfor%}
+</div>
 	
 	{%endif%}
 	<br />

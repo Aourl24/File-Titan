@@ -44,7 +44,7 @@
         {%endif%}
 <div class="row">
         <div class="col-md col-sm-12 center sz-12">
-            <div class="btn btn-link sz-sm p-0 color-black" hx-get="{%url 'DownloadUrl' file.id%}" hx-swap="outerHTML" style="">
+            <div class="btn btn-link sz-sm p-0 color-black no-decoration" hx-get="{%url 'DownloadUrl' file.id%}" hx-swap="outerHTML" style="text-decoration: none;">
                 <i class="fas fa-download">
                 </i>
                 Download this Folder
@@ -120,10 +120,10 @@
 
 </div>
 {%if file.owner == prof %}
-    <div class="bottom-side rounded-circle color-bg-p p-3 m-2" onclick="$('#createbox').fadeToggle()" style="bordr-radius:20px;z-index:5000;right:10px;bottom:30px">
+    <button class="bottom-side no-border rounded-circle color-bg-p p-3 m-2" onclick="$('#createbox').fadeToggle()" style="bordr-radius:20px;z-index:5000;right:10px;bottom:30px">
         <i class="fas fa-pen sz-24">
         </i>
-    </div>
+    </button>
     {%endif%}
     <div class="modal sz-18 swap" id="createbox" style="z-index:4000;width:100%;heiht:170px;tp:20%;background-color:rgba(300,300,300,0.9
 )">
